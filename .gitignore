@@ -1,0 +1,14 @@
+
+/bin/Debug/wxAutoBot.exe
+/obj/Debug/AutoBotTask.o
+/obj/Debug/XmlData.o
+/obj/Debug/XmlHandler.o
+/obj/Debug/tinyxml/tinystr.o
+/obj/Debug/tinyxml/tinyxml.o
+/obj/Debug/tinyxml/tinyxmlerror.o
+/obj/Debug/tinyxml/tinyxmlparser.o
+/obj/Debug/wxAutoBot.o
+/obj/Debug/wxAutoBotBase.o
+/obj/Debug/wxAutoBotMain.o
+/wxAutoBot.depend
+/wxAutoBot.layout
