@@ -3,6 +3,8 @@
 
 #include "wxAutoBotBase.h"
 #include "GlobalValue.h"
+#include "wxAutoBotMain.h"
+#include "AutoBotTask.h"
 
 class TaskListCtrl : public wxListCtrl
 {
@@ -19,11 +21,13 @@ class MainFrame : public MainFrameBase
 		void ExitProgram( wxCommandEvent& event );
 		void ListSizeChange( wxSizeEvent& event );
 
-		void DoListSize();
+
 
 	public:
 		MainFrame(wxFrame *frame);
 		~MainFrame();
+
+		void DoListSize();
 };
 
 #endif // WXAUTOBOT_H_INCLUDED

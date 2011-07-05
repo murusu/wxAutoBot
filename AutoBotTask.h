@@ -14,6 +14,16 @@
 class BotTask;
 WX_DECLARE_OBJARRAY(BotTask *, TaskArray);
 
+struct TimeData
+{
+    size_t interval_seconds;
+    time_t specified_time;
+    size_t specified_hours;
+    size_t specified_minutes;
+    size_t specified_seconds;
+    wxArrayInt specified_date;
+};
+
 class TaskManager
 {
     private:
@@ -24,6 +34,11 @@ class TaskManager
         ~TaskManager();
 
         bool initTaskManager();
+        size_t GetTaskNum();
+
+        wxString GetTaskName(long index);
+        wxString GetTaskTime(long index);
+        wxString GetTaskStatus(long index);
 };
 
 class BotTask
@@ -34,6 +49,7 @@ class BotTask
         time_t      m_lastexecutetime;
         wxString    m_configfilename;
         wxString    m_taskname;
+        TimeData    m_timedata;
 
     public:
         BotTask();
@@ -41,6 +57,11 @@ class BotTask
 
         bool ReadConfigData(wxString filename);
         bool WriteConfigData();
+        void ResetTimeData();
+
+        wxString GetTaskName();
+        wxString GetTaskStatus();
+        wxString GetTaskTime();
 };
 
 #endif // AUTOBOTTASK_H_INCLUDED

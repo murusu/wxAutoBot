@@ -30,6 +30,11 @@ bool wxAutoBotApp::OnInit(void)
         return false;
     }
 
+    //TaskManager*  task_manager = wxGetApp().getTaskManager();
+    m_mainframe->m_listCtrl->SetItemCount(m_taskManager->GetTaskNum());
+    m_mainframe->m_listCtrl->Refresh();
+    m_mainframe->DoListSize();
+
     return true;
 }
 

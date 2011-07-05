@@ -23,6 +23,26 @@ TaskManager::~TaskManager()
     }
 }
 
+size_t TaskManager::GetTaskNum()
+{
+    return m_taskarray->GetCount();
+}
+
+wxString TaskManager::GetTaskName(long index)
+{
+    return m_taskarray->Item(index)->GetTaskName();
+}
+
+wxString TaskManager::GetTaskTime(long index)
+{
+    return m_taskarray->Item(index)->GetTaskTime();
+}
+
+wxString TaskManager::GetTaskStatus(long index)
+{
+    return m_taskarray->Item(index)->GetTaskStatus();
+}
+
 bool TaskManager::initTaskManager()
 {
     m_taskarray = new TaskArray();
@@ -49,57 +69,11 @@ bool TaskManager::initTaskManager()
         ptaskitem->ReadConfigData(filename);
         m_taskarray->Add(ptaskitem);
 
-        //BotTask *ptaskitem = new BotTask();
-        //ptaskitem->initBotTask(filename.Mid(TASK_XML_PREFIX_LEN, TASK_XML_NAME_LEN).mb_str(wxConvUTF8));
-        //m_taskarray->Add(ptaskitem);
-
         cont = dir.GetNext(&filename);
     }
 
     return true;
 }
-
-/*
-void TaskManager::updateTaskList()
-{
-    wxListCtrl* ptasklist = NULL;
-    ptasklist = wxGetApp().getMainUI()->getTaskListCtrl();
-
-    if(m_taskarray)
-    {
-        size_t tasknum = m_taskarray->GetCount();
-
-        for(size_t index = 0; index < tasknum; index++)
-        {
-            ptasklist->InsertItem(index, wxString(m_taskarray->Item(index)->getTaskName(), wxConvUTF8));
-            ptasklist->SetItem(index, 1, wxDateTime(m_taskarray->Item(index)->getNextRunDate()).Format());
-
-            switch(m_taskarray->Item(index)->getTaskStatus())
-            {
-                case TASK_WAITFORRUNING:
-                    ptasklist->SetItem(index, 2, _("waiting"));
-                    break;
-
-                case TASK_RUNNING:
-                    ptasklist->SetItem(index, 2, _("running"));
-                    break;
-
-                case TASK_STOP:
-                    ptasklist->SetItem(index, 2, _("stop"));
-                    break;
-
-                case TASK_WAITFORRETRY:
-                    ptasklist->SetItem(index, 2, _("waiting for retry"));
-                    break;
-
-                default:
-                    ptasklist->SetItem(index, 2, _("unknown"));
-                    break;
-            }
-        }
-    }
-}
-*/
 
 BotTask::BotTask()
 {
@@ -107,7 +81,9 @@ BotTask::BotTask()
     m_taskstatus        = TASKSTATUS_STOP;
     m_lastexecutetime   = wxDateTime::Now().GetTicks();
     m_configfilename    = wxT("");
-    m_taskname          = wxT("");
+    m_taskname          = wxT("New Task");
+
+    ResetTimeData();
 }
 
 BotTask::~BotTask()
@@ -116,15 +92,106 @@ BotTask::~BotTask()
 
 bool BotTask::ReadConfigData(wxString filename)
 {
-    m_configfilename = filename;
+    m_configfilename = wxString(XMLTASK_PATH, wxConvUTF8) + wxT("/") + filename;
     XmlHandler *xmltask = new XmlHandler();
     if(!xmltask->Init(m_configfilename.mb_str(wxConvUTF8), XMLTASK_ROOTNAME)) return false;
 
     m_taskname  = wxString(xmltask->GetElementText(xmltask->GetElement(XMLTASK_NAME, 0, true)), wxConvUTF8);
+    m_tasktimmertype = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMERTYPE, 0, true), XMLTASK_TIMERTYPE_ATT));
+
+    m_timedata.interval_seconds = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_INTERVAL));
+    m_timedata.specified_time   = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_TIME));
+    m_timedata.specified_hours  = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_HOURS));
+    m_timedata.specified_minutes= atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_MINUTES));
+    m_timedata.specified_seconds= atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_SECONDS));
     return true;
 }
 
 bool BotTask::WriteConfigData()
 {
+    XmlHandler *xmltask = new XmlHandler();
+    if(!xmltask->Init(m_configfilename.mb_str(wxConvUTF8), XMLTASK_ROOTNAME)) return false;
+
+    xmltask->SetElementText(xmltask->GetElement(XMLTASK_NAME, 0, true), m_taskname.mb_str(wxConvUTF8));
+    xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMERTYPE, 0, true), XMLTASK_TIMERTYPE_ATT, m_tasktimmertype);
+
+    xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_INTERVAL, m_timedata.interval_seconds);
+    xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_TIME, m_timedata.specified_time);
+    xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_HOURS, m_timedata.specified_hours);
+    xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_MINUTES, m_timedata.specified_minutes);
+    xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_SECONDS, m_timedata.specified_seconds);
+
+    xmltask->SaveXmlFile();
     return true;
+}
+
+void BotTask::ResetTimeData()
+{
+    m_timedata.interval_seconds = 0;
+    m_timedata.specified_time = 0;
+    m_timedata.specified_hours = 0;
+    m_timedata.specified_minutes = 0;
+    m_timedata.specified_seconds = 0;
+    m_timedata.specified_date.Clear();
+}
+
+wxString BotTask::GetTaskName()
+{
+    return m_taskname;
+}
+
+wxString BotTask::GetTaskStatus()
+{
+    wxString task_status;
+
+    switch(m_taskstatus)
+    {
+        case TASKSTATUS_STOP:
+            task_status = _("Stoped");
+            break;
+
+        case TASKSTATUS_WAITING:
+            task_status = _("Waiting");
+            break;
+
+        case TASKSTATUS_RUNNING:
+            task_status = _("Running");
+            break;
+    }
+
+    return task_status;
+}
+
+wxString BotTask::GetTaskTime()
+{
+    //wxString task_time;
+
+    time_t ticks_left       = 0;
+    time_t next_ticks       = 0;
+    time_t current_ticks    = wxDateTime::Now().GetTicks();
+
+    switch(m_tasktimmertype)
+    {
+        case TASK_INTERVAL:
+            ticks_left = m_lastexecutetime + m_timedata.interval_seconds - current_ticks;
+            break;
+
+        case TASK_SPECIFY:
+            ticks_left = m_timedata.specified_time - current_ticks;
+            break;
+
+        case TASK_DAILY_INTERVAL:
+            next_ticks = wxDateTime::Now().ResetTime().GetTicks() + 3600*m_timedata.specified_hours + 60*m_timedata.specified_minutes + m_timedata.specified_seconds;
+            if(next_ticks < current_ticks) next_ticks = next_ticks + 86400; // 86400 seconds per day
+            ticks_left = next_ticks - current_ticks;
+            break;
+
+        case TASK_WEEKLY_INTERVAL:
+            break;
+
+        case TASK_MONTHLY_INTERVAL:
+            break;
+    }
+
+    return wxString::Format(_("%i Seconds"), ticks_left);
 }

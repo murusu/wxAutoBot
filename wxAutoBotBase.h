@@ -34,27 +34,28 @@ class TaskListCtrl;
 ///////////////////////////////////////////////////////////////////////////////
 /// Class MainFrameBase
 ///////////////////////////////////////////////////////////////////////////////
-class MainFrameBase : public wxFrame 
+class MainFrameBase : public wxFrame
 {
 	private:
-	
+
 	protected:
 		wxStatusBar* m_statusBar1;
 		wxMenuBar* m_menubar1;
 		wxMenu* m_menu1;
 		wxMenu* m_menu2;
-		TaskListCtrl* m_listCtrl;
-		
+
+
 		// Virtual event handlers, overide them in your derived class
 		virtual void ExitProgram( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ListSizeChange( wxSizeEvent& event ) { event.Skip(); }
-		
-	
+
+
 	public:
-		
+        TaskListCtrl* m_listCtrl;
+
 		MainFrameBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("wxAutoBot"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 600,400 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 		~MainFrameBase();
-	
+
 };
 
 #endif //__wxAutoBotBase__

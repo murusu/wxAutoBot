@@ -12,18 +12,20 @@ wxString TaskListCtrl::OnGetItemText(long item, long column) const
 {
     wxString ItemText;
 
+    TaskManager*  task_manager = wxGetApp().getTaskManager();
+
     switch(column)
     {
         case TASK_NAME:
-            ItemText = wxT("test name");
+            ItemText = task_manager->GetTaskName(item);
             break;
 
         case TASK_TIME:
-            ItemText = wxT("0 seconds");
+            ItemText = task_manager->GetTaskTime(item);
             break;
 
         case TASK_STATUS:
-            ItemText = wxT("running");
+            ItemText = task_manager->GetTaskStatus(item);
             break;
     }
 
@@ -36,9 +38,10 @@ MainFrame::MainFrame(wxFrame *frame) : MainFrameBase(frame)
     m_listCtrl->InsertColumn(1, _("Next Activity Time"), wxLIST_FORMAT_CENTRE, 270);
     m_listCtrl->InsertColumn(2, _("Status"), wxLIST_FORMAT_CENTRE, 100);
 
-    m_listCtrl->SetItemCount(10);
+    //TaskManager*  task_manager = wxGetApp().getTaskManager();
+    //m_listCtrl->SetItemCount(task_manager->GetTaskNum());
+    m_listCtrl->SetItemCount(0);
     m_listCtrl->Refresh();
-
     DoListSize();
 }
 
