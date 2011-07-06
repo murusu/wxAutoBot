@@ -21,8 +21,6 @@ class MainFrame : public MainFrameBase
 		void ExitProgram( wxCommandEvent& event );
 		void ListSizeChange( wxSizeEvent& event );
 
-
-
 	public:
 		MainFrame(wxFrame *frame);
 		~MainFrame();

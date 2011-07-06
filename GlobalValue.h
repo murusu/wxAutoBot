@@ -29,5 +29,6 @@ const char * const XMLTASK_TIMEDATA_TIME    = "time";
 const char * const XMLTASK_TIMEDATA_HOURS   = "hours";
 const char * const XMLTASK_TIMEDATA_MINUTES = "minutes";
 const char * const XMLTASK_TIMEDATA_SECONDS = "seconds";
+const char * const XMLTASK_TIMEDATA_DATA    = "time_data/data";
 
 #endif // GLOBALVALUE_H_INCLUDED

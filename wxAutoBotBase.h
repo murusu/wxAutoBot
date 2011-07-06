@@ -44,18 +44,15 @@ class MainFrameBase : public wxFrame
 		wxMenu* m_menu1;
 		wxMenu* m_menu2;
 
-
 		// Virtual event handlers, overide them in your derived class
 		virtual void ExitProgram( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ListSizeChange( wxSizeEvent& event ) { event.Skip(); }
-
 
 	public:
         TaskListCtrl* m_listCtrl;
 
 		MainFrameBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("wxAutoBot"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 600,400 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 		~MainFrameBase();
-
 };
 
 #endif //__wxAutoBotBase__

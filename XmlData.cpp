@@ -12,6 +12,6 @@ bool XmlTask::InitData(const char * pfilename)
 {
     TiXmlString pfullname = TiXmlString(XMLTASK_PATH) + TiXmlString("//") + TiXmlString(pfilename);
 
-    //if(!init(pfullname.c_str(), XMLTASK_ROOTNAME)) return false;
+    if(!Init(pfullname.c_str(), XMLTASK_ROOTNAME)) return false;
     return true;
 }

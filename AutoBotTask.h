@@ -8,7 +8,7 @@
 #include <wx/filename.h>
 
 #include "GlobalValue.h"
-#include "XmlHandler.h"
+#include "XmlData.h"
 #include "wxAutoBotMain.h"
 
 class BotTask;

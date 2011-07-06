@@ -92,18 +92,27 @@ BotTask::~BotTask()
 
 bool BotTask::ReadConfigData(wxString filename)
 {
-    m_configfilename = wxString(XMLTASK_PATH, wxConvUTF8) + wxT("/") + filename;
-    XmlHandler *xmltask = new XmlHandler();
-    if(!xmltask->Init(m_configfilename.mb_str(wxConvUTF8), XMLTASK_ROOTNAME)) return false;
+    m_configfilename = filename;
+    XmlTask *xmltask = new XmlTask();
+    if(!xmltask->InitData(m_configfilename.mb_str(wxConvUTF8))) return false;
 
     m_taskname  = wxString(xmltask->GetElementText(xmltask->GetElement(XMLTASK_NAME, 0, true)), wxConvUTF8);
     m_tasktimmertype = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMERTYPE, 0, true), XMLTASK_TIMERTYPE_ATT));
 
-    m_timedata.interval_seconds = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_INTERVAL));
-    m_timedata.specified_time   = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_TIME));
-    m_timedata.specified_hours  = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_HOURS));
-    m_timedata.specified_minutes= atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_MINUTES));
-    m_timedata.specified_seconds= atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_SECONDS));
+    m_timedata.interval_seconds  = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_INTERVAL));
+    m_timedata.specified_time    = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_TIME));
+    m_timedata.specified_hours   = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_HOURS));
+    m_timedata.specified_minutes = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_MINUTES));
+    m_timedata.specified_seconds = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_SECONDS));
+
+    size_t element_num  = xmltask->GetElementNum(XMLTASK_TIMEDATA_DATA);
+    size_t element_data = 0;
+    for(size_t index = 0; index < element_num; index++)
+    {
+        element_data = atoi(xmltask->GetElementText(xmltask->GetElement(XMLTASK_TIMEDATA_DATA, index)));
+        m_timedata.specified_date.Add(element_data);
+    }
+
     return true;
 }
 
@@ -121,6 +130,14 @@ bool BotTask::WriteConfigData()
     xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_MINUTES, m_timedata.specified_minutes);
     xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_SECONDS, m_timedata.specified_seconds);
 
+    size_t element_num  = m_timedata.specified_date.GetCount();
+    size_t element_data = 0;
+    for(size_t index = 0; index < element_num; index++)
+    {
+        element_data = m_timedata.specified_date.Item(index);
+        xmltask->SetElementText(xmltask->GetElement(XMLTASK_TIMEDATA_DATA, index, true), wxString::Format(wxT("%i"), element_data).mb_str(wxConvUTF8));
+    }
+
     xmltask->SaveXmlFile();
     return true;
 }
@@ -128,8 +145,8 @@ bool BotTask::WriteConfigData()
 void BotTask::ResetTimeData()
 {
     m_timedata.interval_seconds = 0;
-    m_timedata.specified_time = 0;
-    m_timedata.specified_hours = 0;
+    m_timedata.specified_time   = 0;
+    m_timedata.specified_hours  = 0;
     m_timedata.specified_minutes = 0;
     m_timedata.specified_seconds = 0;
     m_timedata.specified_date.Clear();
@@ -164,8 +181,6 @@ wxString BotTask::GetTaskStatus()
 
 wxString BotTask::GetTaskTime()
 {
-    //wxString task_time;
-
     time_t ticks_left       = 0;
     time_t next_ticks       = 0;
     time_t current_ticks    = wxDateTime::Now().GetTicks();
