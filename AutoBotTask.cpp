@@ -118,8 +118,10 @@ bool BotTask::ReadConfigData(wxString filename)
 
 bool BotTask::WriteConfigData()
 {
-    XmlHandler *xmltask = new XmlHandler();
-    if(!xmltask->Init(m_configfilename.mb_str(wxConvUTF8), XMLTASK_ROOTNAME)) return false;
+    if(m_configfilename.Len() == 0) m_configfilename = wxT("task_") + wxString::Format(wxT("%i"), wxDateTime::Now().GetTicks()) + wxT(".xml");
+
+    XmlTask *xmltask = new XmlTask();
+    if(!xmltask->InitData(m_configfilename.mb_str(wxConvUTF8))) return false;
 
     xmltask->SetElementText(xmltask->GetElement(XMLTASK_NAME, 0, true), m_taskname.mb_str(wxConvUTF8));
     xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMERTYPE, 0, true), XMLTASK_TIMERTYPE_ATT, m_tasktimmertype);
@@ -202,9 +204,11 @@ wxString BotTask::GetTaskTime()
             break;
 
         case TASK_WEEKLY_INTERVAL:
+            ticks_left =  4;
             break;
 
         case TASK_MONTHLY_INTERVAL:
+            ticks_left =  5;
             break;
     }
 

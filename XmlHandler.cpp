@@ -63,12 +63,12 @@ size_t XmlHandler::GetElementNum(const char *pKeyName)
         pNodePositionStart++;
     }
 
-    pElementNode = this->GetElement(pKeyName);
+    //memset(pNodeKey, '\0', sizeof(pKeyName));pElementNode = this->GetElement(pKeyName, 0, false);
 
     while(pElementNode)
     {
         iElementNum++;
-        pElementNode = pElementNode->NextSiblingElement(pNodePositionStart);
+        pElementNode = pElementNode->NextSiblingElement();
     }
 
     return iElementNum;
@@ -94,14 +94,13 @@ TiXmlElement * XmlHandler::GetElement(const char *pKeyName, size_t iIndex, bool 
     const char *pNodePositionStart  = NULL;
     const char *pNodePositionEnd    = NULL;
     char *pNodeKey = (char *)malloc(sizeof(pKeyName));
+    memset(pNodeKey, '\0', sizeof(pKeyName));
 
     pNodePositionStart = pKeyName;
     pNodePositionEnd = strchr(pKeyName, '/');
 
     while(pNodePositionEnd)
     {
-        memset(pNodeKey, '\0', sizeof(pKeyName));
-
         strncpy(pNodeKey, pNodePositionStart, pNodePositionEnd - pNodePositionStart);
         pNodeKey[pNodePositionEnd - pNodePositionStart] = '\0';
         pNodePositionStart = pNodePositionEnd + 1;
