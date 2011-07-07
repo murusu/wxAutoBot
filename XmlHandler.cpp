@@ -48,6 +48,7 @@ bool XmlHandler::Init(const char *filename, const char *rootname)
 
 size_t XmlHandler::GetElementNum(const char *pKeyName)
 {
+    /*
     const char *pNodePositionStart  = NULL;
 
     TiXmlElement *pElementNode      = NULL;
@@ -63,13 +64,42 @@ size_t XmlHandler::GetElementNum(const char *pKeyName)
         pNodePositionStart++;
     }
 
-    //memset(pNodeKey, '\0', sizeof(pKeyName));pElementNode = this->GetElement(pKeyName, 0, false);
+    //memset(pNodeKey, '\0', sizeof(pKeyName));
+    pElementNode = this->GetElement("time_data/data", 0, false);
 
     while(pElementNode)
     {
         iElementNum++;
         pElementNode = pElementNode->NextSiblingElement();
     }
+    */
+
+
+    /////////////////////////////////////////////////
+    size_t iElementNum          = 0;
+    TiXmlString *pStrKeyName    = new TiXmlString(pKeyName);
+    TiXmlString *pStrNodeKey    = new TiXmlString();
+    TiXmlElement *pElementNode  = NULL;
+
+    size_t start_offset    = 0;
+    size_t search_offset = 0;
+
+    while(search_offset != TiXmlString::npos)
+    {
+        start_offset    = search_offset;
+        search_offset   = pStrKeyName->find('/', search_offset + 1);
+    }
+
+    pStrNodeKey->assign(pStrKeyName->c_str() + start_offset + 1, pStrKeyName->length() - start_offset - 1);
+
+    pElementNode = GetElement(pStrKeyName->c_str(), 0, false);
+
+    while(pElementNode)
+    {
+        iElementNum++;
+        pElementNode = pElementNode->NextSiblingElement(pStrNodeKey->c_str());
+    }
+    /////////////////////////////////////////////////
 
     return iElementNum;
 }
@@ -91,6 +121,60 @@ TiXmlElement * XmlHandler::GetElement(const char *pKeyName, size_t iIndex, bool 
         pElementNode = pElementChild;
     }
 
+    ////////////////////////////////////////////////////
+    TiXmlString *pStrKeyName    = new TiXmlString(pKeyName);
+    TiXmlString *pStrNodeKey    = new TiXmlString();
+    size_t start_position       = 0;
+    size_t search_offset        = 0;
+    size_t char_num             = pStrKeyName->length();
+
+
+    while(start_position < char_num)
+    {
+        search_offset = pStrKeyName->find('/', start_position);
+
+        if(search_offset == TiXmlString::npos) search_offset = char_num;
+
+        pStrNodeKey->assign(pStrKeyName->c_str() + start_position, search_offset - start_position);
+
+        pElementChild = pElementNode->FirstChildElement(pStrNodeKey->c_str());
+
+        if(!pElementChild)
+        {
+            if(!bAutoGenerate) return NULL;
+
+            pElementChild = new TiXmlElement(pStrNodeKey->c_str());
+            pElementNode->LinkEndChild(pElementChild);
+        }
+
+        pElementNode = pElementChild;
+
+        start_position = search_offset + 1;
+    }
+
+    while(iIndex >0)
+    {
+        pElementSibling = pElementNode->NextSiblingElement(pStrNodeKey->c_str());
+
+        if(!pElementSibling)
+        {
+            if(!bAutoGenerate) return NULL;
+
+            pElementSibling = new TiXmlElement(pStrNodeKey->c_str());
+            pElementNode->Parent()->LinkEndChild(pElementSibling);
+        }
+
+        pElementNode = pElementSibling;
+        iIndex--;
+    }
+
+    ////////////////////////////////////////////////////
+
+    //TiXmlString  *pNodeKey = new TiXmlString();
+    //size_t search_offset = pStrKeyName->find('/');
+    //if(search_offset == npos)
+
+    /*
     const char *pNodePositionStart  = NULL;
     const char *pNodePositionEnd    = NULL;
     char *pNodeKey = (char *)malloc(sizeof(pKeyName));
@@ -161,6 +245,7 @@ TiXmlElement * XmlHandler::GetElement(const char *pKeyName, size_t iIndex, bool 
     }
 
     free(pNodeKey);
+    */
     return pElementNode;
 }
 
