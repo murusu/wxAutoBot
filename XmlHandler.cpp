@@ -48,34 +48,6 @@ bool XmlHandler::Init(const char *filename, const char *rootname)
 
 size_t XmlHandler::GetElementNum(const char *pKeyName)
 {
-    /*
-    const char *pNodePositionStart  = NULL;
-
-    TiXmlElement *pElementNode      = NULL;
-    size_t iElementNum              = 0;
-
-    pNodePositionStart = strrchr(pKeyName, '/');
-    if(!pNodePositionStart)
-    {
-        pNodePositionStart = pKeyName;
-    }
-    else
-    {
-        pNodePositionStart++;
-    }
-
-    //memset(pNodeKey, '\0', sizeof(pKeyName));
-    pElementNode = this->GetElement("time_data/data", 0, false);
-
-    while(pElementNode)
-    {
-        iElementNum++;
-        pElementNode = pElementNode->NextSiblingElement();
-    }
-    */
-
-
-    /////////////////////////////////////////////////
     size_t iElementNum          = 0;
     TiXmlString *pStrKeyName    = new TiXmlString(pKeyName);
     TiXmlString *pStrNodeKey    = new TiXmlString();
@@ -99,7 +71,6 @@ size_t XmlHandler::GetElementNum(const char *pKeyName)
         iElementNum++;
         pElementNode = pElementNode->NextSiblingElement(pStrNodeKey->c_str());
     }
-    /////////////////////////////////////////////////
 
     return iElementNum;
 }
@@ -121,7 +92,6 @@ TiXmlElement * XmlHandler::GetElement(const char *pKeyName, size_t iIndex, bool 
         pElementNode = pElementChild;
     }
 
-    ////////////////////////////////////////////////////
     TiXmlString *pStrKeyName    = new TiXmlString(pKeyName);
     TiXmlString *pStrNodeKey    = new TiXmlString();
     size_t start_position       = 0;
@@ -168,84 +138,6 @@ TiXmlElement * XmlHandler::GetElement(const char *pKeyName, size_t iIndex, bool 
         iIndex--;
     }
 
-    ////////////////////////////////////////////////////
-
-    //TiXmlString  *pNodeKey = new TiXmlString();
-    //size_t search_offset = pStrKeyName->find('/');
-    //if(search_offset == npos)
-
-    /*
-    const char *pNodePositionStart  = NULL;
-    const char *pNodePositionEnd    = NULL;
-    char *pNodeKey = (char *)malloc(sizeof(pKeyName));
-    memset(pNodeKey, '\0', sizeof(pKeyName));
-
-    pNodePositionStart = pKeyName;
-    pNodePositionEnd = strchr(pKeyName, '/');
-
-    while(pNodePositionEnd)
-    {
-        strncpy(pNodeKey, pNodePositionStart, pNodePositionEnd - pNodePositionStart);
-        pNodeKey[pNodePositionEnd - pNodePositionStart] = '\0';
-        pNodePositionStart = pNodePositionEnd + 1;
-
-        pElementChild = pElementNode->FirstChildElement(pNodeKey);
-
-        if(!pElementChild)
-        {
-            if(!bAutoGenerate)
-            {
-                free(pNodeKey);
-                return NULL;
-            }
-
-            pElementChild = new TiXmlElement(pNodeKey);
-            pElementNode->LinkEndChild(pElementChild);
-        }
-
-        pElementNode = pElementChild;
-
-        pNodePositionEnd = strchr(pNodePositionStart, '/');
-    }
-
-    pElementChild = pElementNode->FirstChildElement(pNodePositionStart);
-
-    if(!pElementChild)
-    {
-        if(!bAutoGenerate)
-        {
-            free(pNodeKey);
-            return NULL;
-        }
-
-        pElementChild = new TiXmlElement(pNodePositionStart);
-        pElementNode->LinkEndChild(pElementChild);
-    }
-
-    pElementNode = pElementChild;
-
-    while(iIndex >0)
-    {
-        pElementSibling = pElementNode->NextSiblingElement(pNodePositionStart);
-
-        if(!pElementSibling)
-        {
-            if(!bAutoGenerate)
-            {
-                free(pNodeKey);
-                return NULL;
-            }
-
-            pElementSibling = new TiXmlElement(pNodePositionStart);
-            pElementNode->Parent()->LinkEndChild(pElementSibling);
-        }
-
-        pElementNode = pElementSibling;
-        iIndex--;
-    }
-
-    free(pNodeKey);
-    */
     return pElementNode;
 }
 

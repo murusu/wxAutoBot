@@ -2,6 +2,14 @@
 
 WX_DEFINE_OBJARRAY(TaskArray);
 
+
+int CompareDateData(int *first, int *second)
+{
+    return *first - *second;
+}
+
+
+
 TaskManager::TaskManager()
 {
      m_taskarray = NULL;
@@ -186,6 +194,9 @@ wxString BotTask::GetTaskTime()
     time_t ticks_left       = 0;
     time_t next_ticks       = 0;
     time_t current_ticks    = wxDateTime::Now().GetTicks();
+    size_t datedata_num     = m_timedata.specified_date.GetCount();
+    size_t curren_weekday   = wxDateTime::Now().GetWeekDay();
+    wxDateTime curren_datetime = wxDateTime::Now();
 
     switch(m_tasktimmertype)
     {
@@ -204,10 +215,35 @@ wxString BotTask::GetTaskTime()
             break;
 
         case TASK_WEEKLY_INTERVAL:
-            ticks_left =  4;
+            m_timedata.specified_date.Sort(CompareDateData);
+
+            for(size_t index = 0; index < datedata_num; index++)
+            {
+                size_t target_weekday = m_timedata.specified_date.Item(index);
+                if(target_weekday >= curren_weekday)
+                {
+                    curren_datetime.SetToWeekDay(wxDateTime::Fri);//bug:jump to next week day, if in the same day
+                    curren_datetime.SetHour(m_timedata.specified_hours);
+                    curren_datetime.SetMinute(m_timedata.specified_minutes);
+                    curren_datetime.SetSecond(m_timedata.specified_seconds);
+                    next_ticks = curren_datetime.GetTicks(); //+ 3600*m_timedata.specified_hours + 60*m_timedata.specified_minutes + m_timedata.specified_seconds;
+                    if(next_ticks > current_ticks) ticks_left = next_ticks - current_ticks;
+                }
+            }
+
+            if(!ticks_left)
+            {
+                curren_datetime.SetToNextWeekDay((wxDateTime::WeekDay)m_timedata.specified_date.Item(0));
+                curren_datetime.SetHour(m_timedata.specified_hours);
+                curren_datetime.SetMinute(m_timedata.specified_minutes);
+                curren_datetime.SetSecond(m_timedata.specified_seconds);
+                next_ticks = curren_datetime.GetTicks();// + 3600*m_timedata.specified_hours + 60*m_timedata.specified_minutes + m_timedata.specified_seconds;
+                ticks_left = next_ticks - current_ticks;
+            }
             break;
 
         case TASK_MONTHLY_INTERVAL:
+            m_timedata.specified_date.Sort(CompareDateData);
             ticks_left =  5;
             break;
     }
