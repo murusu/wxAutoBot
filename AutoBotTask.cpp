@@ -8,8 +8,6 @@ int CompareDateData(int *first, int *second)
     return *first - *second;
 }
 
-
-
 TaskManager::TaskManager()
 {
      m_taskarray = NULL;
@@ -75,12 +73,32 @@ bool TaskManager::initTaskManager()
     {
         BotTask *ptaskitem = new BotTask();
         ptaskitem->ReadConfigData(filename);
+        ptaskitem->UpdateTimer();
         m_taskarray->Add(ptaskitem);
 
         cont = dir.GetNext(&filename);
     }
 
+    m_timer = new wxTimer(this);
+    m_timer->SetOwner(this);
+
+    this->Connect(wxEVT_TIMER, wxTimerEventHandler(TaskManager::OnTimer));
+
+    m_timer->Start(1000);
+
     return true;
+}
+
+void TaskManager::OnTimer(wxTimerEvent& event)
+{
+    ReflashList();
+}
+
+void TaskManager::ReflashList()
+{
+    wxGetApp().getMainFrame()->m_listCtrl->SetItemCount(GetTaskNum());
+    wxGetApp().getMainFrame()->m_listCtrl->Refresh();
+    wxGetApp().getMainFrame()->DoListSize();
 }
 
 BotTask::BotTask()
@@ -90,6 +108,13 @@ BotTask::BotTask()
     m_lastexecutetime   = wxDateTime::Now().GetTicks();
     m_configfilename    = wxT("");
     m_taskname          = wxT("New Task");
+    m_timer             = new wxTimer(this);
+
+    m_timer->SetOwner(this);
+    this->Connect(wxEVT_TIMER, wxTimerEventHandler(BotTask::OnTimer));
+
+    this->Connect(wxEVT_TASKPROCESS_SUCCESS, wxTaskProcessEventHandler(BotTask::OnTaskProcessDone));
+    this->Connect(wxEVT_TASKPROCESS_FAIL, wxTaskProcessEventHandler(BotTask::OnTaskProcessDone));
 
     ResetTimeData();
 }
@@ -191,6 +216,30 @@ wxString BotTask::GetTaskStatus()
 
 wxString BotTask::GetTaskTime()
 {
+    if(m_taskstatus != TASKSTATUS_WAITING) return _("unknown");
+
+    wxString lefttime_str;
+    time_t ticks_left = GetNextTicks();
+
+    if(ticks_left/86400) return wxString::Format(_("%i days later"), ticks_left/86400);
+    if(ticks_left/3600) return wxString::Format(_("%i hours later"), ticks_left/3600);
+
+    if(ticks_left/60) lefttime_str = wxString::Format(_("%i minutes"), ticks_left/60);
+
+    if(ticks_left%60)
+    {
+        lefttime_str += wxString::Format(_(" %i seconds later"), ticks_left%60);
+    }
+    else
+    {
+        lefttime_str += _(" later");
+    }
+
+    return lefttime_str;
+}
+
+size_t BotTask::GetNextTicks()
+{
     time_t ticks_left       = 0;
     time_t next_ticks       = 0;
     time_t current_ticks    = wxDateTime::Now().GetTicks();
@@ -274,7 +323,9 @@ wxString BotTask::GetTaskTime()
             {
                 target_day = m_timedata.specified_date.Item(0);
 
-                current_datetime.SetMonth(current_datetime.GetMonth());
+                size_t next_month = (size_t)current_datetime.GetMonth() + 1;
+
+                current_datetime.SetMonth((wxDateTime::Month)next_month);
                 current_datetime.SetDay(target_day);
                 current_datetime.SetHour(m_timedata.specified_hours);
                 current_datetime.SetMinute(m_timedata.specified_minutes);
@@ -283,9 +334,37 @@ wxString BotTask::GetTaskTime()
 
                 ticks_left = next_ticks - current_ticks;
             }
-
             break;
     }
 
-    return wxString::Format(_("%i Seconds"), ticks_left);
+    return ticks_left;
+}
+
+void BotTask::UpdateTimer()
+{
+    if(m_timer)
+    {
+        m_timer->Stop();
+        m_timer->Start(GetNextTicks() * 1000, true);
+        m_taskstatus = TASKSTATUS_WAITING;
+    }
+}
+
+void BotTask::OnTimer(wxTimerEvent& event)
+{
+    m_taskstatus = TASKSTATUS_RUNNING;
+
+    TaskProcessThread *worker_thread = new TaskProcessThread(this);
+    if ( worker_thread->Create() != wxTHREAD_NO_ERROR )
+    {
+    }
+    else
+    {
+        worker_thread->Run();
+    }
+}
+
+void BotTask::OnTaskProcessDone( wxTaskProcessEvent& event )
+{
+    UpdateTimer();
 }

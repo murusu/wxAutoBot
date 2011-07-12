@@ -6,12 +6,16 @@
 #include <wx/arrimpl.cpp>
 #include <wx/filefn.h>
 #include <wx/filename.h>
+#include <wx/timer.h>
 
 #include "GlobalValue.h"
 #include "XmlData.h"
 #include "wxAutoBotMain.h"
+#include "AutoBotThread.h"
 
 class BotTask;
+class wxTaskProcessEvent;
+
 WX_DECLARE_OBJARRAY(BotTask *, TaskArray);
 
 struct TimeData
@@ -24,10 +28,14 @@ struct TimeData
     wxArrayInt specified_date;
 };
 
-class TaskManager
+class TaskManager : public wxEvtHandler
 {
     private:
         TaskArray* m_taskarray;
+        wxTimer*   m_timer;
+
+    protected:
+        void OnTimer(wxTimerEvent& event);
 
     public:
         TaskManager();
@@ -39,9 +47,11 @@ class TaskManager
         wxString GetTaskName(long index);
         wxString GetTaskTime(long index);
         wxString GetTaskStatus(long index);
+
+        void ReflashList();
 };
 
-class BotTask
+class BotTask : public wxEvtHandler
 {
     private:
         size_t      m_taskstatus;
@@ -50,6 +60,11 @@ class BotTask
         wxString    m_configfilename;
         wxString    m_taskname;
         TimeData    m_timedata;
+        wxTimer*    m_timer;
+
+    protected:
+        void OnTimer(wxTimerEvent& event);
+        void OnTaskProcessDone( wxTaskProcessEvent& event );
 
     public:
         BotTask();
@@ -62,6 +77,10 @@ class BotTask
         wxString GetTaskName();
         wxString GetTaskStatus();
         wxString GetTaskTime();
+
+        size_t GetNextTicks();
+
+        void UpdateTimer();
 };
 
 #endif // AUTOBOTTASK_H_INCLUDED

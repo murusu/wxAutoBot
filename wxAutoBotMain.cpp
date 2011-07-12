@@ -58,3 +58,8 @@ TaskManager* wxAutoBotApp::getTaskManager()
 {
     return m_taskManager;
 }
+
+MainFrame* wxAutoBotApp::getMainFrame()
+{
+    return m_mainframe;
+}

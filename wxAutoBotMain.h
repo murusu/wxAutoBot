@@ -24,6 +24,7 @@ class wxAutoBotApp: public wxApp
         void    SetupLocale();
 
         TaskManager* getTaskManager();
+        MainFrame*   getMainFrame();
 };
 
 DECLARE_APP(wxAutoBotApp)
