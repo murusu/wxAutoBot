@@ -1,5 +1,9 @@
 #include "AutoBotThread.h"
 
+DEFINE_EVENT_TYPE(wxEVT_TASKPROCESS_SUCCESS)
+DEFINE_EVENT_TYPE(wxEVT_TASKPROCESS_FAIL)
+IMPLEMENT_DYNAMIC_CLASS(wxTaskProcessEvent, wxNotifyEvent)
+
 TaskProcessThread::TaskProcessThread(BotTask *bot_task) : wxThread()
 {
     m_bottask = bot_task;

@@ -5,10 +5,8 @@
 #include <wx/thread.h>
 
 #include "wxAutoBotMain.h"
-#include "AutoBotTask.h"
 
 class BotTask;
-class wxTaskProcessEvent;
 
 class wxTaskProcessEvent : public wxNotifyEvent
 {

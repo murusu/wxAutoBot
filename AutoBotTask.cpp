@@ -366,5 +366,6 @@ void BotTask::OnTimer(wxTimerEvent& event)
 
 void BotTask::OnTaskProcessDone( wxTaskProcessEvent& event )
 {
+    m_lastexecutetime = wxDateTime::Now().GetTicks();
     UpdateTimer();
 }
