@@ -65,3 +65,23 @@ void MainFrame::DoListSize()
     wxSize size = GetClientSize();
     m_listCtrl->SetSize(0, 0, size.x, size.y);
 }
+
+void MainFrame::OnAddTask(wxCommandEvent& event)
+{
+    TaskDialog  *task_dlg = new TaskDialog(this);
+    task_dlg->ShowModal();
+    task_dlg->Destroy();
+}
+
+TaskListCtrl* MainFrame::GetTaskListCtrl()
+{
+    return m_listCtrl;
+}
+
+TaskDialog::TaskDialog(wxFrame *frame) : TaskDialogBase(frame)
+{
+}
+
+TaskDialog::~TaskDialog()
+{
+}

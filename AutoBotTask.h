@@ -48,7 +48,7 @@ class TaskManager : public wxEvtHandler
         wxString GetTaskTime(long index);
         wxString GetTaskStatus(long index);
 
-        void ReflashList();
+        void RefreshList();
 };
 
 class BotTask : public wxEvtHandler

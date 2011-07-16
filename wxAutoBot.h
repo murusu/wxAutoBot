@@ -20,12 +20,22 @@ class MainFrame : public MainFrameBase
 	protected:
 		void ExitProgram( wxCommandEvent& event );
 		void ListSizeChange( wxSizeEvent& event );
+		void OnAddTask(wxCommandEvent& event);
 
 	public:
 		MainFrame(wxFrame *frame);
 		~MainFrame();
 
+		TaskListCtrl* GetTaskListCtrl();
+
 		void DoListSize();
+};
+
+class TaskDialog : public TaskDialogBase
+{
+	public:
+		TaskDialog(wxFrame* frame);
+		~TaskDialog();
 };
 
 #endif // WXAUTOBOT_H_INCLUDED

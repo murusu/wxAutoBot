@@ -91,13 +91,13 @@ bool TaskManager::initTaskManager()
 
 void TaskManager::OnTimer(wxTimerEvent& event)
 {
-    ReflashList();
+    RefreshList();
 }
 
-void TaskManager::ReflashList()
+void TaskManager::RefreshList()
 {
-    wxGetApp().getMainFrame()->m_listCtrl->SetItemCount(GetTaskNum());
-    wxGetApp().getMainFrame()->m_listCtrl->Refresh();
+    wxGetApp().getMainFrame()->GetTaskListCtrl()->SetItemCount(GetTaskNum());
+    wxGetApp().getMainFrame()->GetTaskListCtrl()->Refresh();
     wxGetApp().getMainFrame()->DoListSize();
 }
 
@@ -216,7 +216,7 @@ wxString BotTask::GetTaskStatus()
 
 wxString BotTask::GetTaskTime()
 {
-    if(m_taskstatus != TASKSTATUS_WAITING) return _("unknown");
+    if(m_taskstatus != TASKSTATUS_WAITING) return _("Unknown");
 
     wxString lefttime_str;
     time_t ticks_left = GetNextTicks();
@@ -244,9 +244,11 @@ size_t BotTask::GetNextTicks()
     time_t next_ticks       = 0;
     time_t current_ticks    = wxDateTime::Now().GetTicks();
     size_t datedata_num     = m_timedata.specified_date.GetCount();
-    size_t current_day      = wxDateTime::Now().GetWeekDay();
+    //size_t current_day      = wxDateTime::Now().GetWeekDay();
     size_t target_day       = 0;
+
     wxDateTime current_datetime = wxDateTime::Now();
+    time_t weeks_of_month       = current_datetime.GetWeekOfMonth();
 
     switch(m_tasktimmertype)
     {
@@ -270,14 +272,15 @@ size_t BotTask::GetNextTicks()
             for(size_t index = 0; index < datedata_num; index++)
             {
                 target_day = m_timedata.specified_date.Item(index);
-                if(target_day >= current_day)
-                {
-                    current_datetime.SetToNextWeekDay((wxDateTime::WeekDay)target_day);
-                }
-                else
-                {
-                    current_datetime.SetToWeekDay((wxDateTime::WeekDay)target_day);
-                }
+
+                //if(target_day >= current_day)
+                //{
+                //    current_datetime.SetToNextWeekDay((wxDateTime::WeekDay)target_day);
+                //}
+                //else
+                //{
+                current_datetime.SetToWeekDay((wxDateTime::WeekDay)target_day, weeks_of_month);
+                //}
 
                 current_datetime.SetHour(m_timedata.specified_hours);
                 current_datetime.SetMinute(m_timedata.specified_minutes);
@@ -291,13 +294,13 @@ size_t BotTask::GetNextTicks()
             {
                 target_day = m_timedata.specified_date.Item(0);
 
-                current_datetime.SetToNextWeekDay((wxDateTime::WeekDay)target_day);
+                current_datetime.SetToWeekDay((wxDateTime::WeekDay)target_day, weeks_of_month + 1);
                 current_datetime.SetHour(m_timedata.specified_hours);
                 current_datetime.SetMinute(m_timedata.specified_minutes);
                 current_datetime.SetSecond(m_timedata.specified_seconds);
                 next_ticks = current_datetime.GetTicks();
 
-                if(target_day == current_day) next_ticks += 604800;
+                //if(target_day == current_day) next_ticks += 604800;
 
                 ticks_left = next_ticks - current_ticks;
             }
@@ -342,11 +345,21 @@ size_t BotTask::GetNextTicks()
 
 void BotTask::UpdateTimer()
 {
+    time_t next_ticks = GetNextTicks();
+
     if(m_timer)
     {
         m_timer->Stop();
-        m_timer->Start(GetNextTicks() * 1000, true);
-        m_taskstatus = TASKSTATUS_WAITING;
+
+        if(next_ticks < 0)
+        {
+            m_taskstatus = TASKSTATUS_STOP;
+        }
+        else
+        {
+            m_timer->Start(next_ticks * 1000, true);
+            m_taskstatus = TASKSTATUS_WAITING;
+        }
     }
 }
 
