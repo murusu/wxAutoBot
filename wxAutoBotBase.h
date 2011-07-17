@@ -29,7 +29,8 @@ class TaskListCtrl;
 #include <wx/textctrl.h>
 #include <wx/choice.h>
 #include <wx/panel.h>
-#include <wx/calctrl.h>
+#include <wx/datectrl.h>
+#include <wx/dateevt.h>
 #include <wx/spinctrl.h>
 #include <wx/checkbox.h>
 #include <wx/notebook.h>
@@ -40,6 +41,8 @@ class TaskListCtrl;
 
 #define wxID_Menu_Exit 1000
 #define wxID_Menu_AddTask 1001
+#define wxID_Menu_EditTask 1002
+#define wxID_Menu_DeleteTask 1003
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Class MainFrameBase
@@ -49,15 +52,19 @@ class MainFrameBase : public wxFrame
 	private:
 	
 	protected:
-		wxStatusBar* m_statusBar1;
-		wxMenuBar* m_menubar1;
-		wxMenu* m_menu1;
-		wxMenu* m_menu2;
+		wxStatusBar* m_statusBar;
+		wxMenuBar* m_menubar;
+		wxMenu* m_menu_file;
+		wxMenu* m_menu_task;
 		TaskListCtrl* m_listCtrl;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void ExitProgram( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnAddTask( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnEditTask( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnMenuClick( wxUpdateUIEvent& event ) { event.Skip(); }
+		virtual void OnDeleteTask( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnListItemActivated( wxListEvent& event ) { event.Skip(); }
 		virtual void ListSizeChange( wxSizeEvent& event ) { event.Skip(); }
 		
 	
@@ -89,7 +96,7 @@ class TaskDialogBase : public wxDialog
 		wxStaticText* m_staticText4;
 		wxPanel* m_panel_baseonce;
 		wxStaticText* m_staticText5;
-		wxCalendarCtrl* m_calendar_once;
+		wxDatePickerCtrl* m_datePicker_once;
 		wxStaticText* m_staticText6;
 		wxSpinCtrl* m_spinCtrl_once_hour;
 		wxStaticText* m_staticText7;
@@ -163,7 +170,8 @@ class TaskDialogBase : public wxDialog
 		wxButton* m_button_taskcancel;
 		
 		// Virtual event handlers, overide them in your derived class
-		virtual void OnChangeTimeType( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnChangeTaskType( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnSaveTask( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnCloseTaskDialog( wxCommandEvent& event ) { event.Skip(); }
 		
 	

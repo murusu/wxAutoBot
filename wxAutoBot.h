@@ -19,8 +19,14 @@ class MainFrame : public MainFrameBase
 {
 	protected:
 		void ExitProgram( wxCommandEvent& event );
+		void OnAddTask( wxCommandEvent& event );
+		void OnEditTask( wxCommandEvent& event );
+		void OnMenuClick( wxUpdateUIEvent& event );
+		void OnDeleteTask( wxCommandEvent& event );
+		void OnListItemActivated( wxListEvent& event );
 		void ListSizeChange( wxSizeEvent& event );
-		void OnAddTask(wxCommandEvent& event);
+
+		void EditSelectedItem();
 
 	public:
 		MainFrame(wxFrame *frame);
@@ -33,8 +39,14 @@ class MainFrame : public MainFrameBase
 
 class TaskDialog : public TaskDialogBase
 {
+    protected:
+		void OnChangeTaskType(wxCommandEvent& event);
+		void OnCloseTaskDialog(wxCommandEvent& event);
+		void OnSaveTask(wxCommandEvent& event);
+
 	public:
 		TaskDialog(wxFrame* frame);
+		TaskDialog(wxFrame* frame, size_t item_index);
 		~TaskDialog();
 };
 

@@ -49,6 +49,20 @@ MainFrame::~MainFrame()
 {
 }
 
+void MainFrame::OnMenuClick( wxUpdateUIEvent& event )
+{
+    if(m_listCtrl->GetSelectedItemCount())
+    {
+        m_menu_task->FindItem(wxID_Menu_EditTask)->Enable(true);
+        m_menu_task->FindItem(wxID_Menu_DeleteTask)->Enable(true);
+    }
+    else
+    {
+        m_menu_task->FindItem(wxID_Menu_EditTask)->Enable(false);
+        m_menu_task->FindItem(wxID_Menu_DeleteTask)->Enable(false);
+    }
+}
+
 void MainFrame::ExitProgram( wxCommandEvent& event )
 {
     this->Destroy();
@@ -73,6 +87,31 @@ void MainFrame::OnAddTask(wxCommandEvent& event)
     task_dlg->Destroy();
 }
 
+void MainFrame::OnEditTask( wxCommandEvent& event )
+{
+    EditSelectedItem();
+}
+
+void MainFrame::OnDeleteTask( wxCommandEvent& event )
+{
+
+}
+
+void MainFrame::OnListItemActivated( wxListEvent& event )
+{
+    EditSelectedItem();
+}
+
+void MainFrame::EditSelectedItem()
+{
+    long item_index = -1;
+    item_index      = m_listCtrl->GetNextItem(item_index, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+
+    TaskDialog  *task_dlg = new TaskDialog(this, item_index);
+    task_dlg->ShowModal();
+    task_dlg->Destroy();
+}
+
 TaskListCtrl* MainFrame::GetTaskListCtrl()
 {
     return m_listCtrl;
@@ -82,6 +121,60 @@ TaskDialog::TaskDialog(wxFrame *frame) : TaskDialogBase(frame)
 {
 }
 
+TaskDialog::TaskDialog(wxFrame* frame, size_t item_index) : TaskDialogBase(frame)
+{
+
+}
+
 TaskDialog::~TaskDialog()
 {
+}
+
+void TaskDialog::OnChangeTaskType(wxCommandEvent& event)
+{
+    m_panel_baseinterval->Show(false);
+    m_panel_baseonce->Show(false);
+    m_panel_basedaliy->Show(false);
+    m_panel_baseweekly->Show(false);
+    m_panel_basemonthly->Show(false);
+
+    size_t choice_selection = m_choice_tasktype->GetCurrentSelection() + 1;
+
+    switch(choice_selection)
+    {
+        case TASK_INTERVAL:
+            m_panel_baseinterval->Show(true);
+
+            break;
+
+        case TASK_SPECIFY:
+            m_panel_baseonce->Show(true);
+            break;
+
+        case TASK_DAILY_INTERVAL:
+            m_panel_basedaliy->Show(true);
+            break;
+
+        case TASK_WEEKLY_INTERVAL:
+            m_panel_baseweekly->Show(true);
+            break;
+
+        case TASK_MONTHLY_INTERVAL:
+            m_panel_basemonthly->Show(true);
+            break;
+
+        default:
+            m_panel_baseinterval->Show(true);
+            break;
+    }
+}
+
+void TaskDialog::OnCloseTaskDialog(wxCommandEvent& event)
+{
+    this->Close();
+}
+
+void TaskDialog::OnSaveTask(wxCommandEvent& event)
+{
+    this->Close();
 }
