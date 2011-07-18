@@ -6,6 +6,8 @@
 #include "wxAutoBotMain.h"
 #include "AutoBotTask.h"
 
+class BotTask;
+
 class TaskListCtrl : public wxListCtrl
 {
     public:
@@ -39,10 +41,15 @@ class MainFrame : public MainFrameBase
 
 class TaskDialog : public TaskDialogBase
 {
+    private:
+        BotTask* m_bottask;
+
     protected:
 		void OnChangeTaskType(wxCommandEvent& event);
 		void OnCloseTaskDialog(wxCommandEvent& event);
 		void OnSaveTask(wxCommandEvent& event);
+
+		void InitTaskDialog();
 
 	public:
 		TaskDialog(wxFrame* frame);

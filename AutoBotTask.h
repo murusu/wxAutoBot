@@ -43,6 +43,7 @@ class TaskManager : public wxEvtHandler
 
         bool initTaskManager();
         size_t GetTaskNum();
+        TaskArray* GetTaskArray();
 
         wxString GetTaskName(long index);
         wxString GetTaskTime(long index);
@@ -78,9 +79,13 @@ class BotTask : public wxEvtHandler
         wxString GetTaskStatus();
         wxString GetTaskTime();
 
+        size_t GetTaskType();
+        TimeData GetTaskTimeData();
         size_t GetNextTicks();
-
         void UpdateTimer();
+
+        wxString GetConfigFileName();
+        void SetConfigFileName(wxString config_file);
 };
 
 #endif // AUTOBOTTASK_H_INCLUDED

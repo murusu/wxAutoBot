@@ -38,8 +38,6 @@ MainFrame::MainFrame(wxFrame *frame) : MainFrameBase(frame)
     m_listCtrl->InsertColumn(1, _("Next Activity Time"), wxLIST_FORMAT_CENTRE, 270);
     m_listCtrl->InsertColumn(2, _("Status"), wxLIST_FORMAT_CENTRE, 100);
 
-    //TaskManager*  task_manager = wxGetApp().getTaskManager();
-    //m_listCtrl->SetItemCount(task_manager->GetTaskNum());
     m_listCtrl->SetItemCount(0);
     m_listCtrl->Refresh();
     DoListSize();
@@ -119,15 +117,88 @@ TaskListCtrl* MainFrame::GetTaskListCtrl()
 
 TaskDialog::TaskDialog(wxFrame *frame) : TaskDialogBase(frame)
 {
+    m_bottask = new BotTask();
+    InitTaskDialog();
 }
 
 TaskDialog::TaskDialog(wxFrame* frame, size_t item_index) : TaskDialogBase(frame)
 {
-
+    m_bottask = new BotTask();
+    m_bottask->ReadConfigData(wxGetApp().getTaskManager()->GetTaskArray()->Item(item_index)->GetConfigFileName());
+    InitTaskDialog();
 }
 
 TaskDialog::~TaskDialog()
 {
+    if(m_bottask) delete m_bottask;
+}
+
+void TaskDialog::InitTaskDialog()
+{
+    if(!m_bottask->GetConfigFileName().Len())
+    {
+        m_bottask->SetConfigFileName(wxDateTime::Now().Format(wxT("%Y%m%d%H%M%S%l")));
+    }
+
+    size_t task_type = m_bottask->GetTaskType();
+
+    m_textCtrl_taskname->SetValue(m_bottask->GetTaskName());
+    m_choice_tasktype->SetSelection(task_type);
+
+    m_panel_baseinterval->Show(false);
+    m_panel_baseonce->Show(false);
+    m_panel_basedaliy->Show(false);
+    m_panel_baseweekly->Show(false);
+    m_panel_basemonthly->Show(false);
+
+    size_t date_num = 0;
+    size_t date_data = 0;
+
+    switch(task_type)
+    {
+        case TASK_INTERVAL:
+            m_panel_baseinterval->Show(true);
+            m_textCtrl_interval->SetValue(wxString::Format(wxT("%i"), m_bottask->GetTaskTimeData().interval_seconds));
+            break;
+
+        case TASK_SPECIFY:
+            m_panel_baseonce->Show(true);
+            m_datePicker_once->SetValue(wxDateTime(m_bottask->GetTaskTimeData().specified_time));
+            m_spinCtrl_once_hour->SetValue(m_bottask->GetTaskTimeData().specified_hours);
+            m_spinCtrl_once_minute->SetValue(m_bottask->GetTaskTimeData().specified_minutes);
+            m_spinCtrl_once_second->SetValue(m_bottask->GetTaskTimeData().specified_seconds);
+            break;
+
+        case TASK_DAILY_INTERVAL:
+            m_panel_basedaliy->Show(true);
+            m_spinCtrl_daliy_hour->SetValue(m_bottask->GetTaskTimeData().specified_hours);
+            m_spinCtrl_daliy_minute->SetValue(m_bottask->GetTaskTimeData().specified_minutes);
+            m_spinCtrl_daliy_second->SetValue(m_bottask->GetTaskTimeData().specified_seconds);
+            break;
+
+        case TASK_WEEKLY_INTERVAL:
+            m_panel_baseweekly->Show(true);
+            m_spinCtrl_weekly_hour->SetValue(m_bottask->GetTaskTimeData().specified_hours);
+            m_spinCtrl_weekly_minute->SetValue(m_bottask->GetTaskTimeData().specified_minutes);
+            m_spinCtrl_weekly_second->SetValue(m_bottask->GetTaskTimeData().specified_seconds);
+
+            date_num = m_bottask->GetTaskTimeData().specified_date.GetCount();
+            for(size_t index = 0; index < date_num; index++)
+            {
+                date_data = m_bottask->GetTaskTimeData().specified_date.Item(index);
+                wxString temp_str = wxT("m_checkBox_week_1");// + wxString::Format(wxT("%i"), date_data);
+                wxWindow* temp_win = FindWindowByName(temp_str);
+                ((wxCheckBox *)temp_win)->SetValue(true);
+            }
+            break;
+
+        case TASK_MONTHLY_INTERVAL:
+            m_panel_basemonthly->Show(true);
+            m_spinCtrl_monthly_hour->SetValue(m_bottask->GetTaskTimeData().specified_hours);
+            m_spinCtrl_monthly_minute->SetValue(m_bottask->GetTaskTimeData().specified_minutes);
+            m_spinCtrl_monthly_second->SetValue(m_bottask->GetTaskTimeData().specified_seconds);
+            break;
+    }
 }
 
 void TaskDialog::OnChangeTaskType(wxCommandEvent& event)
@@ -138,7 +209,7 @@ void TaskDialog::OnChangeTaskType(wxCommandEvent& event)
     m_panel_baseweekly->Show(false);
     m_panel_basemonthly->Show(false);
 
-    size_t choice_selection = m_choice_tasktype->GetCurrentSelection() + 1;
+    size_t choice_selection = m_choice_tasktype->GetCurrentSelection();
 
     switch(choice_selection)
     {

@@ -29,6 +29,11 @@ TaskManager::~TaskManager()
     }
 }
 
+TaskArray* TaskManager::GetTaskArray()
+{
+    return m_taskarray;
+}
+
 size_t TaskManager::GetTaskNum()
 {
     return m_taskarray->GetCount();
@@ -214,6 +219,16 @@ wxString BotTask::GetTaskStatus()
     return task_status;
 }
 
+size_t BotTask::GetTaskType()
+{
+    return m_tasktimmertype;
+}
+
+TimeData BotTask::GetTaskTimeData()
+{
+    return m_timedata;
+}
+
 wxString BotTask::GetTaskTime()
 {
     if(m_taskstatus != TASKSTATUS_WAITING) return _("Unknown");
@@ -381,4 +396,14 @@ void BotTask::OnTaskProcessDone( wxTaskProcessEvent& event )
 {
     m_lastexecutetime = wxDateTime::Now().GetTicks();
     UpdateTimer();
+}
+
+wxString BotTask::GetConfigFileName()
+{
+    return m_configfilename;
+}
+
+void BotTask::SetConfigFileName(wxString config_file)
+{
+    m_configfilename = config_file;
 }

@@ -388,25 +388,25 @@
             <event name="OnSetFocus"></event>
             <event name="OnSize"></event>
             <event name="OnUpdateUI"></event>
-            <object class="wxBoxSizer" expanded="0">
+            <object class="wxBoxSizer" expanded="1">
                 <property name="minimum_size"></property>
                 <property name="name">bSizer2</property>
                 <property name="orient">wxVERTICAL</property>
                 <property name="permission">none</property>
-                <object class="sizeritem" expanded="0">
+                <object class="sizeritem" expanded="1">
                     <property name="border">5</property>
                     <property name="flag">wxEXPAND</property>
                     <property name="proportion">10</property>
-                    <object class="wxBoxSizer" expanded="0">
+                    <object class="wxBoxSizer" expanded="1">
                         <property name="minimum_size"></property>
                         <property name="name">bSizer3</property>
                         <property name="orient">wxVERTICAL</property>
                         <property name="permission">none</property>
-                        <object class="sizeritem" expanded="0">
+                        <object class="sizeritem" expanded="1">
                             <property name="border">5</property>
                             <property name="flag">wxEXPAND | wxALL</property>
                             <property name="proportion">1</property>
-                            <object class="wxNotebook" expanded="0">
+                            <object class="wxNotebook" expanded="1">
                                 <property name="bg"></property>
                                 <property name="bitmapsize"></property>
                                 <property name="context_help"></property>
@@ -457,11 +457,11 @@
                                 <event name="OnSetFocus"></event>
                                 <event name="OnSize"></event>
                                 <event name="OnUpdateUI"></event>
-                                <object class="notebookpage" expanded="0">
+                                <object class="notebookpage" expanded="1">
                                     <property name="bitmap"></property>
                                     <property name="label">Base Setting</property>
                                     <property name="select">1</property>
-                                    <object class="wxPanel" expanded="0">
+                                    <object class="wxPanel" expanded="1">
                                         <property name="bg"></property>
                                         <property name="context_help"></property>
                                         <property name="context_menu">1</property>
@@ -508,7 +508,7 @@
                                         <event name="OnSetFocus"></event>
                                         <event name="OnSize"></event>
                                         <event name="OnUpdateUI"></event>
-                                        <object class="wxBoxSizer" expanded="0">
+                                        <object class="wxBoxSizer" expanded="1">
                                             <property name="minimum_size"></property>
                                             <property name="name">bSizer5</property>
                                             <property name="orient">wxVERTICAL</property>
@@ -774,20 +774,20 @@
                                                     </object>
                                                 </object>
                                             </object>
-                                            <object class="sizeritem" expanded="0">
+                                            <object class="sizeritem" expanded="1">
                                                 <property name="border">5</property>
                                                 <property name="flag">wxEXPAND</property>
                                                 <property name="proportion">18</property>
-                                                <object class="wxBoxSizer" expanded="0">
+                                                <object class="wxBoxSizer" expanded="1">
                                                     <property name="minimum_size"></property>
                                                     <property name="name">bSizer7</property>
                                                     <property name="orient">wxVERTICAL</property>
                                                     <property name="permission">none</property>
-                                                    <object class="sizeritem" expanded="0">
+                                                    <object class="sizeritem" expanded="1">
                                                         <property name="border">5</property>
                                                         <property name="flag">wxEXPAND</property>
                                                         <property name="proportion">1</property>
-                                                        <object class="wxPanel" expanded="0">
+                                                        <object class="wxPanel" expanded="1">
                                                             <property name="bg"></property>
                                                             <property name="context_help"></property>
                                                             <property name="context_menu">1</property>
@@ -834,16 +834,16 @@
                                                             <event name="OnSetFocus"></event>
                                                             <event name="OnSize"></event>
                                                             <event name="OnUpdateUI"></event>
-                                                            <object class="wxBoxSizer" expanded="0">
+                                                            <object class="wxBoxSizer" expanded="1">
                                                                 <property name="minimum_size"></property>
                                                                 <property name="name">bSizer10</property>
                                                                 <property name="orient">wxVERTICAL</property>
                                                                 <property name="permission">none</property>
-                                                                <object class="sizeritem" expanded="0">
+                                                                <object class="sizeritem" expanded="1">
                                                                     <property name="border">5</property>
                                                                     <property name="flag">wxEXPAND</property>
                                                                     <property name="proportion">1</property>
-                                                                    <object class="wxPanel" expanded="0">
+                                                                    <object class="wxPanel" expanded="1">
                                                                         <property name="bg"></property>
                                                                         <property name="context_help"></property>
                                                                         <property name="context_menu">1</property>
@@ -1070,11 +1070,11 @@
                                                                         </object>
                                                                     </object>
                                                                 </object>
-                                                                <object class="sizeritem" expanded="0">
+                                                                <object class="sizeritem" expanded="1">
                                                                     <property name="border">5</property>
                                                                     <property name="flag">wxEXPAND</property>
                                                                     <property name="proportion">1</property>
-                                                                    <object class="wxPanel" expanded="0">
+                                                                    <object class="wxPanel" expanded="1">
                                                                         <property name="bg"></property>
                                                                         <property name="context_help"></property>
                                                                         <property name="context_menu">1</property>
@@ -1121,16 +1121,16 @@
                                                                         <event name="OnSetFocus"></event>
                                                                         <event name="OnSize"></event>
                                                                         <event name="OnUpdateUI"></event>
-                                                                        <object class="wxBoxSizer" expanded="0">
+                                                                        <object class="wxBoxSizer" expanded="1">
                                                                             <property name="minimum_size"></property>
                                                                             <property name="name">bSizer12</property>
                                                                             <property name="orient">wxVERTICAL</property>
                                                                             <property name="permission">none</property>
-                                                                            <object class="sizeritem" expanded="0">
+                                                                            <object class="sizeritem" expanded="1">
                                                                                 <property name="border">5</property>
                                                                                 <property name="flag">wxEXPAND</property>
                                                                                 <property name="proportion">0</property>
-                                                                                <object class="wxBoxSizer" expanded="0">
+                                                                                <object class="wxBoxSizer" expanded="1">
                                                                                     <property name="minimum_size"></property>
                                                                                     <property name="name">bSizer13</property>
                                                                                     <property name="orient">wxHORIZONTAL</property>
@@ -1248,11 +1248,11 @@
                                                                                     </object>
                                                                                 </object>
                                                                             </object>
-                                                                            <object class="sizeritem" expanded="0">
+                                                                            <object class="sizeritem" expanded="1">
                                                                                 <property name="border">5</property>
                                                                                 <property name="flag">wxEXPAND</property>
                                                                                 <property name="proportion">0</property>
-                                                                                <object class="wxBoxSizer" expanded="0">
+                                                                                <object class="wxBoxSizer" expanded="1">
                                                                                     <property name="minimum_size"></property>
                                                                                     <property name="name">bSizer14</property>
                                                                                     <property name="orient">wxHORIZONTAL</property>
@@ -1610,11 +1610,11 @@
                                                                         </object>
                                                                     </object>
                                                                 </object>
-                                                                <object class="sizeritem" expanded="0">
+                                                                <object class="sizeritem" expanded="1">
                                                                     <property name="border">5</property>
                                                                     <property name="flag">wxEXPAND</property>
                                                                     <property name="proportion">1</property>
-                                                                    <object class="wxPanel" expanded="0">
+                                                                    <object class="wxPanel" expanded="1">
                                                                         <property name="bg"></property>
                                                                         <property name="context_help"></property>
                                                                         <property name="context_menu">1</property>
@@ -1661,7 +1661,7 @@
                                                                         <event name="OnSetFocus"></event>
                                                                         <event name="OnSize"></event>
                                                                         <event name="OnUpdateUI"></event>
-                                                                        <object class="wxBoxSizer" expanded="0">
+                                                                        <object class="wxBoxSizer" expanded="1">
                                                                             <property name="minimum_size"></property>
                                                                             <property name="name">bSizer15</property>
                                                                             <property name="orient">wxHORIZONTAL</property>
@@ -2017,11 +2017,11 @@
                                                                         </object>
                                                                     </object>
                                                                 </object>
-                                                                <object class="sizeritem" expanded="0">
+                                                                <object class="sizeritem" expanded="1">
                                                                     <property name="border">5</property>
                                                                     <property name="flag">wxEXPAND</property>
                                                                     <property name="proportion">1</property>
-                                                                    <object class="wxPanel" expanded="0">
+                                                                    <object class="wxPanel" expanded="1">
                                                                         <property name="bg"></property>
                                                                         <property name="context_help"></property>
                                                                         <property name="context_menu">1</property>
@@ -2068,16 +2068,16 @@
                                                                         <event name="OnSetFocus"></event>
                                                                         <event name="OnSize"></event>
                                                                         <event name="OnUpdateUI"></event>
-                                                                        <object class="wxBoxSizer" expanded="0">
+                                                                        <object class="wxBoxSizer" expanded="1">
                                                                             <property name="minimum_size"></property>
                                                                             <property name="name">bSizer24</property>
                                                                             <property name="orient">wxVERTICAL</property>
                                                                             <property name="permission">none</property>
-                                                                            <object class="sizeritem" expanded="0">
+                                                                            <object class="sizeritem" expanded="1">
                                                                                 <property name="border">5</property>
                                                                                 <property name="flag">wxEXPAND</property>
                                                                                 <property name="proportion">0</property>
-                                                                                <object class="wxBoxSizer" expanded="0">
+                                                                                <object class="wxBoxSizer" expanded="1">
                                                                                     <property name="minimum_size"></property>
                                                                                     <property name="name">bSizer29</property>
                                                                                     <property name="orient">wxHORIZONTAL</property>
@@ -2138,11 +2138,11 @@
                                                                                             <event name="OnUpdateUI"></event>
                                                                                         </object>
                                                                                     </object>
-                                                                                    <object class="sizeritem" expanded="0">
+                                                                                    <object class="sizeritem" expanded="1">
                                                                                         <property name="border">5</property>
                                                                                         <property name="flag">wxEXPAND</property>
                                                                                         <property name="proportion">1</property>
-                                                                                        <object class="wxGridSizer" expanded="0">
+                                                                                        <object class="wxGridSizer" expanded="1">
                                                                                             <property name="cols">2</property>
                                                                                             <property name="hgap">0</property>
                                                                                             <property name="minimum_size"></property>
@@ -2167,7 +2167,7 @@
                                                                                                     <property name="label">SunDay</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_sunday</property>
+                                                                                                    <property name="name">m_checkBox_week_0</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -2224,7 +2224,7 @@
                                                                                                     <property name="label">Monday</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_monday</property>
+                                                                                                    <property name="name">m_checkBox_week_1</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -2281,7 +2281,7 @@
                                                                                                     <property name="label">Tuesday</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_tuesday</property>
+                                                                                                    <property name="name">m_checkBox_week_2</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -2338,7 +2338,7 @@
                                                                                                     <property name="label">Wednesday</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_wednesday</property>
+                                                                                                    <property name="name">m_checkBox_week_3</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -2395,7 +2395,7 @@
                                                                                                     <property name="label">Thursday</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_thursday</property>
+                                                                                                    <property name="name">m_checkBox_week_4</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -2452,7 +2452,7 @@
                                                                                                     <property name="label">Friday</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_friday</property>
+                                                                                                    <property name="name">m_checkBox_week_5</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -2509,7 +2509,7 @@
                                                                                                     <property name="label">Saturday</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_saturday</property>
+                                                                                                    <property name="name">m_checkBox_week_6</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -2553,11 +2553,11 @@
                                                                                     </object>
                                                                                 </object>
                                                                             </object>
-                                                                            <object class="sizeritem" expanded="0">
+                                                                            <object class="sizeritem" expanded="1">
                                                                                 <property name="border">5</property>
                                                                                 <property name="flag">wxEXPAND</property>
                                                                                 <property name="proportion">0</property>
-                                                                                <object class="wxBoxSizer" expanded="0">
+                                                                                <object class="wxBoxSizer" expanded="1">
                                                                                     <property name="minimum_size"></property>
                                                                                     <property name="name">bSizer151</property>
                                                                                     <property name="orient">wxHORIZONTAL</property>
@@ -2915,11 +2915,11 @@
                                                                         </object>
                                                                     </object>
                                                                 </object>
-                                                                <object class="sizeritem" expanded="0">
+                                                                <object class="sizeritem" expanded="1">
                                                                     <property name="border">5</property>
                                                                     <property name="flag">wxEXPAND</property>
                                                                     <property name="proportion">1</property>
-                                                                    <object class="wxPanel" expanded="0">
+                                                                    <object class="wxPanel" expanded="1">
                                                                         <property name="bg"></property>
                                                                         <property name="context_help"></property>
                                                                         <property name="context_menu">1</property>
@@ -2966,16 +2966,16 @@
                                                                         <event name="OnSetFocus"></event>
                                                                         <event name="OnSize"></event>
                                                                         <event name="OnUpdateUI"></event>
-                                                                        <object class="wxBoxSizer" expanded="0">
+                                                                        <object class="wxBoxSizer" expanded="1">
                                                                             <property name="minimum_size"></property>
                                                                             <property name="name">bSizer34</property>
                                                                             <property name="orient">wxVERTICAL</property>
                                                                             <property name="permission">none</property>
-                                                                            <object class="sizeritem" expanded="0">
+                                                                            <object class="sizeritem" expanded="1">
                                                                                 <property name="border">5</property>
                                                                                 <property name="flag">wxEXPAND</property>
                                                                                 <property name="proportion">0</property>
-                                                                                <object class="wxBoxSizer" expanded="0">
+                                                                                <object class="wxBoxSizer" expanded="1">
                                                                                     <property name="minimum_size"></property>
                                                                                     <property name="name">bSizer291</property>
                                                                                     <property name="orient">wxHORIZONTAL</property>
@@ -3036,11 +3036,11 @@
                                                                                             <event name="OnUpdateUI"></event>
                                                                                         </object>
                                                                                     </object>
-                                                                                    <object class="sizeritem" expanded="0">
+                                                                                    <object class="sizeritem" expanded="1">
                                                                                         <property name="border">5</property>
                                                                                         <property name="flag">wxEXPAND</property>
                                                                                         <property name="proportion">1</property>
-                                                                                        <object class="wxGridSizer" expanded="0">
+                                                                                        <object class="wxGridSizer" expanded="1">
                                                                                             <property name="cols">6</property>
                                                                                             <property name="hgap">0</property>
                                                                                             <property name="minimum_size"></property>
@@ -3065,7 +3065,7 @@
                                                                                                     <property name="label">1</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_1</property>
+                                                                                                    <property name="name">m_checkBox_month_1</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -3122,7 +3122,7 @@
                                                                                                     <property name="label">2</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_2</property>
+                                                                                                    <property name="name">m_checkBox_month_2</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -3179,7 +3179,7 @@
                                                                                                     <property name="label">3</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_3</property>
+                                                                                                    <property name="name">m_checkBox_month_3</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -3236,7 +3236,7 @@
                                                                                                     <property name="label">4</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_4</property>
+                                                                                                    <property name="name">m_checkBox_month_4</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -3293,7 +3293,7 @@
                                                                                                     <property name="label">5</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_5</property>
+                                                                                                    <property name="name">m_checkBox_month_5</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -3350,7 +3350,7 @@
                                                                                                     <property name="label">6</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_6</property>
+                                                                                                    <property name="name">m_checkBox_month_6</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -3407,7 +3407,7 @@
                                                                                                     <property name="label">7</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_7</property>
+                                                                                                    <property name="name">m_checkBox_month_7</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -3464,7 +3464,7 @@
                                                                                                     <property name="label">8</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_8</property>
+                                                                                                    <property name="name">m_checkBox_month_8</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -3521,7 +3521,7 @@
                                                                                                     <property name="label">9</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_9</property>
+                                                                                                    <property name="name">m_checkBox_month_9</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -3578,7 +3578,7 @@
                                                                                                     <property name="label">10</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_10</property>
+                                                                                                    <property name="name">m_checkBox_month_10</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -3635,7 +3635,7 @@
                                                                                                     <property name="label">11</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_11</property>
+                                                                                                    <property name="name">m_checkBox_month_11</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -3692,7 +3692,7 @@
                                                                                                     <property name="label">12</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_12</property>
+                                                                                                    <property name="name">m_checkBox_month_12</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -3749,7 +3749,7 @@
                                                                                                     <property name="label">13</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_13</property>
+                                                                                                    <property name="name">m_checkBox_month_13</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -3806,7 +3806,7 @@
                                                                                                     <property name="label">14</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_14</property>
+                                                                                                    <property name="name">m_checkBox_month_14</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -3863,7 +3863,7 @@
                                                                                                     <property name="label">15</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_15</property>
+                                                                                                    <property name="name">m_checkBox_month_15</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -3920,7 +3920,7 @@
                                                                                                     <property name="label">16</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_16</property>
+                                                                                                    <property name="name">m_checkBox_month_16</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -3977,7 +3977,7 @@
                                                                                                     <property name="label">17</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_17</property>
+                                                                                                    <property name="name">m_checkBox_month_17</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -4034,7 +4034,7 @@
                                                                                                     <property name="label">18</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_18</property>
+                                                                                                    <property name="name">m_checkBox_month_18</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -4091,7 +4091,7 @@
                                                                                                     <property name="label">19</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_19</property>
+                                                                                                    <property name="name">m_checkBox_month_19</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -4148,7 +4148,7 @@
                                                                                                     <property name="label">20</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_20</property>
+                                                                                                    <property name="name">m_checkBox_month_20</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -4205,7 +4205,7 @@
                                                                                                     <property name="label">21</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_21</property>
+                                                                                                    <property name="name">m_checkBox_month_21</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -4262,7 +4262,7 @@
                                                                                                     <property name="label">22</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_22</property>
+                                                                                                    <property name="name">m_checkBox_month_22</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -4319,7 +4319,7 @@
                                                                                                     <property name="label">23</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_23</property>
+                                                                                                    <property name="name">m_checkBox_month_23</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -4376,7 +4376,7 @@
                                                                                                     <property name="label">24</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_24</property>
+                                                                                                    <property name="name">m_checkBox_month_24</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -4433,7 +4433,7 @@
                                                                                                     <property name="label">25</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_25</property>
+                                                                                                    <property name="name">m_checkBox_month_25</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -4490,7 +4490,7 @@
                                                                                                     <property name="label">26</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_26</property>
+                                                                                                    <property name="name">m_checkBox_month_26</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -4547,7 +4547,7 @@
                                                                                                     <property name="label">27</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_27</property>
+                                                                                                    <property name="name">m_checkBox_month_27</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -4604,7 +4604,7 @@
                                                                                                     <property name="label">28</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_28</property>
+                                                                                                    <property name="name">m_checkBox_month_28</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -4661,7 +4661,7 @@
                                                                                                     <property name="label">29</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_29</property>
+                                                                                                    <property name="name">m_checkBox_month_29</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -4718,7 +4718,7 @@
                                                                                                     <property name="label">30</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_30</property>
+                                                                                                    <property name="name">m_checkBox_month_30</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -4775,7 +4775,7 @@
                                                                                                     <property name="label">31</property>
                                                                                                     <property name="maximum_size"></property>
                                                                                                     <property name="minimum_size"></property>
-                                                                                                    <property name="name">m_checkBox_31</property>
+                                                                                                    <property name="name">m_checkBox_month_31</property>
                                                                                                     <property name="permission">protected</property>
                                                                                                     <property name="pos"></property>
                                                                                                     <property name="size"></property>
@@ -4819,11 +4819,11 @@
                                                                                     </object>
                                                                                 </object>
                                                                             </object>
-                                                                            <object class="sizeritem" expanded="0">
+                                                                            <object class="sizeritem" expanded="1">
                                                                                 <property name="border">5</property>
                                                                                 <property name="flag">wxEXPAND</property>
                                                                                 <property name="proportion">0</property>
-                                                                                <object class="wxBoxSizer" expanded="0">
+                                                                                <object class="wxBoxSizer" expanded="1">
                                                                                     <property name="minimum_size"></property>
                                                                                     <property name="name">bSizer1511</property>
                                                                                     <property name="orient">wxHORIZONTAL</property>
@@ -5299,11 +5299,11 @@
                         </object>
                     </object>
                 </object>
-                <object class="sizeritem" expanded="0">
+                <object class="sizeritem" expanded="1">
                     <property name="border">5</property>
                     <property name="flag">wxALIGN_RIGHT</property>
                     <property name="proportion">1</property>
-                    <object class="wxBoxSizer" expanded="0">
+                    <object class="wxBoxSizer" expanded="1">
                         <property name="minimum_size"></property>
                         <property name="name">bSizer4</property>
                         <property name="orient">wxHORIZONTAL</property>

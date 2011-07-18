@@ -14,11 +14,11 @@ const size_t TASKSTATUS_STOP    = 1;
 const size_t TASKSTATUS_WAITING = 2;
 const size_t TASKSTATUS_RUNNING = 3;
 
-const size_t TASK_INTERVAL          = 1;
-const size_t TASK_SPECIFY           = 2;
-const size_t TASK_DAILY_INTERVAL    = 3;
-const size_t TASK_WEEKLY_INTERVAL   = 4;
-const size_t TASK_MONTHLY_INTERVAL  = 5;
+const size_t TASK_INTERVAL          = 0;
+const size_t TASK_SPECIFY           = 1;
+const size_t TASK_DAILY_INTERVAL    = 2;
+const size_t TASK_WEEKLY_INTERVAL   = 3;
+const size_t TASK_MONTHLY_INTERVAL  = 4;
 
 const char * const XMLTASK_NAME             = "name";
 const char * const XMLTASK_TIMERTYPE        = "timer_type";
