@@ -43,11 +43,12 @@ class TaskDialog : public TaskDialogBase
 {
     private:
         BotTask* m_bottask;
+        size_t  m_index;
 
     protected:
 		void OnChangeTaskType(wxCommandEvent& event);
 		void OnCloseTaskDialog(wxCommandEvent& event);
-		void OnSaveTask(wxCommandEvent& event);
+		void OnSaveTaskDialog(wxCommandEvent& event);
 
 		void InitTaskDialog();
 

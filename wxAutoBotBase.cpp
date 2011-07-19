@@ -250,25 +250,25 @@ TaskDialogBase::TaskDialogBase( wxWindow* parent, wxWindowID id, const wxString&
 	wxGridSizer* gSizer1;
 	gSizer1 = new wxGridSizer( 2, 2, 0, 0 );
 	
-	m_checkBox_week_0 = new wxCheckBox( m_panel_baseweekly, wxID_ANY, _("SunDay"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_week_0 = new wxCheckBox( m_panel_baseweekly, wxID_ANY, _("SunDay"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_week_0") );
 	gSizer1->Add( m_checkBox_week_0, 0, wxALL, 5 );
 	
-	m_checkBox_week_1 = new wxCheckBox( m_panel_baseweekly, wxID_ANY, _("Monday"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_week_1 = new wxCheckBox( m_panel_baseweekly, wxID_ANY, _("Monday"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_week_1") );
 	gSizer1->Add( m_checkBox_week_1, 0, wxALL, 5 );
 	
-	m_checkBox_week_2 = new wxCheckBox( m_panel_baseweekly, wxID_ANY, _("Tuesday"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_week_2 = new wxCheckBox( m_panel_baseweekly, wxID_ANY, _("Tuesday"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_week_2") );
 	gSizer1->Add( m_checkBox_week_2, 0, wxALL, 5 );
 	
-	m_checkBox_week_3 = new wxCheckBox( m_panel_baseweekly, wxID_ANY, _("Wednesday"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_week_3 = new wxCheckBox( m_panel_baseweekly, wxID_ANY, _("Wednesday"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_week_3") );
 	gSizer1->Add( m_checkBox_week_3, 0, wxALL, 5 );
 	
-	m_checkBox_week_4 = new wxCheckBox( m_panel_baseweekly, wxID_ANY, _("Thursday"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_week_4 = new wxCheckBox( m_panel_baseweekly, wxID_ANY, _("Thursday"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_week_4") );
 	gSizer1->Add( m_checkBox_week_4, 0, wxALL, 5 );
 	
-	m_checkBox_week_5 = new wxCheckBox( m_panel_baseweekly, wxID_ANY, _("Friday"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_week_5 = new wxCheckBox( m_panel_baseweekly, wxID_ANY, _("Friday"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_week_5") );
 	gSizer1->Add( m_checkBox_week_5, 0, wxALL, 5 );
 	
-	m_checkBox_week_6 = new wxCheckBox( m_panel_baseweekly, wxID_ANY, _("Saturday"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_week_6 = new wxCheckBox( m_panel_baseweekly, wxID_ANY, _("Saturday"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_week_6") );
 	gSizer1->Add( m_checkBox_week_6, 0, wxALL, 5 );
 	
 	bSizer29->Add( gSizer1, 1, wxEXPAND, 5 );
@@ -322,97 +322,97 @@ TaskDialogBase::TaskDialogBase( wxWindow* parent, wxWindowID id, const wxString&
 	wxGridSizer* gSizer11;
 	gSizer11 = new wxGridSizer( 6, 6, 0, 0 );
 	
-	m_checkBox_month_1 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("1"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_1 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("1"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_1") );
 	gSizer11->Add( m_checkBox_month_1, 0, wxALL, 5 );
 	
-	m_checkBox_month_2 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("2"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_2 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("2"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_2") );
 	gSizer11->Add( m_checkBox_month_2, 0, wxALL, 5 );
 	
-	m_checkBox_month_3 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("3"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_3 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("3"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_3") );
 	gSizer11->Add( m_checkBox_month_3, 0, wxALL, 5 );
 	
-	m_checkBox_month_4 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("4"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_4 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("4"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_4") );
 	gSizer11->Add( m_checkBox_month_4, 0, wxALL, 5 );
 	
-	m_checkBox_month_5 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("5"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_5 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("5"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_5") );
 	gSizer11->Add( m_checkBox_month_5, 0, wxALL, 5 );
 	
-	m_checkBox_month_6 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("6"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_6 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("6"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_6") );
 	gSizer11->Add( m_checkBox_month_6, 0, wxALL, 5 );
 	
-	m_checkBox_month_7 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("7"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_7 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("7"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_7") );
 	gSizer11->Add( m_checkBox_month_7, 0, wxALL, 5 );
 	
-	m_checkBox_month_8 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("8"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_8 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("8"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_8") );
 	gSizer11->Add( m_checkBox_month_8, 0, wxALL, 5 );
 	
-	m_checkBox_month_9 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("9"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_9 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("9"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_9") );
 	gSizer11->Add( m_checkBox_month_9, 0, wxALL, 5 );
 	
-	m_checkBox_month_10 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("10"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_10 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("10"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_10") );
 	gSizer11->Add( m_checkBox_month_10, 0, wxALL, 5 );
 	
-	m_checkBox_month_11 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("11"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_11 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("11"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_11") );
 	gSizer11->Add( m_checkBox_month_11, 0, wxALL, 5 );
 	
-	m_checkBox_month_12 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("12"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_12 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("12"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_12") );
 	gSizer11->Add( m_checkBox_month_12, 0, wxALL, 5 );
 	
-	m_checkBox_month_13 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("13"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_13 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("13"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_13") );
 	gSizer11->Add( m_checkBox_month_13, 0, wxALL, 5 );
 	
-	m_checkBox_month_14 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("14"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_14 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("14"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_14") );
 	gSizer11->Add( m_checkBox_month_14, 0, wxALL, 5 );
 	
-	m_checkBox_month_15 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("15"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_15 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("15"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_15") );
 	gSizer11->Add( m_checkBox_month_15, 0, wxALL, 5 );
 	
-	m_checkBox_month_16 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("16"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_16 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("16"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_16") );
 	gSizer11->Add( m_checkBox_month_16, 0, wxALL, 5 );
 	
-	m_checkBox_month_17 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("17"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_17 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("17"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_17") );
 	gSizer11->Add( m_checkBox_month_17, 0, wxALL, 5 );
 	
-	m_checkBox_month_18 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("18"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_18 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("18"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_18") );
 	gSizer11->Add( m_checkBox_month_18, 0, wxALL, 5 );
 	
-	m_checkBox_month_19 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("19"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_19 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("19"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_19") );
 	gSizer11->Add( m_checkBox_month_19, 0, wxALL, 5 );
 	
-	m_checkBox_month_20 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("20"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_20 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("20"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_20") );
 	gSizer11->Add( m_checkBox_month_20, 0, wxALL, 5 );
 	
-	m_checkBox_month_21 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("21"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_21 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("21"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_21") );
 	gSizer11->Add( m_checkBox_month_21, 0, wxALL, 5 );
 	
-	m_checkBox_month_22 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("22"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_22 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("22"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_22") );
 	gSizer11->Add( m_checkBox_month_22, 0, wxALL, 5 );
 	
-	m_checkBox_month_23 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("23"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_23 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("23"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_23") );
 	gSizer11->Add( m_checkBox_month_23, 0, wxALL, 5 );
 	
-	m_checkBox_month_24 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("24"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_24 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("24"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_24") );
 	gSizer11->Add( m_checkBox_month_24, 0, wxALL, 5 );
 	
-	m_checkBox_month_25 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("25"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_25 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("25"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_25") );
 	gSizer11->Add( m_checkBox_month_25, 0, wxALL, 5 );
 	
-	m_checkBox_month_26 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("26"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_26 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("26"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_26") );
 	gSizer11->Add( m_checkBox_month_26, 0, wxALL, 5 );
 	
-	m_checkBox_month_27 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("27"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_27 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("27"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_27") );
 	gSizer11->Add( m_checkBox_month_27, 0, wxALL, 5 );
 	
-	m_checkBox_month_28 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("28"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_28 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("28"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_28") );
 	gSizer11->Add( m_checkBox_month_28, 0, wxALL, 5 );
 	
-	m_checkBox_month_29 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("29"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_29 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("29"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_29") );
 	gSizer11->Add( m_checkBox_month_29, 0, wxALL, 5 );
 	
-	m_checkBox_month_30 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("30"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_30 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("30"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_30") );
 	gSizer11->Add( m_checkBox_month_30, 0, wxALL, 5 );
 	
-	m_checkBox_month_31 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("31"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBox_month_31 = new wxCheckBox( m_panel_basemonthly, wxID_ANY, _("31"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("m_checkBox_month_31") );
 	gSizer11->Add( m_checkBox_month_31, 0, wxALL, 5 );
 	
 	bSizer291->Add( gSizer11, 1, wxEXPAND, 5 );
@@ -488,7 +488,7 @@ TaskDialogBase::TaskDialogBase( wxWindow* parent, wxWindowID id, const wxString&
 	
 	// Connect Events
 	m_choice_tasktype->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( TaskDialogBase::OnChangeTaskType ), NULL, this );
-	m_button_tasksave->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnSaveTask ), NULL, this );
+	m_button_tasksave->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnSaveTaskDialog ), NULL, this );
 	m_button_taskcancel->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnCloseTaskDialog ), NULL, this );
 }
 
@@ -496,7 +496,7 @@ TaskDialogBase::~TaskDialogBase()
 {
 	// Disconnect Events
 	m_choice_tasktype->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( TaskDialogBase::OnChangeTaskType ), NULL, this );
-	m_button_tasksave->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnSaveTask ), NULL, this );
+	m_button_tasksave->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnSaveTaskDialog ), NULL, this );
 	m_button_taskcancel->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnCloseTaskDialog ), NULL, this );
 	
 }

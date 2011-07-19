@@ -84,6 +84,8 @@ class BotTask : public wxEvtHandler
         size_t GetNextTicks();
         void UpdateTimer();
 
+        void StopTask();
+
         wxString GetConfigFileName();
         void SetConfigFileName(wxString config_file);
 };

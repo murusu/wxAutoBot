@@ -2179,7 +2179,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_week_0</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -2236,7 +2236,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_week_1</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -2293,7 +2293,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_week_2</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -2350,7 +2350,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_week_3</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -2407,7 +2407,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_week_4</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -2464,7 +2464,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_week_5</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -2521,7 +2521,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_week_6</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -3077,7 +3077,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_1</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -3134,7 +3134,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_2</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -3191,7 +3191,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_3</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -3248,7 +3248,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_4</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -3305,7 +3305,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_5</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -3362,7 +3362,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_6</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -3419,7 +3419,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_7</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -3476,7 +3476,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_8</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -3533,7 +3533,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_9</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -3590,7 +3590,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_10</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -3647,7 +3647,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_11</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -3704,7 +3704,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_12</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -3761,7 +3761,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_13</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -3818,7 +3818,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_14</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -3875,7 +3875,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_15</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -3932,7 +3932,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_16</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -3989,7 +3989,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_17</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -4046,7 +4046,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_18</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -4103,7 +4103,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_19</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -4160,7 +4160,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_20</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -4217,7 +4217,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_21</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -4274,7 +4274,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_22</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -4331,7 +4331,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_23</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -4388,7 +4388,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_24</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -4445,7 +4445,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_25</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -4502,7 +4502,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_26</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -4559,7 +4559,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_27</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -4616,7 +4616,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_28</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -4673,7 +4673,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_29</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -4730,7 +4730,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_30</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -4787,7 +4787,7 @@
                                                                                                     <property name="validator_type">wxDefaultValidator</property>
                                                                                                     <property name="validator_variable"></property>
                                                                                                     <property name="window_extra_style"></property>
-                                                                                                    <property name="window_name"></property>
+                                                                                                    <property name="window_name">m_checkBox_month_31</property>
                                                                                                     <property name="window_style"></property>
                                                                                                     <event name="OnChar"></event>
                                                                                                     <event name="OnCheckBox"></event>
@@ -5339,7 +5339,7 @@
                                 <property name="window_extra_style"></property>
                                 <property name="window_name"></property>
                                 <property name="window_style"></property>
-                                <event name="OnButtonClick">OnSaveTask</event>
+                                <event name="OnButtonClick">OnSaveTaskDialog</event>
                                 <event name="OnChar"></event>
                                 <event name="OnEnterWindow"></event>
                                 <event name="OnEraseBackground"></event>

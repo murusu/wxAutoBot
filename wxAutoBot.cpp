@@ -105,6 +105,8 @@ void MainFrame::EditSelectedItem()
     long item_index = -1;
     item_index      = m_listCtrl->GetNextItem(item_index, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
 
+    wxGetApp().getTaskManager()->GetTaskArray()->Item(item_index)->StopTask();
+
     TaskDialog  *task_dlg = new TaskDialog(this, item_index);
     task_dlg->ShowModal();
     task_dlg->Destroy();
@@ -186,9 +188,7 @@ void TaskDialog::InitTaskDialog()
             for(size_t index = 0; index < date_num; index++)
             {
                 date_data = m_bottask->GetTaskTimeData().specified_date.Item(index);
-                wxString temp_str = wxT("m_checkBox_week_1");// + wxString::Format(wxT("%i"), date_data);
-                wxWindow* temp_win = FindWindowByName(temp_str);
-                ((wxCheckBox *)temp_win)->SetValue(true);
+                ((wxCheckBox *)FindWindowByName(wxT("m_checkBox_week_") + wxString::Format(wxT("%i"), date_data)))->SetValue(true);
             }
             break;
 
@@ -197,6 +197,13 @@ void TaskDialog::InitTaskDialog()
             m_spinCtrl_monthly_hour->SetValue(m_bottask->GetTaskTimeData().specified_hours);
             m_spinCtrl_monthly_minute->SetValue(m_bottask->GetTaskTimeData().specified_minutes);
             m_spinCtrl_monthly_second->SetValue(m_bottask->GetTaskTimeData().specified_seconds);
+
+            date_num = m_bottask->GetTaskTimeData().specified_date.GetCount();
+            for(size_t index = 0; index < date_num; index++)
+            {
+                date_data = m_bottask->GetTaskTimeData().specified_date.Item(index);
+                ((wxCheckBox *)FindWindowByName(wxT("m_checkBox_month_") + wxString::Format(wxT("%i"), date_data)))->SetValue(true);
+            }
             break;
     }
 }
@@ -245,7 +252,26 @@ void TaskDialog::OnCloseTaskDialog(wxCommandEvent& event)
     this->Close();
 }
 
-void TaskDialog::OnSaveTask(wxCommandEvent& event)
+void TaskDialog::OnSaveTaskDialog(wxCommandEvent& event)
 {
+    size_t  task_num = wxGetApp().getTaskManager()->GetTaskArray()->GetCount();
+    bool    task_found = false;
+
+    for(size_t index = 0; index < task_num; index++)
+    {
+        BotTask* target_task = wxGetApp().getTaskManager()->GetTaskArray()->Item(index);
+
+        if(target_task->GetConfigFileName() == m_bottask->GetConfigFileName())
+        {
+            task_found = true;
+
+            m_bottask->WriteConfigData();
+            target_task->ReadConfigData();
+            target_task->UpdateTimer();
+
+            wxGetApp().getTaskManager()->RefreshList();
+        }
+    }
+
     this->Close();
 }

@@ -259,7 +259,6 @@ size_t BotTask::GetNextTicks()
     time_t next_ticks       = 0;
     time_t current_ticks    = wxDateTime::Now().GetTicks();
     size_t datedata_num     = m_timedata.specified_date.GetCount();
-    //size_t current_day      = wxDateTime::Now().GetWeekDay();
     size_t target_day       = 0;
 
     wxDateTime current_datetime = wxDateTime::Now();
@@ -287,15 +286,7 @@ size_t BotTask::GetNextTicks()
             for(size_t index = 0; index < datedata_num; index++)
             {
                 target_day = m_timedata.specified_date.Item(index);
-
-                //if(target_day >= current_day)
-                //{
-                //    current_datetime.SetToNextWeekDay((wxDateTime::WeekDay)target_day);
-                //}
-                //else
-                //{
                 current_datetime.SetToWeekDay((wxDateTime::WeekDay)target_day, weeks_of_month);
-                //}
 
                 current_datetime.SetHour(m_timedata.specified_hours);
                 current_datetime.SetMinute(m_timedata.specified_minutes);
@@ -314,8 +305,6 @@ size_t BotTask::GetNextTicks()
                 current_datetime.SetMinute(m_timedata.specified_minutes);
                 current_datetime.SetSecond(m_timedata.specified_seconds);
                 next_ticks = current_datetime.GetTicks();
-
-                //if(target_day == current_day) next_ticks += 604800;
 
                 ticks_left = next_ticks - current_ticks;
             }
@@ -406,4 +395,10 @@ wxString BotTask::GetConfigFileName()
 void BotTask::SetConfigFileName(wxString config_file)
 {
     m_configfilename = config_file;
+}
+
+void BotTask::StopTask()
+{
+    m_timer->Stop();
+    m_taskstatus = TASKSTATUS_STOP;
 }
