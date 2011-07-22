@@ -50,6 +50,7 @@ class TaskDialog : public TaskDialogBase
 		void OnCloseTaskDialog(wxCommandEvent& event);
 		void OnSaveTaskDialog(wxCommandEvent& event);
 
+		void GetDialogData();
 		void InitTaskDialog();
 
 	public:

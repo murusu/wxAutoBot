@@ -139,7 +139,7 @@ void TaskDialog::InitTaskDialog()
 {
     if(!m_bottask->GetConfigFileName().Len())
     {
-        m_bottask->SetConfigFileName(wxDateTime::Now().Format(wxT("%Y%m%d%H%M%S%l")));
+        m_bottask->SetConfigFileName(wxT("task_") + wxDateTime::Now().Format(wxT("%Y%m%d%H%M%S%l")) + wxT(".xml"));
     }
 
     size_t task_type = m_bottask->GetTaskType();
@@ -257,6 +257,8 @@ void TaskDialog::OnSaveTaskDialog(wxCommandEvent& event)
     size_t  task_num = wxGetApp().getTaskManager()->GetTaskArray()->GetCount();
     bool    task_found = false;
 
+    GetDialogData();
+
     for(size_t index = 0; index < task_num; index++)
     {
         BotTask* target_task = wxGetApp().getTaskManager()->GetTaskArray()->Item(index);
@@ -266,12 +268,65 @@ void TaskDialog::OnSaveTaskDialog(wxCommandEvent& event)
             task_found = true;
 
             m_bottask->WriteConfigData();
-            target_task->ReadConfigData();
-            target_task->UpdateTimer();
+            target_task->ReadConfigData(target_task->GetConfigFileName());
+            //target_task->StartTask();
 
             wxGetApp().getTaskManager()->RefreshList();
         }
     }
 
+    if(!task_found)
+    {
+        m_bottask->WriteConfigData();
+        wxGetApp().getTaskManager()->AddTask(m_bottask);
+
+        wxGetApp().getTaskManager()->RefreshList();
+    }
+
     this->Close();
+}
+
+void TaskDialog::GetDialogData()
+{
+    m_bottask->ResetTimeData();
+    m_bottask->SetTaskName(m_textCtrl_taskname->GetValue());
+
+    switch(m_choice_tasktype->GetCurrentSelection())
+    {
+        case TASK_INTERVAL:
+            m_bottask->GetTaskTimeData().interval_seconds = wxAtoi(m_textCtrl_interval->GetValue());
+            break;
+
+        case TASK_SPECIFY:
+            m_bottask->GetTaskTimeData().specified_time = m_datePicker_once->GetValue().SetHour(m_spinCtrl_once_hour->GetValue()).SetMinute(m_spinCtrl_once_minute->GetValue()).SetSecond(m_spinCtrl_once_second->GetValue()).GetTicks();
+            break;
+
+        case TASK_DAILY_INTERVAL:
+            m_bottask->GetTaskTimeData().specified_hours = m_spinCtrl_daliy_hour->GetValue();
+            m_bottask->GetTaskTimeData().specified_minutes = m_spinCtrl_daliy_minute->GetValue();
+            m_bottask->GetTaskTimeData().specified_seconds = m_spinCtrl_daliy_second->GetValue();
+            break;
+
+        case TASK_WEEKLY_INTERVAL:
+            m_bottask->GetTaskTimeData().specified_hours = m_spinCtrl_weekly_hour->GetValue();
+            m_bottask->GetTaskTimeData().specified_minutes = m_spinCtrl_weekly_minute->GetValue();
+            m_bottask->GetTaskTimeData().specified_seconds = m_spinCtrl_weekly_second->GetValue();
+
+            for(size_t index = 0; index < 7; index++)
+            {
+                if(((wxCheckBox *)FindWindowByName(wxT("m_checkBox_week_") + wxString::Format(wxT("%i"), index)))->GetValue()) m_bottask->GetTaskTimeData().specified_date.Add(index);
+            }
+            break;
+
+        case TASK_MONTHLY_INTERVAL:
+            m_bottask->GetTaskTimeData().specified_hours = m_spinCtrl_monthly_hour->GetValue();
+            m_bottask->GetTaskTimeData().specified_minutes = m_spinCtrl_monthly_minute->GetValue();
+            m_bottask->GetTaskTimeData().specified_seconds = m_spinCtrl_monthly_second->GetValue();
+
+            for(size_t index = 0; index < 7; index++)
+            {
+                if(((wxCheckBox *)FindWindowByName(wxT("m_checkBox_month_") + wxString::Format(wxT("%i"), index)))->GetValue()) m_bottask->GetTaskTimeData().specified_date.Add(index);
+            }
+            break;
+    }
 }

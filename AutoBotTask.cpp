@@ -78,7 +78,7 @@ bool TaskManager::initTaskManager()
     {
         BotTask *ptaskitem = new BotTask();
         ptaskitem->ReadConfigData(filename);
-        ptaskitem->UpdateTimer();
+        ptaskitem->StartTask();
         m_taskarray->Add(ptaskitem);
 
         cont = dir.GetNext(&filename);
@@ -104,6 +104,13 @@ void TaskManager::RefreshList()
     wxGetApp().getMainFrame()->GetTaskListCtrl()->SetItemCount(GetTaskNum());
     wxGetApp().getMainFrame()->GetTaskListCtrl()->Refresh();
     wxGetApp().getMainFrame()->DoListSize();
+}
+
+void TaskManager::AddTask(BotTask *bot_task)
+{
+    BotTask *ptaskitem = new BotTask();
+    ptaskitem->CloneTask(bot_task);
+    m_taskarray->Add(ptaskitem);
 }
 
 BotTask::BotTask()
@@ -347,7 +354,7 @@ size_t BotTask::GetNextTicks()
     return ticks_left;
 }
 
-void BotTask::UpdateTimer()
+void BotTask::StartTask()
 {
     time_t next_ticks = GetNextTicks();
 
@@ -384,7 +391,7 @@ void BotTask::OnTimer(wxTimerEvent& event)
 void BotTask::OnTaskProcessDone( wxTaskProcessEvent& event )
 {
     m_lastexecutetime = wxDateTime::Now().GetTicks();
-    UpdateTimer();
+    StartTask();
 }
 
 wxString BotTask::GetConfigFileName()
@@ -401,4 +408,31 @@ void BotTask::StopTask()
 {
     m_timer->Stop();
     m_taskstatus = TASKSTATUS_STOP;
+}
+
+time_t BotTask::GetLastExecuteTime()
+{
+    return m_lastexecutetime;
+}
+
+size_t BotTask::GetTaskStatusType()
+{
+    return m_taskstatus;
+}
+
+void BotTask::SetTaskName(wxString task_name)
+{
+    m_taskname = task_name;
+}
+
+void BotTask::CloneTask(BotTask *bot_task)
+{
+    ResetTimeData();
+
+    m_taskstatus = bot_task->GetTaskStatusType();
+    m_tasktimmertype = bot_task->GetTaskType();
+    m_lastexecutetime = bot_task->GetLastExecuteTime();
+    m_configfilename = bot_task->GetConfigFileName();
+    m_taskname = bot_task->GetTaskName();
+    m_timedata = bot_task->GetTaskTimeData();
 }
