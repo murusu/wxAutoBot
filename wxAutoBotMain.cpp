@@ -32,11 +32,6 @@ bool wxAutoBotApp::OnInit(void)
 
     m_taskManager->RefreshList();
 
-    //TaskManager*  task_manager = wxGetApp().getTaskManager();
-    //m_mainframe->GetTaskListCtrl()->SetItemCount(m_taskManager->GetTaskNum());
-    //m_mainframe->GetTaskListCtrl()->Refresh();
-    //m_mainframe->DoListSize();
-
     return true;
 }
 

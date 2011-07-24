@@ -8,6 +8,81 @@ int CompareDateData(int *first, int *second)
     return *first - *second;
 }
 
+TaskTimeData::TaskTimeData()
+{
+    m_specifieddate = new wxArrayInt();
+    ResetData();
+}
+
+TaskTimeData::~TaskTimeData()
+{
+}
+
+void TaskTimeData::ResetData()
+{
+    m_intervalseconds = 0;
+    m_specifiedtime = 0;
+    m_specifiedhours = 0;
+    m_specifiedminutes = 0;
+    m_specifiedseconds = 0;
+    m_specifieddate->Clear();
+}
+
+void TaskTimeData::SetIntervalSeconds(size_t seconds)
+{
+    m_intervalseconds = seconds;
+}
+
+void TaskTimeData::SetSpecifiedTime(time_t time)
+{
+    m_specifiedtime = time;
+}
+
+void TaskTimeData::SetSpecifiedHours(size_t hours)
+{
+    m_specifiedhours = hours;
+}
+
+void TaskTimeData::SetSpecifiedMinutes(size_t minutes)
+{
+    m_specifiedminutes = minutes;
+}
+
+void TaskTimeData::SetSpecifiedSeconds(size_t seconds)
+{
+    m_specifiedseconds = seconds;
+}
+
+size_t TaskTimeData::GetIntervalSeconds()
+{
+    return m_intervalseconds;
+}
+
+time_t TaskTimeData::GetSpecifiedTime()
+{
+    return m_specifiedtime;
+}
+
+size_t TaskTimeData::GetSpecifiedHours()
+{
+    return m_specifiedhours;
+}
+
+size_t TaskTimeData::GetSpecifiedMinutes()
+{
+    return m_specifiedminutes;
+}
+
+size_t TaskTimeData::GetSpecifiedSeconds()
+{
+    return m_specifiedseconds;
+}
+
+wxArrayInt* TaskTimeData::GetSpecifiedDate()
+{
+    return m_specifieddate;
+}
+
 TaskManager::TaskManager()
 {
      m_taskarray = NULL;
@@ -121,6 +196,7 @@ BotTask::BotTask()
     m_configfilename    = wxT("");
     m_taskname          = wxT("New Task");
     m_timer             = new wxTimer(this);
+    m_tasktimedata      = new TaskTimeData();
 
     m_timer->SetOwner(this);
     this->Connect(wxEVT_TIMER, wxTimerEventHandler(BotTask::OnTimer));
@@ -128,7 +204,7 @@ BotTask::BotTask()
     this->Connect(wxEVT_TASKPROCESS_SUCCESS, wxTaskProcessEventHandler(BotTask::OnTaskProcessDone));
     this->Connect(wxEVT_TASKPROCESS_FAIL, wxTaskProcessEventHandler(BotTask::OnTaskProcessDone));
 
-    ResetTimeData();
+    //ResetTimeData();
 }
 
 BotTask::~BotTask()
@@ -144,18 +220,25 @@ bool BotTask::ReadConfigData(wxString filename)
     m_taskname  = wxString(xmltask->GetElementText(xmltask->GetElement(XMLTASK_NAME, 0, true)), wxConvUTF8);
     m_tasktimmertype = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMERTYPE, 0, true), XMLTASK_TIMERTYPE_ATT));
 
-    m_timedata.interval_seconds  = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_INTERVAL));
-    m_timedata.specified_time    = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_TIME));
-    m_timedata.specified_hours   = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_HOURS));
-    m_timedata.specified_minutes = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_MINUTES));
-    m_timedata.specified_seconds = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_SECONDS));
+    //m_timedata.interval_seconds  = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_INTERVAL));
+    //m_timedata.specified_time    = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_TIME));
+    //m_timedata.specified_hours   = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_HOURS));
+    //m_timedata.specified_minutes = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_MINUTES));
+    //m_timedata.specified_seconds = atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_SECONDS));
+
+    m_tasktimedata->SetIntervalSeconds(atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_INTERVAL)));
+    m_tasktimedata->SetSpecifiedTime(atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_TIME)));
+    m_tasktimedata->SetSpecifiedHours(atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_HOURS)));
+    m_tasktimedata->SetSpecifiedMinutes(atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_MINUTES)));
+    m_tasktimedata->SetSpecifiedSeconds(atoi(xmltask->GetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_SECONDS)));
 
     size_t element_num  = xmltask->GetElementNum(XMLTASK_TIMEDATA_DATA);
     size_t element_data = 0;
     for(size_t index = 0; index < element_num; index++)
     {
         element_data = atoi(xmltask->GetElementText(xmltask->GetElement(XMLTASK_TIMEDATA_DATA, index)));
-        m_timedata.specified_date.Add(element_data);
+        //m_timedata.specified_date.Add(element_data);
+        m_tasktimedata->GetSpecifiedDate()->Add(element_data);
     }
 
     return true;
@@ -171,17 +254,25 @@ bool BotTask::WriteConfigData()
     xmltask->SetElementText(xmltask->GetElement(XMLTASK_NAME, 0, true), m_taskname.mb_str(wxConvUTF8));
     xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMERTYPE, 0, true), XMLTASK_TIMERTYPE_ATT, m_tasktimmertype);
 
-    xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_INTERVAL, m_timedata.interval_seconds);
-    xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_TIME, m_timedata.specified_time);
-    xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_HOURS, m_timedata.specified_hours);
-    xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_MINUTES, m_timedata.specified_minutes);
-    xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_SECONDS, m_timedata.specified_seconds);
+    //xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_INTERVAL, m_timedata.interval_seconds);
+    //xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_TIME, m_timedata.specified_time);
+    //xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_HOURS, m_timedata.specified_hours);
+    //xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_MINUTES, m_timedata.specified_minutes);
+    //xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_SECONDS, m_timedata.specified_seconds);
 
-    size_t element_num  = m_timedata.specified_date.GetCount();
+    xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_INTERVAL, m_tasktimedata->GetIntervalSeconds());
+    xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_TIME, m_tasktimedata->GetSpecifiedTime());
+    xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_HOURS, m_tasktimedata->GetSpecifiedHours());
+    xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_MINUTES, m_tasktimedata->GetSpecifiedMinutes());
+    xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMEDATA, 0, true), XMLTASK_TIMEDATA_SECONDS, m_tasktimedata->GetSpecifiedSeconds());
+
+    //size_t element_num  = m_timedata.specified_date.GetCount();
+    size_t element_num  = m_tasktimedata->GetSpecifiedDate()->GetCount();
     size_t element_data = 0;
     for(size_t index = 0; index < element_num; index++)
     {
-        element_data = m_timedata.specified_date.Item(index);
+        //element_data = m_timedata.specified_date.Item(index);
+        element_data = m_tasktimedata->GetSpecifiedDate()->Item(index);
         xmltask->SetElementText(xmltask->GetElement(XMLTASK_TIMEDATA_DATA, index, true), wxString::Format(wxT("%i"), element_data).mb_str(wxConvUTF8));
     }
 
@@ -191,12 +282,13 @@ bool BotTask::WriteConfigData()
 
 void BotTask::ResetTimeData()
 {
-    m_timedata.interval_seconds = 0;
-    m_timedata.specified_time   = 0;
-    m_timedata.specified_hours  = 0;
-    m_timedata.specified_minutes = 0;
-    m_timedata.specified_seconds = 0;
-    m_timedata.specified_date.Clear();
+    //m_timedata.interval_seconds = 0;
+    //m_timedata.specified_time   = 0;
+    //m_timedata.specified_hours  = 0;
+    //m_timedata.specified_minutes = 0;
+    //m_timedata.specified_seconds = 0;
+    //m_timedata.specified_date.Clear();
+    m_tasktimedata->ResetData();
 }
 
 wxString BotTask::GetTaskName()
@@ -231,9 +323,9 @@ size_t BotTask::GetTaskType()
     return m_tasktimmertype;
 }
 
-TimeData BotTask::GetTaskTimeData()
+TaskTimeData* BotTask::GetTaskTimeData()
 {
-    return m_timedata;
+    return m_tasktimedata;
 }
 
 wxString BotTask::GetTaskTime()
@@ -265,8 +357,10 @@ size_t BotTask::GetNextTicks()
     time_t ticks_left       = 0;
     time_t next_ticks       = 0;
     time_t current_ticks    = wxDateTime::Now().GetTicks();
-    size_t datedata_num     = m_timedata.specified_date.GetCount();
+    //size_t datedata_num     = m_timedata.specified_date.GetCount();
+    size_t datedata_num     = m_tasktimedata->GetSpecifiedDate()->GetCount();
     size_t target_day       = 0;
+
 
     wxDateTime current_datetime = wxDateTime::Now();
     time_t weeks_of_month       = current_datetime.GetWeekOfMonth();
@@ -274,30 +368,35 @@ size_t BotTask::GetNextTicks()
     switch(m_tasktimmertype)
     {
         case TASK_INTERVAL:
-            ticks_left = m_lastexecutetime + m_timedata.interval_seconds - current_ticks;
+            //ticks_left = m_lastexecutetime + m_timedata.interval_seconds - current_ticks;
+            ticks_left = m_lastexecutetime + m_tasktimedata->GetIntervalSeconds() - current_ticks;
             break;
 
         case TASK_SPECIFY:
-            ticks_left = m_timedata.specified_time - current_ticks;
+            //ticks_left = m_timedata.specified_time - current_ticks;
+            ticks_left = m_tasktimedata->GetSpecifiedTime() - current_ticks;
             break;
 
         case TASK_DAILY_INTERVAL:
-            next_ticks = wxDateTime::Now().ResetTime().GetTicks() + 3600*m_timedata.specified_hours + 60*m_timedata.specified_minutes + m_timedata.specified_seconds;
+            //next_ticks = wxDateTime::Now().ResetTime().GetTicks() + 3600*m_timedata.specified_hours + 60*m_timedata.specified_minutes + m_timedata.specified_seconds;
+            next_ticks = wxDateTime::Now().ResetTime().GetTicks() + 3600*m_tasktimedata->GetSpecifiedHours() + 60*m_tasktimedata->GetSpecifiedMinutes() + m_tasktimedata->GetSpecifiedSeconds();
             if(next_ticks < current_ticks) next_ticks = next_ticks + 86400; // 86400 seconds per day
             ticks_left = next_ticks - current_ticks;
             break;
 
         case TASK_WEEKLY_INTERVAL:
-            m_timedata.specified_date.Sort(CompareDateData);
+            //m_timedata.specified_date.Sort(CompareDateData);
+            m_tasktimedata->GetSpecifiedDate()->Sort(CompareDateData);
 
             for(size_t index = 0; index < datedata_num; index++)
             {
-                target_day = m_timedata.specified_date.Item(index);
+                //target_day = m_timedata.specified_date.Item(index);
+                target_day = m_tasktimedata->GetSpecifiedDate()->Item(index);
                 current_datetime.SetToWeekDay((wxDateTime::WeekDay)target_day, weeks_of_month);
 
-                current_datetime.SetHour(m_timedata.specified_hours);
-                current_datetime.SetMinute(m_timedata.specified_minutes);
-                current_datetime.SetSecond(m_timedata.specified_seconds);
+                current_datetime.SetHour(m_tasktimedata->GetSpecifiedHours());
+                current_datetime.SetMinute(m_tasktimedata->GetSpecifiedMinutes());
+                current_datetime.SetSecond(m_tasktimedata->GetSpecifiedSeconds());
                 next_ticks = current_datetime.GetTicks();
 
                 if((next_ticks > current_ticks) && !ticks_left) ticks_left = next_ticks - current_ticks;
@@ -305,12 +404,13 @@ size_t BotTask::GetNextTicks()
 
             if(!ticks_left)
             {
-                target_day = m_timedata.specified_date.Item(0);
+                //target_day = m_timedata.specified_date.Item(0);
+                target_day = m_tasktimedata->GetSpecifiedDate()->Item(0);
 
                 current_datetime.SetToWeekDay((wxDateTime::WeekDay)target_day, weeks_of_month + 1);
-                current_datetime.SetHour(m_timedata.specified_hours);
-                current_datetime.SetMinute(m_timedata.specified_minutes);
-                current_datetime.SetSecond(m_timedata.specified_seconds);
+                current_datetime.SetHour(m_tasktimedata->GetSpecifiedHours());
+                current_datetime.SetMinute(m_tasktimedata->GetSpecifiedMinutes());
+                current_datetime.SetSecond(m_tasktimedata->GetSpecifiedSeconds());
                 next_ticks = current_datetime.GetTicks();
 
                 ticks_left = next_ticks - current_ticks;
@@ -318,16 +418,18 @@ size_t BotTask::GetNextTicks()
             break;
 
         case TASK_MONTHLY_INTERVAL:
-            m_timedata.specified_date.Sort(CompareDateData);
+            //m_timedata.specified_date.Sort(CompareDateData);
+            m_tasktimedata->GetSpecifiedDate()->Sort(CompareDateData);
 
             for(size_t index = 0; index < datedata_num; index++)
             {
-                target_day = m_timedata.specified_date.Item(index);
+                //target_day = m_timedata.specified_date.Item(index);
+                target_day = m_tasktimedata->GetSpecifiedDate()->Item(index);
 
                 current_datetime.SetDay(target_day);
-                current_datetime.SetHour(m_timedata.specified_hours);
-                current_datetime.SetMinute(m_timedata.specified_minutes);
-                current_datetime.SetSecond(m_timedata.specified_seconds);
+                current_datetime.SetHour(m_tasktimedata->GetSpecifiedHours());
+                current_datetime.SetMinute(m_tasktimedata->GetSpecifiedMinutes());
+                current_datetime.SetSecond(m_tasktimedata->GetSpecifiedSeconds());
                 next_ticks = current_datetime.GetTicks();
 
                 if((next_ticks > current_ticks) && !ticks_left) ticks_left = next_ticks - current_ticks;
@@ -335,15 +437,15 @@ size_t BotTask::GetNextTicks()
 
             if(!ticks_left)
             {
-                target_day = m_timedata.specified_date.Item(0);
+                target_day = m_tasktimedata->GetSpecifiedDate()->Item(0);
 
                 size_t next_month = (size_t)current_datetime.GetMonth() + 1;
 
                 current_datetime.SetMonth((wxDateTime::Month)next_month);
                 current_datetime.SetDay(target_day);
-                current_datetime.SetHour(m_timedata.specified_hours);
-                current_datetime.SetMinute(m_timedata.specified_minutes);
-                current_datetime.SetSecond(m_timedata.specified_seconds);
+                current_datetime.SetHour(m_tasktimedata->GetSpecifiedHours());
+                current_datetime.SetMinute(m_tasktimedata->GetSpecifiedMinutes());
+                current_datetime.SetSecond(m_tasktimedata->GetSpecifiedSeconds());
                 next_ticks = current_datetime.GetTicks();
 
                 ticks_left = next_ticks - current_ticks;
@@ -425,6 +527,11 @@ void BotTask::SetTaskName(wxString task_name)
     m_taskname = task_name;
 }
 
+void BotTask::SetTaskType(size_t task_type)
+{
+    m_tasktimmertype = task_type;
+}
+
 void BotTask::CloneTask(BotTask *bot_task)
 {
     ResetTimeData();
@@ -434,5 +541,7 @@ void BotTask::CloneTask(BotTask *bot_task)
     m_lastexecutetime = bot_task->GetLastExecuteTime();
     m_configfilename = bot_task->GetConfigFileName();
     m_taskname = bot_task->GetTaskName();
-    m_timedata = bot_task->GetTaskTimeData();
+    //m_timedata = bot_task->GetTaskTimeData();
 }
+
+

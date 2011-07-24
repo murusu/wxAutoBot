@@ -160,48 +160,48 @@ void TaskDialog::InitTaskDialog()
     {
         case TASK_INTERVAL:
             m_panel_baseinterval->Show(true);
-            m_textCtrl_interval->SetValue(wxString::Format(wxT("%i"), m_bottask->GetTaskTimeData().interval_seconds));
+            m_textCtrl_interval->SetValue(wxString::Format(wxT("%i"), m_bottask->GetTaskTimeData()->GetIntervalSeconds()));
             break;
 
         case TASK_SPECIFY:
             m_panel_baseonce->Show(true);
-            m_datePicker_once->SetValue(wxDateTime(m_bottask->GetTaskTimeData().specified_time));
-            m_spinCtrl_once_hour->SetValue(m_bottask->GetTaskTimeData().specified_hours);
-            m_spinCtrl_once_minute->SetValue(m_bottask->GetTaskTimeData().specified_minutes);
-            m_spinCtrl_once_second->SetValue(m_bottask->GetTaskTimeData().specified_seconds);
+            m_datePicker_once->SetValue(wxDateTime(m_bottask->GetTaskTimeData()->GetSpecifiedTime()));
+            m_spinCtrl_once_hour->SetValue(m_bottask->GetTaskTimeData()->GetSpecifiedHours());
+            m_spinCtrl_once_minute->SetValue(m_bottask->GetTaskTimeData()->GetSpecifiedMinutes());
+            m_spinCtrl_once_second->SetValue(m_bottask->GetTaskTimeData()->GetSpecifiedSeconds());
             break;
 
         case TASK_DAILY_INTERVAL:
             m_panel_basedaliy->Show(true);
-            m_spinCtrl_daliy_hour->SetValue(m_bottask->GetTaskTimeData().specified_hours);
-            m_spinCtrl_daliy_minute->SetValue(m_bottask->GetTaskTimeData().specified_minutes);
-            m_spinCtrl_daliy_second->SetValue(m_bottask->GetTaskTimeData().specified_seconds);
+            m_spinCtrl_daliy_hour->SetValue(m_bottask->GetTaskTimeData()->GetSpecifiedHours());
+            m_spinCtrl_daliy_minute->SetValue(m_bottask->GetTaskTimeData()->GetSpecifiedMinutes());
+            m_spinCtrl_daliy_second->SetValue(m_bottask->GetTaskTimeData()->GetSpecifiedSeconds());
             break;
 
         case TASK_WEEKLY_INTERVAL:
             m_panel_baseweekly->Show(true);
-            m_spinCtrl_weekly_hour->SetValue(m_bottask->GetTaskTimeData().specified_hours);
-            m_spinCtrl_weekly_minute->SetValue(m_bottask->GetTaskTimeData().specified_minutes);
-            m_spinCtrl_weekly_second->SetValue(m_bottask->GetTaskTimeData().specified_seconds);
+            m_spinCtrl_weekly_hour->SetValue(m_bottask->GetTaskTimeData()->GetSpecifiedHours());
+            m_spinCtrl_weekly_minute->SetValue(m_bottask->GetTaskTimeData()->GetSpecifiedMinutes());
+            m_spinCtrl_weekly_second->SetValue(m_bottask->GetTaskTimeData()->GetSpecifiedSeconds());
 
-            date_num = m_bottask->GetTaskTimeData().specified_date.GetCount();
+            date_num = m_bottask->GetTaskTimeData()->GetSpecifiedDate()->GetCount();
             for(size_t index = 0; index < date_num; index++)
             {
-                date_data = m_bottask->GetTaskTimeData().specified_date.Item(index);
+                date_data = m_bottask->GetTaskTimeData()->GetSpecifiedDate()->Item(index);
                 ((wxCheckBox *)FindWindowByName(wxT("m_checkBox_week_") + wxString::Format(wxT("%i"), date_data)))->SetValue(true);
             }
             break;
 
         case TASK_MONTHLY_INTERVAL:
             m_panel_basemonthly->Show(true);
-            m_spinCtrl_monthly_hour->SetValue(m_bottask->GetTaskTimeData().specified_hours);
-            m_spinCtrl_monthly_minute->SetValue(m_bottask->GetTaskTimeData().specified_minutes);
-            m_spinCtrl_monthly_second->SetValue(m_bottask->GetTaskTimeData().specified_seconds);
+            m_spinCtrl_monthly_hour->SetValue(m_bottask->GetTaskTimeData()->GetSpecifiedHours());
+            m_spinCtrl_monthly_minute->SetValue(m_bottask->GetTaskTimeData()->GetSpecifiedMinutes());
+            m_spinCtrl_monthly_second->SetValue(m_bottask->GetTaskTimeData()->GetSpecifiedSeconds());
 
-            date_num = m_bottask->GetTaskTimeData().specified_date.GetCount();
+            date_num = m_bottask->GetTaskTimeData()->GetSpecifiedDate()->GetCount();
             for(size_t index = 0; index < date_num; index++)
             {
-                date_data = m_bottask->GetTaskTimeData().specified_date.Item(index);
+                date_data = m_bottask->GetTaskTimeData()->GetSpecifiedDate()->Item(index);
                 ((wxCheckBox *)FindWindowByName(wxT("m_checkBox_month_") + wxString::Format(wxT("%i"), date_data)))->SetValue(true);
             }
             break;
@@ -290,42 +290,43 @@ void TaskDialog::GetDialogData()
 {
     m_bottask->ResetTimeData();
     m_bottask->SetTaskName(m_textCtrl_taskname->GetValue());
+    m_bottask->SetTaskType(m_choice_tasktype->GetCurrentSelection());
 
     switch(m_choice_tasktype->GetCurrentSelection())
     {
         case TASK_INTERVAL:
-            m_bottask->GetTaskTimeData().interval_seconds = wxAtoi(m_textCtrl_interval->GetValue());
+            m_bottask->GetTaskTimeData()->SetIntervalSeconds(wxAtoi(m_textCtrl_interval->GetValue()));
             break;
 
         case TASK_SPECIFY:
-            m_bottask->GetTaskTimeData().specified_time = m_datePicker_once->GetValue().SetHour(m_spinCtrl_once_hour->GetValue()).SetMinute(m_spinCtrl_once_minute->GetValue()).SetSecond(m_spinCtrl_once_second->GetValue()).GetTicks();
+            m_bottask->GetTaskTimeData()->SetSpecifiedTime(m_datePicker_once->GetValue().SetHour(m_spinCtrl_once_hour->GetValue()).SetMinute(m_spinCtrl_once_minute->GetValue()).SetSecond(m_spinCtrl_once_second->GetValue()).GetTicks());
             break;
 
         case TASK_DAILY_INTERVAL:
-            m_bottask->GetTaskTimeData().specified_hours = m_spinCtrl_daliy_hour->GetValue();
-            m_bottask->GetTaskTimeData().specified_minutes = m_spinCtrl_daliy_minute->GetValue();
-            m_bottask->GetTaskTimeData().specified_seconds = m_spinCtrl_daliy_second->GetValue();
+            m_bottask->GetTaskTimeData()->SetSpecifiedHours(m_spinCtrl_daliy_hour->GetValue());
+            m_bottask->GetTaskTimeData()->SetSpecifiedMinutes(m_spinCtrl_daliy_minute->GetValue());
+            m_bottask->GetTaskTimeData()->SetSpecifiedSeconds(m_spinCtrl_daliy_second->GetValue());
             break;
 
         case TASK_WEEKLY_INTERVAL:
-            m_bottask->GetTaskTimeData().specified_hours = m_spinCtrl_weekly_hour->GetValue();
-            m_bottask->GetTaskTimeData().specified_minutes = m_spinCtrl_weekly_minute->GetValue();
-            m_bottask->GetTaskTimeData().specified_seconds = m_spinCtrl_weekly_second->GetValue();
+            m_bottask->GetTaskTimeData()->SetSpecifiedHours(m_spinCtrl_weekly_hour->GetValue());
+            m_bottask->GetTaskTimeData()->SetSpecifiedMinutes(m_spinCtrl_weekly_minute->GetValue());
+            m_bottask->GetTaskTimeData()->SetSpecifiedSeconds(m_spinCtrl_weekly_second->GetValue());
 
             for(size_t index = 0; index < 7; index++)
             {
-                if(((wxCheckBox *)FindWindowByName(wxT("m_checkBox_week_") + wxString::Format(wxT("%i"), index)))->GetValue()) m_bottask->GetTaskTimeData().specified_date.Add(index);
+                if(((wxCheckBox *)FindWindowByName(wxT("m_checkBox_week_") + wxString::Format(wxT("%i"), index)))->GetValue()) m_bottask->GetTaskTimeData()->GetSpecifiedDate()->Add(index);
             }
             break;
 
         case TASK_MONTHLY_INTERVAL:
-            m_bottask->GetTaskTimeData().specified_hours = m_spinCtrl_monthly_hour->GetValue();
-            m_bottask->GetTaskTimeData().specified_minutes = m_spinCtrl_monthly_minute->GetValue();
-            m_bottask->GetTaskTimeData().specified_seconds = m_spinCtrl_monthly_second->GetValue();
+            m_bottask->GetTaskTimeData()->SetSpecifiedHours(m_spinCtrl_monthly_hour->GetValue());
+            m_bottask->GetTaskTimeData()->SetSpecifiedMinutes(m_spinCtrl_monthly_minute->GetValue());
+            m_bottask->GetTaskTimeData()->SetSpecifiedSeconds(m_spinCtrl_monthly_second->GetValue());
 
             for(size_t index = 0; index < 7; index++)
             {
-                if(((wxCheckBox *)FindWindowByName(wxT("m_checkBox_month_") + wxString::Format(wxT("%i"), index)))->GetValue()) m_bottask->GetTaskTimeData().specified_date.Add(index);
+                if(((wxCheckBox *)FindWindowByName(wxT("m_checkBox_month_") + wxString::Format(wxT("%i"), index)))->GetValue()) m_bottask->GetTaskTimeData()->GetSpecifiedDate()->Add(index);
             }
             break;
     }

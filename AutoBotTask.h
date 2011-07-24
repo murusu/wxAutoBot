@@ -17,7 +17,7 @@ class BotTask;
 class wxTaskProcessEvent;
 
 WX_DECLARE_OBJARRAY(BotTask *, TaskArray);
-
+/*
 struct TimeData
 {
     size_t interval_seconds;
@@ -26,6 +26,37 @@ struct TimeData
     size_t specified_minutes;
     size_t specified_seconds;
     wxArrayInt specified_date;
+};
+*/
+class TaskTimeData
+{
+    private:
+        size_t m_intervalseconds;
+        time_t m_specifiedtime;
+        size_t m_specifiedhours;
+        size_t m_specifiedminutes;
+        size_t m_specifiedseconds;
+        wxArrayInt* m_specifieddate;
+
+    public:
+        TaskTimeData();
+        ~TaskTimeData();
+
+        void ResetData();
+
+        void SetIntervalSeconds(size_t seconds);
+        void SetSpecifiedTime(time_t time);
+        void SetSpecifiedHours(size_t hours);
+        void SetSpecifiedMinutes(size_t minutes);
+        void SetSpecifiedSeconds(size_t seconds);
+        //void AddSpecifiedSDate(size_t date);
+
+        size_t GetIntervalSeconds();
+        time_t GetSpecifiedTime();
+        size_t GetSpecifiedHours();
+        size_t GetSpecifiedMinutes();
+        size_t GetSpecifiedSeconds();
+        wxArrayInt* GetSpecifiedDate();
 };
 
 class TaskManager : public wxEvtHandler
@@ -62,7 +93,8 @@ class BotTask : public wxEvtHandler
         time_t      m_lastexecutetime;
         wxString    m_configfilename;
         wxString    m_taskname;
-        TimeData    m_timedata;
+        //TimeData    m_timedata;
+        TaskTimeData* m_tasktimedata;
         wxTimer*    m_timer;
 
     protected:
@@ -82,7 +114,7 @@ class BotTask : public wxEvtHandler
         wxString GetTaskTime();
 
         size_t GetTaskType();
-        TimeData GetTaskTimeData();
+        TaskTimeData* GetTaskTimeData();
         size_t GetNextTicks();
         time_t GetLastExecuteTime();
         size_t GetTaskStatusType();
@@ -94,7 +126,7 @@ class BotTask : public wxEvtHandler
         void SetConfigFileName(wxString config_file);
 
         void SetTaskName(wxString task_name);
-
+        void SetTaskType(size_t task_type);
         void CloneTask(BotTask *bot_task);
 };
 
