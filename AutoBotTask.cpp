@@ -369,6 +369,7 @@ size_t BotTask::GetNextTicks()
     {
         case TASK_INTERVAL:
             //ticks_left = m_lastexecutetime + m_timedata.interval_seconds - current_ticks;
+            if(!m_lastexecutetime) m_lastexecutetime = current_ticks;
             ticks_left = m_lastexecutetime + m_tasktimedata->GetIntervalSeconds() - current_ticks;
             break;
 
@@ -510,6 +511,7 @@ void BotTask::StopTask()
 {
     m_timer->Stop();
     m_taskstatus = TASKSTATUS_STOP;
+    m_lastexecutetime = 0;
 }
 
 time_t BotTask::GetLastExecuteTime()

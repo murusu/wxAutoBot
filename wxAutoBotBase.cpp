@@ -39,6 +39,19 @@ MainFrameBase::MainFrameBase( wxWindow* parent, wxWindowID id, const wxString& t
 	m_menu_task->Append( m_menuItem_deletetask );
 	m_menuItem_deletetask->Enable( false );
 	
+	wxMenuItem* m_separator1;
+	m_separator1 = m_menu_task->AppendSeparator();
+	
+	wxMenuItem* m_menuItem_starttask;
+	m_menuItem_starttask = new wxMenuItem( m_menu_task, wxID_Menu_StartTask, wxString( _("Start Task") ) , wxEmptyString, wxITEM_NORMAL );
+	m_menu_task->Append( m_menuItem_starttask );
+	m_menuItem_starttask->Enable( false );
+	
+	wxMenuItem* m_menuItem_stoptask;
+	m_menuItem_stoptask = new wxMenuItem( m_menu_task, wxID_Menu_StopTask, wxString( _("Stop Task") ) , wxEmptyString, wxITEM_NORMAL );
+	m_menu_task->Append( m_menuItem_stoptask );
+	m_menuItem_stoptask->Enable( false );
+	
 	m_menubar->Append( m_menu_task, _("Task") ); 
 	
 	this->SetMenuBar( m_menubar );
@@ -61,6 +74,10 @@ MainFrameBase::MainFrameBase( wxWindow* parent, wxWindowID id, const wxString& t
 	this->Connect( wxID_Menu_EditTask, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( MainFrameBase::OnMenuClick ) );
 	this->Connect( wxID_Menu_DeleteTask, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainFrameBase::OnDeleteTask ) );
 	this->Connect( wxID_Menu_DeleteTask, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( MainFrameBase::OnMenuClick ) );
+	this->Connect( wxID_Menu_StartTask, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainFrameBase::OnStartTask ) );
+	this->Connect( wxID_Menu_StartTask, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( MainFrameBase::OnMenuClick ) );
+	this->Connect( wxID_Menu_StopTask, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainFrameBase::OnStopTask ) );
+	this->Connect( wxID_Menu_StopTask, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( MainFrameBase::OnMenuClick ) );
 	m_listCtrl->Connect( wxEVT_COMMAND_LIST_ITEM_ACTIVATED, wxListEventHandler( MainFrameBase::OnListItemActivated ), NULL, this );
 	m_listCtrl->Connect( wxEVT_SIZE, wxSizeEventHandler( MainFrameBase::ListSizeChange ), NULL, this );
 }
@@ -74,6 +91,10 @@ MainFrameBase::~MainFrameBase()
 	this->Disconnect( wxID_Menu_EditTask, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( MainFrameBase::OnMenuClick ) );
 	this->Disconnect( wxID_Menu_DeleteTask, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainFrameBase::OnDeleteTask ) );
 	this->Disconnect( wxID_Menu_DeleteTask, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( MainFrameBase::OnMenuClick ) );
+	this->Disconnect( wxID_Menu_StartTask, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainFrameBase::OnStartTask ) );
+	this->Disconnect( wxID_Menu_StartTask, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( MainFrameBase::OnMenuClick ) );
+	this->Disconnect( wxID_Menu_StopTask, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainFrameBase::OnStopTask ) );
+	this->Disconnect( wxID_Menu_StopTask, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( MainFrameBase::OnMenuClick ) );
 	m_listCtrl->Disconnect( wxEVT_COMMAND_LIST_ITEM_ACTIVATED, wxListEventHandler( MainFrameBase::OnListItemActivated ), NULL, this );
 	m_listCtrl->Disconnect( wxEVT_SIZE, wxSizeEventHandler( MainFrameBase::ListSizeChange ), NULL, this );
 	

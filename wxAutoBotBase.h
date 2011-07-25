@@ -43,6 +43,8 @@ class TaskListCtrl;
 #define wxID_Menu_AddTask 1001
 #define wxID_Menu_EditTask 1002
 #define wxID_Menu_DeleteTask 1003
+#define wxID_Menu_StartTask 1004
+#define wxID_Menu_StopTask 1005
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Class MainFrameBase
@@ -64,6 +66,8 @@ class MainFrameBase : public wxFrame
 		virtual void OnEditTask( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnMenuClick( wxUpdateUIEvent& event ) { event.Skip(); }
 		virtual void OnDeleteTask( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnStartTask( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnStopTask( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnListItemActivated( wxListEvent& event ) { event.Skip(); }
 		virtual void ListSizeChange( wxSizeEvent& event ) { event.Skip(); }
 		

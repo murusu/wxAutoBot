@@ -25,6 +25,8 @@ class MainFrame : public MainFrameBase
 		void OnEditTask( wxCommandEvent& event );
 		void OnMenuClick( wxUpdateUIEvent& event );
 		void OnDeleteTask( wxCommandEvent& event );
+		void OnStartTask( wxCommandEvent& event );
+		void OnStopTask( wxCommandEvent& event );
 		void OnListItemActivated( wxListEvent& event );
 		void ListSizeChange( wxSizeEvent& event );
 

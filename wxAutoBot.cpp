@@ -49,10 +49,30 @@ MainFrame::~MainFrame()
 
 void MainFrame::OnMenuClick( wxUpdateUIEvent& event )
 {
+    long item_index = -1;
+    size_t task_type = 0;
+
     if(m_listCtrl->GetSelectedItemCount())
     {
         m_menu_task->FindItem(wxID_Menu_EditTask)->Enable(true);
         m_menu_task->FindItem(wxID_Menu_DeleteTask)->Enable(true);
+
+        item_index = m_listCtrl->GetNextItem(item_index, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+        task_type  = wxGetApp().getTaskManager()->GetTaskArray()->Item(item_index)->GetTaskStatusType();
+
+        switch(task_type)
+        {
+            case TASKSTATUS_STOP:
+                m_menu_task->FindItem(wxID_Menu_StartTask)->Enable(true);
+                m_menu_task->FindItem(wxID_Menu_StopTask)->Enable(false);
+                break;
+
+            case TASKSTATUS_WAITING:
+            case TASKSTATUS_RUNNING:
+                m_menu_task->FindItem(wxID_Menu_StartTask)->Enable(false);
+                m_menu_task->FindItem(wxID_Menu_StopTask)->Enable(true);
+                break;
+        }
     }
     else
     {
@@ -93,6 +113,22 @@ void MainFrame::OnEditTask( wxCommandEvent& event )
 void MainFrame::OnDeleteTask( wxCommandEvent& event )
 {
 
+}
+
+void MainFrame::OnStartTask( wxCommandEvent& event )
+{
+    long item_index = -1;
+    item_index      = m_listCtrl->GetNextItem(item_index, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+
+    wxGetApp().getTaskManager()->GetTaskArray()->Item(item_index)->StartTask();
+}
+
+void MainFrame::OnStopTask( wxCommandEvent& event )
+{
+    long item_index = -1;
+    item_index      = m_listCtrl->GetNextItem(item_index, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+
+    wxGetApp().getTaskManager()->GetTaskArray()->Item(item_index)->StopTask();
 }
 
 void MainFrame::OnListItemActivated( wxListEvent& event )
@@ -299,7 +335,10 @@ void TaskDialog::GetDialogData()
             break;
 
         case TASK_SPECIFY:
-            m_bottask->GetTaskTimeData()->SetSpecifiedTime(m_datePicker_once->GetValue().SetHour(m_spinCtrl_once_hour->GetValue()).SetMinute(m_spinCtrl_once_minute->GetValue()).SetSecond(m_spinCtrl_once_second->GetValue()).GetTicks());
+            m_bottask->GetTaskTimeData()->SetSpecifiedTime(m_datePicker_once->GetValue().GetTicks());//.SetHour(m_spinCtrl_once_hour->GetValue()).SetMinute(m_spinCtrl_once_minute->GetValue()).SetSecond(m_spinCtrl_once_second->GetValue()).GetTicks());
+            m_bottask->GetTaskTimeData()->SetSpecifiedHours(m_spinCtrl_once_hour->GetValue());
+            m_bottask->GetTaskTimeData()->SetSpecifiedMinutes(m_spinCtrl_once_minute->GetValue());
+            m_bottask->GetTaskTimeData()->SetSpecifiedSeconds(m_spinCtrl_once_second->GetValue());
             break;
 
         case TASK_DAILY_INTERVAL:
@@ -324,9 +363,9 @@ void TaskDialog::GetDialogData()
             m_bottask->GetTaskTimeData()->SetSpecifiedMinutes(m_spinCtrl_monthly_minute->GetValue());
             m_bottask->GetTaskTimeData()->SetSpecifiedSeconds(m_spinCtrl_monthly_second->GetValue());
 
-            for(size_t index = 0; index < 7; index++)
+            for(size_t index = 0; index < 31; index++)
             {
-                if(((wxCheckBox *)FindWindowByName(wxT("m_checkBox_month_") + wxString::Format(wxT("%i"), index)))->GetValue()) m_bottask->GetTaskTimeData()->GetSpecifiedDate()->Add(index);
+                if(((wxCheckBox *)FindWindowByName(wxT("m_checkBox_month_") + wxString::Format(wxT("%i"), index + 1)))->GetValue()) m_bottask->GetTaskTimeData()->GetSpecifiedDate()->Add(index + 1);
             }
             break;
     }
