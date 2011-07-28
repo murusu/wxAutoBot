@@ -188,6 +188,19 @@ void TaskManager::AddTask(BotTask *bot_task)
     m_taskarray->Add(ptaskitem);
 }
 
+void TaskManager::DeleteTask(size_t index)
+{
+    BotTask *bot_task = NULL;
+    bot_task = m_taskarray->Item(index);
+
+    if(bot_task->GetTaskStatusType() == TASKSTATUS_STOP )
+    {
+        bot_task->DeleteConfigFile();
+        delete bot_task;
+        m_taskarray->RemoveAt(index);
+    }
+}
+
 BotTask::BotTask()
 {
     m_tasktimmertype    = TASK_INTERVAL;
@@ -505,6 +518,16 @@ wxString BotTask::GetConfigFileName()
 void BotTask::SetConfigFileName(wxString config_file)
 {
     m_configfilename = config_file;
+}
+
+bool BotTask::DeleteConfigFile()
+{
+    if(m_configfilename.Len())
+    {
+        wxRemoveFile(wxString(XMLTASK_PATH, wxConvUTF8) + wxT("/") + m_configfilename);
+    }
+
+    return true;
 }
 
 void BotTask::StopTask()

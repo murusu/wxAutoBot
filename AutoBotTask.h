@@ -81,6 +81,7 @@ class TaskManager : public wxEvtHandler
         wxString GetTaskStatus(long index);
 
         void AddTask(BotTask *bot_task);
+        void DeleteTask(size_t index);
 
         void RefreshList();
 };
@@ -124,6 +125,7 @@ class BotTask : public wxEvtHandler
 
         wxString GetConfigFileName();
         void SetConfigFileName(wxString config_file);
+        bool DeleteConfigFile();
 
         void SetTaskName(wxString task_name);
         void SetTaskType(size_t task_type);
