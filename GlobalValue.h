@@ -13,6 +13,7 @@ const char * const XMLLOG_ROOTNAME  = "log";
 const size_t TASKSTATUS_STOP    = 1;
 const size_t TASKSTATUS_WAITING = 2;
 const size_t TASKSTATUS_RUNNING = 3;
+const size_t TASKSTATUS_ERROR   = 4;
 
 const size_t TASK_INTERVAL          = 0;
 const size_t TASK_SPECIFY           = 1;

@@ -212,6 +212,7 @@ void TaskDialog::InitTaskDialog()
         m_bottask->SetConfigFileName(wxT("task_") + wxDateTime::Now().Format(wxT("%Y%m%d%H%M%S%l")) + wxT(".xml"));
     }
 
+    wxCheckBox * target_checkbox = NULL;
     size_t task_type = m_bottask->GetTaskType();
 
     m_textCtrl_taskname->SetValue(m_bottask->GetTaskName());
@@ -258,7 +259,9 @@ void TaskDialog::InitTaskDialog()
             for(size_t index = 0; index < date_num; index++)
             {
                 date_data = m_bottask->GetTaskTimeData()->GetSpecifiedDate()->Item(index);
-                ((wxCheckBox *)FindWindowByName(wxT("m_checkBox_week_") + wxString::Format(wxT("%i"), date_data)))->SetValue(true);
+                //((wxCheckBox *)FindWindowByName(wxT("m_checkBox_week_") + wxString::Format(wxT("%i"), date_data)))->SetValue(true);
+                target_checkbox = (wxCheckBox *)FindWindowByName(wxT("m_checkBox_week_") + wxString::Format(wxT("%i"), date_data));
+                if(target_checkbox) target_checkbox->SetValue(true);
             }
             break;
 
@@ -272,7 +275,9 @@ void TaskDialog::InitTaskDialog()
             for(size_t index = 0; index < date_num; index++)
             {
                 date_data = m_bottask->GetTaskTimeData()->GetSpecifiedDate()->Item(index);
-                ((wxCheckBox *)FindWindowByName(wxT("m_checkBox_month_") + wxString::Format(wxT("%i"), date_data)))->SetValue(true);
+                //((wxCheckBox *)FindWindowByName(wxT("m_checkBox_month_") + wxString::Format(wxT("%i"), date_data)))->SetValue(true);
+                target_checkbox = (wxCheckBox *)FindWindowByName(wxT("m_checkBox_month_") + wxString::Format(wxT("%i"), date_data));
+                if(target_checkbox) target_checkbox->SetValue(true);
             }
             break;
     }
@@ -386,6 +391,7 @@ void TaskDialog::GetDialogData()
             m_bottask->GetTaskTimeData()->SetSpecifiedMinutes(m_spinCtrl_weekly_minute->GetValue());
             m_bottask->GetTaskTimeData()->SetSpecifiedSeconds(m_spinCtrl_weekly_second->GetValue());
 
+            m_bottask->GetTaskTimeData()->GetSpecifiedDate()->Clear();
             for(size_t index = 0; index < 7; index++)
             {
                 if(((wxCheckBox *)FindWindowByName(wxT("m_checkBox_week_") + wxString::Format(wxT("%i"), index)))->GetValue()) m_bottask->GetTaskTimeData()->GetSpecifiedDate()->Add(index);
@@ -397,6 +403,7 @@ void TaskDialog::GetDialogData()
             m_bottask->GetTaskTimeData()->SetSpecifiedMinutes(m_spinCtrl_monthly_minute->GetValue());
             m_bottask->GetTaskTimeData()->SetSpecifiedSeconds(m_spinCtrl_monthly_second->GetValue());
 
+            m_bottask->GetTaskTimeData()->GetSpecifiedDate()->Clear();
             for(size_t index = 0; index < 31; index++)
             {
                 if(((wxCheckBox *)FindWindowByName(wxT("m_checkBox_month_") + wxString::Format(wxT("%i"), index + 1)))->GetValue()) m_bottask->GetTaskTimeData()->GetSpecifiedDate()->Add(index + 1);

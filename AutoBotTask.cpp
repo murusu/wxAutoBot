@@ -198,6 +198,8 @@ void TaskManager::DeleteTask(size_t index)
         bot_task->DeleteConfigFile();
         delete bot_task;
         m_taskarray->RemoveAt(index);
+
+        RefreshList();
     }
 }
 
@@ -382,13 +384,13 @@ size_t BotTask::GetNextTicks()
     {
         case TASK_INTERVAL:
             //ticks_left = m_lastexecutetime + m_timedata.interval_seconds - current_ticks;
-            if(!m_lastexecutetime) m_lastexecutetime = current_ticks;
+            //if(!m_lastexecutetime) m_lastexecutetime = current_ticks;
             ticks_left = m_lastexecutetime + m_tasktimedata->GetIntervalSeconds() - current_ticks;
             break;
 
         case TASK_SPECIFY:
             //ticks_left = m_timedata.specified_time - current_ticks;
-            ticks_left = m_tasktimedata->GetSpecifiedTime() - current_ticks;
+            ticks_left = m_tasktimedata->GetSpecifiedTime() + m_tasktimedata->GetSpecifiedHours() * 3600 + m_tasktimedata->GetSpecifiedMinutes() * 60 + m_tasktimedata->GetSpecifiedSeconds() - current_ticks;
             break;
 
         case TASK_DAILY_INTERVAL:
@@ -534,7 +536,7 @@ void BotTask::StopTask()
 {
     m_timer->Stop();
     m_taskstatus = TASKSTATUS_STOP;
-    m_lastexecutetime = 0;
+    m_lastexecutetime = wxDateTime::Now().GetTicks();
 }
 
 time_t BotTask::GetLastExecuteTime()
@@ -566,7 +568,21 @@ void BotTask::CloneTask(BotTask *bot_task)
     m_lastexecutetime = bot_task->GetLastExecuteTime();
     m_configfilename = bot_task->GetConfigFileName();
     m_taskname = bot_task->GetTaskName();
+
+    m_tasktimedata->SetIntervalSeconds(bot_task->GetTaskTimeData()->GetIntervalSeconds());
+    m_tasktimedata->SetSpecifiedTime(bot_task->GetTaskTimeData()->GetSpecifiedTime());
+    m_tasktimedata->SetSpecifiedHours(bot_task->GetTaskTimeData()->GetSpecifiedHours());
+    m_tasktimedata->SetSpecifiedMinutes(bot_task->GetTaskTimeData()->GetSpecifiedMinutes());
+    m_tasktimedata->SetSpecifiedSeconds(bot_task->GetTaskTimeData()->GetSpecifiedSeconds());
+    //m_tasktimedata->GetSpecifiedDate() = bot_task->GetTaskTimeData()->GetSpecifiedDate();
     //m_timedata = bot_task->GetTaskTimeData();
+
+    size_t datedata_num = bot_task->GetTaskTimeData()->GetSpecifiedDate()->GetCount();
+    m_tasktimedata->GetSpecifiedDate()->Clear();
+    for(size_t index = 0; index < datedata_num; index++)
+    {
+        m_tasktimedata->GetSpecifiedDate()->Add(bot_task->GetTaskTimeData()->GetSpecifiedDate()->Item(index));
+    }
 }
 
 
