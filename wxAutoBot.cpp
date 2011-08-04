@@ -49,39 +49,6 @@ MainFrame::~MainFrame()
 
 void MainFrame::OnMenuClick( wxUpdateUIEvent& event )
 {
-    /*
-    long item_index = -1;
-    size_t task_type = 0;
-
-    if(m_listCtrl->GetSelectedItemCount())
-    {
-        m_menu_task->FindItem(wxID_Menu_EditTask)->Enable(true);
-        m_menu_task->FindItem(wxID_Menu_DeleteTask)->Enable(false);
-
-        item_index = m_listCtrl->GetNextItem(item_index, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
-        task_type  = wxGetApp().getTaskManager()->GetTaskArray()->Item(item_index)->GetTaskStatusType();
-
-        switch(task_type)
-        {
-            case TASKSTATUS_STOP:
-                m_menu_task->FindItem(wxID_Menu_DeleteTask)->Enable(true);
-                m_menu_task->FindItem(wxID_Menu_StartTask)->Enable(true);
-                m_menu_task->FindItem(wxID_Menu_StopTask)->Enable(false);
-                break;
-
-            case TASKSTATUS_WAITING:
-            case TASKSTATUS_RUNNING:
-                m_menu_task->FindItem(wxID_Menu_StartTask)->Enable(false);
-                m_menu_task->FindItem(wxID_Menu_StopTask)->Enable(true);
-                break;
-        }
-    }
-    else
-    {
-        m_menu_task->FindItem(wxID_Menu_EditTask)->Enable(false);
-        m_menu_task->FindItem(wxID_Menu_DeleteTask)->Enable(false);
-    }
-    */
     m_menu_task->FindItem(wxID_Menu_EditTask)->Enable(false);
     m_menu_task->FindItem(wxID_Menu_DeleteTask)->Enable(false);
     m_menu_task->FindItem(wxID_Menu_StartTask)->Enable(false);
@@ -100,6 +67,7 @@ void MainFrame::OnMenuClick( wxUpdateUIEvent& event )
         switch(task_type)
         {
             case TASKSTATUS_STOP:
+            case TASKSTATUS_ERROR:
                 m_menu_task->FindItem(wxID_Menu_DeleteTask)->Enable(true);
                 m_menu_task->FindItem(wxID_Menu_StartTask)->Enable(true);
                 break;

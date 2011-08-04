@@ -333,7 +333,9 @@ wxString BotTask::GetTaskTime()
     wxString lefttime_str;
     time_t ticks_left = GetNextTicks();
 
-    if(ticks_left/86400) //return wxString::Format(_("%i days later"), ticks_left/86400);
+    if(!ticks_left) return _("0 second later");
+
+    if(ticks_left/86400)
     {
         if((ticks_left%86400)/43200)
         {
@@ -344,7 +346,7 @@ wxString BotTask::GetTaskTime()
             return wxString::Format(_("%i days later"), ticks_left/86400);
         }
     }
-    if(ticks_left/3600) //return wxString::Format(_("%i hours later"), ticks_left/3600);
+    if(ticks_left/3600)
     {
         if((ticks_left%3600)/1800)
         {
@@ -530,7 +532,6 @@ void BotTask::StopTask()
 {
     m_timer->Stop();
     m_taskstatus = TASKSTATUS_STOP;
-    //m_lastexecutetime = wxDateTime::Now().GetTicks();
 }
 
 time_t BotTask::GetLastExecuteTime()

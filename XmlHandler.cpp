@@ -196,4 +196,3 @@ bool XmlHandler::SaveXmlFile()
 
     return m_xmldoc->SaveFile(m_filename->c_str());
 }
-
