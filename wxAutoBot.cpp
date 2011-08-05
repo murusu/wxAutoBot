@@ -311,8 +311,7 @@ void TaskDialog::OnSaveTaskDialog(wxCommandEvent& event)
             task_found = true;
 
             m_bottask->WriteConfigData();
-            target_task->ReadConfigData(target_task->GetConfigFileName());
-            //target_task->StartTask();
+            target_task->CloneTask(m_bottask);
 
             wxGetApp().getTaskManager()->RefreshList();
         }

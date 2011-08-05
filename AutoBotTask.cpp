@@ -258,6 +258,7 @@ bool BotTask::WriteConfigData()
 
     XmlTask *xmltask = new XmlTask();
     if(!xmltask->InitData(m_configfilename.mb_str(wxConvUTF8))) return false;
+    xmltask->ClearContent();
 
     xmltask->SetElementText(xmltask->GetElement(XMLTASK_NAME, 0, true), m_taskname.mb_str(wxConvUTF8));
     xmltask->SetElementAttribute(xmltask->GetElement(XMLTASK_TIMERTYPE, 0, true), XMLTASK_TIMERTYPE_ATT, m_tasktimmertype);

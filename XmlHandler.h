@@ -24,6 +24,7 @@ class XmlHandler
 
         bool Init(const char *filename, const char *rootname = "datas");
         bool SaveXmlFile();
+        void ClearContent();
 
     public:
         XmlHandler();

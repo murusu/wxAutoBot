@@ -196,3 +196,11 @@ bool XmlHandler::SaveXmlFile()
 
     return m_xmldoc->SaveFile(m_filename->c_str());
 }
+
+void XmlHandler::ClearContent()
+{
+    if(m_xmldoc)
+    {
+        if(m_xmldoc->RootElement()) m_xmldoc->RootElement()->Clear();
+    }
+}

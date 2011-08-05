@@ -94,7 +94,6 @@ class BotTask : public wxEvtHandler
         time_t      m_lastexecutetime;
         wxString    m_configfilename;
         wxString    m_taskname;
-        //TimeData    m_timedata;
         TaskTimeData* m_tasktimedata;
         wxTimer*    m_timer;
 
