@@ -33,8 +33,8 @@ class TaskListCtrl;
 #include <wx/dateevt.h>
 #include <wx/spinctrl.h>
 #include <wx/checkbox.h>
-#include <wx/notebook.h>
 #include <wx/button.h>
+#include <wx/notebook.h>
 #include <wx/dialog.h>
 
 ///////////////////////////////////////////////////////////////////////////
@@ -68,6 +68,7 @@ class MainFrameBase : public wxFrame
 		virtual void OnDeleteTask( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnStartTask( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnStopTask( wxCommandEvent& event ) { event.Skip(); }
+		virtual void ShowPopupMenu( wxListEvent& event ) { event.Skip(); }
 		virtual void OnListItemActivated( wxListEvent& event ) { event.Skip(); }
 		virtual void ListSizeChange( wxSizeEvent& event ) { event.Skip(); }
 		
@@ -169,6 +170,10 @@ class TaskDialogBase : public wxDialog
 		wxStaticText* m_staticText8111;
 		wxSpinCtrl* m_spinCtrl_monthly_second;
 		wxPanel* m_panel_taskaction;
+		wxButton* m_button3;
+		wxButton* m_button4;
+		wxButton* m_button5;
+		wxListCtrl* m_listCtrl2;
 		wxPanel* m_panel_taskother;
 		wxButton* m_button_tasksave;
 		wxButton* m_button_taskcancel;

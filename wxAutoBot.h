@@ -19,6 +19,9 @@ class TaskListCtrl : public wxListCtrl
 
 class MainFrame : public MainFrameBase
 {
+    private:
+        wxMenu* m_popupmenu;
+
 	protected:
 		void ExitProgram( wxCommandEvent& event );
 		void OnAddTask( wxCommandEvent& event );
@@ -27,6 +30,7 @@ class MainFrame : public MainFrameBase
 		void OnDeleteTask( wxCommandEvent& event );
 		void OnStartTask( wxCommandEvent& event );
 		void OnStopTask( wxCommandEvent& event );
+		void ShowPopupMenu( wxListEvent& event );
 		void OnListItemActivated( wxListEvent& event );
 		void ListSizeChange( wxSizeEvent& event );
 
@@ -36,6 +40,7 @@ class MainFrame : public MainFrameBase
 		MainFrame(wxFrame *frame);
 		~MainFrame();
 
+		wxMenu* GetPopupMenu();
 		TaskListCtrl* GetTaskListCtrl();
 
 		void DoListSize();

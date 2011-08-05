@@ -34,6 +34,8 @@ wxString TaskListCtrl::OnGetItemText(long item, long column) const
 
 MainFrame::MainFrame(wxFrame *frame) : MainFrameBase(frame)
 {
+    m_popupmenu = NULL;
+
     m_listCtrl->InsertColumn(0, _("Task Name"), wxLIST_FORMAT_CENTRE, 180);
     m_listCtrl->InsertColumn(1, _("Next Activity Time"), wxLIST_FORMAT_CENTRE, 270);
     m_listCtrl->InsertColumn(2, _("Status"), wxLIST_FORMAT_CENTRE, 100);
@@ -131,6 +133,37 @@ void MainFrame::OnStopTask( wxCommandEvent& event )
     item_index      = m_listCtrl->GetNextItem(item_index, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
 
     wxGetApp().getTaskManager()->GetTaskArray()->Item(item_index)->StopTask();
+}
+
+void MainFrame::ShowPopupMenu( wxListEvent& event )
+{
+    PopupMenu(GetPopupMenu(), event.GetPoint());
+}
+
+wxMenu* MainFrame::GetPopupMenu()
+{
+    if(m_popupmenu) return m_popupmenu;
+    m_popupmenu = new wxMenu();
+
+    wxMenuItem* m_menuItem_starttask;
+	m_menuItem_starttask = new wxMenuItem( m_menu_task, wxID_Menu_StartTask, wxString( _("Start Task") ) , wxEmptyString, wxITEM_NORMAL );
+	m_popupmenu->Append( m_menuItem_starttask );
+
+	wxMenuItem* m_menuItem_stoptask;
+	m_menuItem_stoptask = new wxMenuItem( m_menu_task, wxID_Menu_StopTask, wxString( _("Stop Task") ) , wxEmptyString, wxITEM_NORMAL );
+	m_popupmenu->Append( m_menuItem_stoptask );
+
+	m_popupmenu->AppendSeparator();
+
+    wxMenuItem* m_menuItem_edittask;
+	m_menuItem_edittask = new wxMenuItem( m_popupmenu, wxID_Menu_EditTask, wxString( _("Edit Task") ) , wxEmptyString, wxITEM_NORMAL );
+	m_popupmenu->Append( m_menuItem_edittask );
+
+	wxMenuItem* m_menuItem_deletetask;
+	m_menuItem_deletetask = new wxMenuItem( m_popupmenu, wxID_Menu_DeleteTask, wxString( _("Delete Task") ) , wxEmptyString, wxITEM_NORMAL );
+	m_popupmenu->Append( m_menuItem_deletetask );
+
+    return m_popupmenu;
 }
 
 void MainFrame::OnListItemActivated( wxListEvent& event )

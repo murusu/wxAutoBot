@@ -78,6 +78,7 @@ MainFrameBase::MainFrameBase( wxWindow* parent, wxWindowID id, const wxString& t
 	this->Connect( wxID_Menu_StartTask, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( MainFrameBase::OnMenuClick ) );
 	this->Connect( wxID_Menu_StopTask, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainFrameBase::OnStopTask ) );
 	this->Connect( wxID_Menu_StopTask, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( MainFrameBase::OnMenuClick ) );
+	m_listCtrl->Connect( wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK, wxListEventHandler( MainFrameBase::ShowPopupMenu ), NULL, this );
 	m_listCtrl->Connect( wxEVT_COMMAND_LIST_ITEM_ACTIVATED, wxListEventHandler( MainFrameBase::OnListItemActivated ), NULL, this );
 	m_listCtrl->Connect( wxEVT_SIZE, wxSizeEventHandler( MainFrameBase::ListSizeChange ), NULL, this );
 }
@@ -95,6 +96,7 @@ MainFrameBase::~MainFrameBase()
 	this->Disconnect( wxID_Menu_StartTask, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( MainFrameBase::OnMenuClick ) );
 	this->Disconnect( wxID_Menu_StopTask, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainFrameBase::OnStopTask ) );
 	this->Disconnect( wxID_Menu_StopTask, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( MainFrameBase::OnMenuClick ) );
+	m_listCtrl->Disconnect( wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK, wxListEventHandler( MainFrameBase::ShowPopupMenu ), NULL, this );
 	m_listCtrl->Disconnect( wxEVT_COMMAND_LIST_ITEM_ACTIVATED, wxListEventHandler( MainFrameBase::OnListItemActivated ), NULL, this );
 	m_listCtrl->Disconnect( wxEVT_SIZE, wxSizeEventHandler( MainFrameBase::ListSizeChange ), NULL, this );
 	
@@ -481,10 +483,44 @@ TaskDialogBase::TaskDialogBase( wxWindow* parent, wxWindowID id, const wxString&
 	m_panel_taskbase->SetSizer( bSizer5 );
 	m_panel_taskbase->Layout();
 	bSizer5->Fit( m_panel_taskbase );
-	m_notebook_taskconfig->AddPage( m_panel_taskbase, _("Base Setting"), true );
+	m_notebook_taskconfig->AddPage( m_panel_taskbase, _("Base Setting"), false );
 	m_panel_taskaction = new wxPanel( m_notebook_taskconfig, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	m_notebook_taskconfig->AddPage( m_panel_taskaction, _("Actions"), false );
+	wxBoxSizer* bSizer22;
+	bSizer22 = new wxBoxSizer( wxVERTICAL );
+	
+	wxBoxSizer* bSizer23;
+	bSizer23 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_button3 = new wxButton( m_panel_taskaction, wxID_ANY, _("Add"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer23->Add( m_button3, 0, wxALL, 5 );
+	
+	m_button4 = new wxButton( m_panel_taskaction, wxID_ANY, _("Del"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer23->Add( m_button4, 0, wxALL, 5 );
+	
+	m_button5 = new wxButton( m_panel_taskaction, wxID_ANY, _("Mod"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer23->Add( m_button5, 0, wxALL, 5 );
+	
+	bSizer22->Add( bSizer23, 1, wxEXPAND, 5 );
+	
+	wxBoxSizer* bSizer241;
+	bSizer241 = new wxBoxSizer( wxVERTICAL );
+	
+	m_listCtrl2 = new wxListCtrl( m_panel_taskaction, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_HRULES|wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_VIRTUAL|wxLC_VRULES );
+	bSizer241->Add( m_listCtrl2, 0, wxALL|wxEXPAND, 5 );
+	
+	bSizer22->Add( bSizer241, 9, wxEXPAND, 5 );
+	
+	m_panel_taskaction->SetSizer( bSizer22 );
+	m_panel_taskaction->Layout();
+	bSizer22->Fit( m_panel_taskaction );
+	m_notebook_taskconfig->AddPage( m_panel_taskaction, _("Actions"), true );
 	m_panel_taskother = new wxPanel( m_notebook_taskconfig, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxBoxSizer* bSizer25;
+	bSizer25 = new wxBoxSizer( wxVERTICAL );
+	
+	m_panel_taskother->SetSizer( bSizer25 );
+	m_panel_taskother->Layout();
+	bSizer25->Fit( m_panel_taskother );
 	m_notebook_taskconfig->AddPage( m_panel_taskother, _("Others Setting"), false );
 	
 	bSizer3->Add( m_notebook_taskconfig, 1, wxEXPAND | wxALL, 5 );
