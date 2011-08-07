@@ -59,8 +59,8 @@ MainFrameBase::MainFrameBase( wxWindow* parent, wxWindowID id, const wxString& t
 	wxBoxSizer* bSizer1;
 	bSizer1 = new wxBoxSizer( wxVERTICAL );
 	
-	m_listCtrl = new TaskListCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_VIRTUAL );
-	bSizer1->Add( m_listCtrl, 0, wxEXPAND, 5 );
+	m_listCtrl_task = new TaskListCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_VIRTUAL );
+	bSizer1->Add( m_listCtrl_task, 0, wxEXPAND, 5 );
 	
 	this->SetSizer( bSizer1 );
 	this->Layout();
@@ -78,9 +78,9 @@ MainFrameBase::MainFrameBase( wxWindow* parent, wxWindowID id, const wxString& t
 	this->Connect( wxID_Menu_StartTask, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( MainFrameBase::OnMenuClick ) );
 	this->Connect( wxID_Menu_StopTask, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainFrameBase::OnStopTask ) );
 	this->Connect( wxID_Menu_StopTask, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( MainFrameBase::OnMenuClick ) );
-	m_listCtrl->Connect( wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK, wxListEventHandler( MainFrameBase::ShowPopupMenu ), NULL, this );
-	m_listCtrl->Connect( wxEVT_COMMAND_LIST_ITEM_ACTIVATED, wxListEventHandler( MainFrameBase::OnListItemActivated ), NULL, this );
-	m_listCtrl->Connect( wxEVT_SIZE, wxSizeEventHandler( MainFrameBase::ListSizeChange ), NULL, this );
+	m_listCtrl_task->Connect( wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK, wxListEventHandler( MainFrameBase::ShowPopupMenu ), NULL, this );
+	m_listCtrl_task->Connect( wxEVT_COMMAND_LIST_ITEM_ACTIVATED, wxListEventHandler( MainFrameBase::OnListItemActivated ), NULL, this );
+	m_listCtrl_task->Connect( wxEVT_SIZE, wxSizeEventHandler( MainFrameBase::ListSizeChange ), NULL, this );
 }
 
 MainFrameBase::~MainFrameBase()
@@ -96,9 +96,9 @@ MainFrameBase::~MainFrameBase()
 	this->Disconnect( wxID_Menu_StartTask, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( MainFrameBase::OnMenuClick ) );
 	this->Disconnect( wxID_Menu_StopTask, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( MainFrameBase::OnStopTask ) );
 	this->Disconnect( wxID_Menu_StopTask, wxEVT_UPDATE_UI, wxUpdateUIEventHandler( MainFrameBase::OnMenuClick ) );
-	m_listCtrl->Disconnect( wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK, wxListEventHandler( MainFrameBase::ShowPopupMenu ), NULL, this );
-	m_listCtrl->Disconnect( wxEVT_COMMAND_LIST_ITEM_ACTIVATED, wxListEventHandler( MainFrameBase::OnListItemActivated ), NULL, this );
-	m_listCtrl->Disconnect( wxEVT_SIZE, wxSizeEventHandler( MainFrameBase::ListSizeChange ), NULL, this );
+	m_listCtrl_task->Disconnect( wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK, wxListEventHandler( MainFrameBase::ShowPopupMenu ), NULL, this );
+	m_listCtrl_task->Disconnect( wxEVT_COMMAND_LIST_ITEM_ACTIVATED, wxListEventHandler( MainFrameBase::OnListItemActivated ), NULL, this );
+	m_listCtrl_task->Disconnect( wxEVT_SIZE, wxSizeEventHandler( MainFrameBase::ListSizeChange ), NULL, this );
 	
 }
 
@@ -491,22 +491,31 @@ TaskDialogBase::TaskDialogBase( wxWindow* parent, wxWindowID id, const wxString&
 	wxBoxSizer* bSizer23;
 	bSizer23 = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_button3 = new wxButton( m_panel_taskaction, wxID_ANY, _("Add"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer23->Add( m_button3, 0, wxALL, 5 );
+	m_button_actionadd = new wxButton( m_panel_taskaction, wxID_ANY, _("Add"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer23->Add( m_button_actionadd, 0, wxALL, 5 );
 	
-	m_button4 = new wxButton( m_panel_taskaction, wxID_ANY, _("Del"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer23->Add( m_button4, 0, wxALL, 5 );
+	m_button_actiondel = new wxButton( m_panel_taskaction, wxID_ANY, _("Delete"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer23->Add( m_button_actiondel, 0, wxALL, 5 );
 	
-	m_button5 = new wxButton( m_panel_taskaction, wxID_ANY, _("Mod"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer23->Add( m_button5, 0, wxALL, 5 );
+	m_button_actionedit = new wxButton( m_panel_taskaction, wxID_ANY, _("Edit"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer23->Add( m_button_actionedit, 0, wxALL, 5 );
+	
+	m_staticline1 = new wxStaticLine( m_panel_taskaction, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
+	bSizer23->Add( m_staticline1, 0, wxEXPAND | wxALL, 5 );
+	
+	m_button_actionup = new wxButton( m_panel_taskaction, wxID_ANY, _("Move Up"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer23->Add( m_button_actionup, 0, wxALL, 5 );
+	
+	m_button_actiondown = new wxButton( m_panel_taskaction, wxID_ANY, _("Move Down"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer23->Add( m_button_actiondown, 0, wxALL, 5 );
 	
 	bSizer22->Add( bSizer23, 1, wxEXPAND, 5 );
 	
 	wxBoxSizer* bSizer241;
 	bSizer241 = new wxBoxSizer( wxVERTICAL );
 	
-	m_listCtrl2 = new wxListCtrl( m_panel_taskaction, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_HRULES|wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_VIRTUAL|wxLC_VRULES );
-	bSizer241->Add( m_listCtrl2, 0, wxALL|wxEXPAND, 5 );
+	m_listCtrl_action = new ActionListCtrl( m_panel_taskaction, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_HRULES|wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_VIRTUAL|wxLC_VRULES );
+	bSizer241->Add( m_listCtrl_action, 0, wxALL|wxEXPAND, 5 );
 	
 	bSizer22->Add( bSizer241, 9, wxEXPAND, 5 );
 	
@@ -545,6 +554,9 @@ TaskDialogBase::TaskDialogBase( wxWindow* parent, wxWindowID id, const wxString&
 	
 	// Connect Events
 	m_choice_tasktype->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( TaskDialogBase::OnChangeTaskType ), NULL, this );
+	m_listCtrl_action->Connect( wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK, wxListEventHandler( TaskDialogBase::ShowPopupMenu ), NULL, this );
+	m_listCtrl_action->Connect( wxEVT_COMMAND_LIST_ITEM_ACTIVATED, wxListEventHandler( TaskDialogBase::OnListItemActivated ), NULL, this );
+	m_listCtrl_action->Connect( wxEVT_SIZE, wxSizeEventHandler( TaskDialogBase::ListSizeChange ), NULL, this );
 	m_button_tasksave->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnSaveTaskDialog ), NULL, this );
 	m_button_taskcancel->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnCloseTaskDialog ), NULL, this );
 }
@@ -553,6 +565,9 @@ TaskDialogBase::~TaskDialogBase()
 {
 	// Disconnect Events
 	m_choice_tasktype->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( TaskDialogBase::OnChangeTaskType ), NULL, this );
+	m_listCtrl_action->Disconnect( wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK, wxListEventHandler( TaskDialogBase::ShowPopupMenu ), NULL, this );
+	m_listCtrl_action->Disconnect( wxEVT_COMMAND_LIST_ITEM_ACTIVATED, wxListEventHandler( TaskDialogBase::OnListItemActivated ), NULL, this );
+	m_listCtrl_action->Disconnect( wxEVT_SIZE, wxSizeEventHandler( TaskDialogBase::ListSizeChange ), NULL, this );
 	m_button_tasksave->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnSaveTaskDialog ), NULL, this );
 	m_button_taskcancel->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnCloseTaskDialog ), NULL, this );
 	

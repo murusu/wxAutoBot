@@ -17,6 +17,15 @@ class TaskListCtrl : public wxListCtrl
         wxString OnGetItemText(long item, long column) const;
 };
 
+class ActionListCtrl : public wxListCtrl
+{
+    public:
+        ActionListCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style);
+        ~ActionListCtrl();
+
+        wxString OnGetItemText(long item, long column) const;
+};
+
 class MainFrame : public MainFrameBase
 {
     private:
@@ -49,8 +58,9 @@ class MainFrame : public MainFrameBase
 class TaskDialog : public TaskDialogBase
 {
     private:
-        BotTask* m_bottask;
-        size_t  m_index;
+        BotTask*    m_bottask;
+        size_t      m_index;
+        wxMenu*     m_popupmenu;
 
     protected:
 		void OnChangeTaskType(wxCommandEvent& event);
@@ -59,6 +69,13 @@ class TaskDialog : public TaskDialogBase
 
 		void GetDialogData();
 		void InitTaskDialog();
+
+		void ShowPopupMenu( wxListEvent& event );
+		void OnListItemActivated( wxListEvent& event );
+		void ListSizeChange( wxSizeEvent& event );
+
+		void DoListSize();
+		void SetupActionListCtrl();
 
 	public:
 		TaskDialog(wxFrame* frame);

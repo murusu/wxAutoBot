@@ -32,16 +32,52 @@ wxString TaskListCtrl::OnGetItemText(long item, long column) const
     return ItemText;
 }
 
+ActionListCtrl::ActionListCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style): wxListCtrl(parent, id, pos, size, style)
+{
+}
+
+ActionListCtrl::~ActionListCtrl()
+{
+}
+
+wxString ActionListCtrl::OnGetItemText(long item, long column) const
+{
+    wxString ItemText;
+
+    ItemText = wxT("testest");
+
+    /*
+    TaskManager*  task_manager = wxGetApp().getTaskManager();
+
+    switch(column)
+    {
+        case TASK_NAME:
+            ItemText = task_manager->GetTaskName(item);
+            break;
+
+        case TASK_TIME:
+            ItemText = task_manager->GetTaskTime(item);
+            break;
+
+        case TASK_STATUS:
+            ItemText = task_manager->GetTaskStatus(item);
+            break;
+    }
+    */
+
+    return ItemText;
+}
+
 MainFrame::MainFrame(wxFrame *frame) : MainFrameBase(frame)
 {
     m_popupmenu = NULL;
 
-    m_listCtrl->InsertColumn(0, _("Task Name"), wxLIST_FORMAT_CENTRE, 180);
-    m_listCtrl->InsertColumn(1, _("Next Activity Time"), wxLIST_FORMAT_CENTRE, 270);
-    m_listCtrl->InsertColumn(2, _("Status"), wxLIST_FORMAT_CENTRE, 100);
+    m_listCtrl_task->InsertColumn(0, _("Task Name"), wxLIST_FORMAT_CENTRE, 180);
+    m_listCtrl_task->InsertColumn(1, _("Next Activity Time"), wxLIST_FORMAT_CENTRE, 270);
+    m_listCtrl_task->InsertColumn(2, _("Status"), wxLIST_FORMAT_CENTRE, 100);
 
-    m_listCtrl->SetItemCount(0);
-    m_listCtrl->Refresh();
+    m_listCtrl_task->SetItemCount(0);
+    m_listCtrl_task->Refresh();
     DoListSize();
 }
 
@@ -59,11 +95,11 @@ void MainFrame::OnMenuClick( wxUpdateUIEvent& event )
     long item_index = -1;
     size_t task_type = 0;
 
-    if(m_listCtrl->GetSelectedItemCount())
+    if(m_listCtrl_task->GetSelectedItemCount())
     {
         m_menu_task->FindItem(wxID_Menu_EditTask)->Enable(true);
 
-        item_index = m_listCtrl->GetNextItem(item_index, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+        item_index = m_listCtrl_task->GetNextItem(item_index, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
         task_type  = wxGetApp().getTaskManager()->GetTaskArray()->Item(item_index)->GetTaskStatusType();
 
         switch(task_type)
@@ -96,7 +132,7 @@ void MainFrame::ListSizeChange( wxSizeEvent& event )
 void MainFrame::DoListSize()
 {
     wxSize size = GetClientSize();
-    m_listCtrl->SetSize(0, 0, size.x, size.y);
+    m_listCtrl_task->SetSize(0, 0, size.x, size.y);
 }
 
 void MainFrame::OnAddTask(wxCommandEvent& event)
@@ -114,7 +150,7 @@ void MainFrame::OnEditTask( wxCommandEvent& event )
 void MainFrame::OnDeleteTask( wxCommandEvent& event )
 {
     long item_index = -1;
-    item_index      = m_listCtrl->GetNextItem(item_index, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+    item_index      = m_listCtrl_task->GetNextItem(item_index, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
 
     wxGetApp().getTaskManager()->DeleteTask(item_index);
 }
@@ -122,7 +158,7 @@ void MainFrame::OnDeleteTask( wxCommandEvent& event )
 void MainFrame::OnStartTask( wxCommandEvent& event )
 {
     long item_index = -1;
-    item_index      = m_listCtrl->GetNextItem(item_index, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+    item_index      = m_listCtrl_task->GetNextItem(item_index, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
 
     wxGetApp().getTaskManager()->GetTaskArray()->Item(item_index)->StartTask();
 }
@@ -130,7 +166,7 @@ void MainFrame::OnStartTask( wxCommandEvent& event )
 void MainFrame::OnStopTask( wxCommandEvent& event )
 {
     long item_index = -1;
-    item_index      = m_listCtrl->GetNextItem(item_index, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+    item_index      = m_listCtrl_task->GetNextItem(item_index, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
 
     wxGetApp().getTaskManager()->GetTaskArray()->Item(item_index)->StopTask();
 }
@@ -174,7 +210,7 @@ void MainFrame::OnListItemActivated( wxListEvent& event )
 void MainFrame::EditSelectedItem()
 {
     long item_index = -1;
-    item_index      = m_listCtrl->GetNextItem(item_index, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+    item_index      = m_listCtrl_task->GetNextItem(item_index, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
 
     wxGetApp().getTaskManager()->GetTaskArray()->Item(item_index)->StopTask();
 
@@ -185,20 +221,28 @@ void MainFrame::EditSelectedItem()
 
 TaskListCtrl* MainFrame::GetTaskListCtrl()
 {
-    return m_listCtrl;
+    return m_listCtrl_task;
 }
 
 TaskDialog::TaskDialog(wxFrame *frame) : TaskDialogBase(frame)
 {
+    m_popupmenu = NULL;
+
     m_bottask = new BotTask();
     InitTaskDialog();
+
+    SetupActionListCtrl();
 }
 
 TaskDialog::TaskDialog(wxFrame* frame, size_t item_index) : TaskDialogBase(frame)
 {
+    m_popupmenu = NULL;
+
     m_bottask = new BotTask();
     m_bottask->ReadConfigData(wxGetApp().getTaskManager()->GetTaskArray()->Item(item_index)->GetConfigFileName());
     InitTaskDialog();
+
+    SetupActionListCtrl();
 }
 
 TaskDialog::~TaskDialog()
@@ -410,4 +454,38 @@ void TaskDialog::GetDialogData()
             }
             break;
     }
+}
+
+void TaskDialog::ShowPopupMenu( wxListEvent& event )
+{
+
+}
+
+void TaskDialog::OnListItemActivated( wxListEvent& event )
+{
+
+}
+
+void TaskDialog::ListSizeChange( wxSizeEvent& event )
+{
+    DoListSize();
+    event.Skip();
+}
+
+void TaskDialog::DoListSize()
+{
+    wxSize size = m_panel_taskaction->GetClientSize();
+    m_listCtrl_action->SetSize(0, size.y * 1/10, size.x, size.y * 9/10);
+}
+
+void TaskDialog::SetupActionListCtrl()
+{
+    m_listCtrl_action->InsertColumn(0, _("Action Name"), wxLIST_FORMAT_CENTRE, 100);
+    m_listCtrl_action->InsertColumn(1, _("Condition"), wxLIST_FORMAT_CENTRE, 170);
+    m_listCtrl_action->InsertColumn(2, _("Parameter"), wxLIST_FORMAT_CENTRE, 180);
+
+    m_listCtrl_action->SetItemCount(100);
+    m_listCtrl_action->Refresh();
+
+    DoListSize();
 }

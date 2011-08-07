@@ -10,6 +10,7 @@
 
 #include <wx/intl.h>
 
+class ActionListCtrl;
 class TaskListCtrl;
 
 #include <wx/statusbr.h>
@@ -34,6 +35,7 @@ class TaskListCtrl;
 #include <wx/spinctrl.h>
 #include <wx/checkbox.h>
 #include <wx/button.h>
+#include <wx/statline.h>
 #include <wx/notebook.h>
 #include <wx/dialog.h>
 
@@ -58,7 +60,7 @@ class MainFrameBase : public wxFrame
 		wxMenuBar* m_menubar;
 		wxMenu* m_menu_file;
 		wxMenu* m_menu_task;
-		TaskListCtrl* m_listCtrl;
+		TaskListCtrl* m_listCtrl_task;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void ExitProgram( wxCommandEvent& event ) { event.Skip(); }
@@ -170,16 +172,22 @@ class TaskDialogBase : public wxDialog
 		wxStaticText* m_staticText8111;
 		wxSpinCtrl* m_spinCtrl_monthly_second;
 		wxPanel* m_panel_taskaction;
-		wxButton* m_button3;
-		wxButton* m_button4;
-		wxButton* m_button5;
-		wxListCtrl* m_listCtrl2;
+		wxButton* m_button_actionadd;
+		wxButton* m_button_actiondel;
+		wxButton* m_button_actionedit;
+		wxStaticLine* m_staticline1;
+		wxButton* m_button_actionup;
+		wxButton* m_button_actiondown;
+		ActionListCtrl* m_listCtrl_action;
 		wxPanel* m_panel_taskother;
 		wxButton* m_button_tasksave;
 		wxButton* m_button_taskcancel;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnChangeTaskType( wxCommandEvent& event ) { event.Skip(); }
+		virtual void ShowPopupMenu( wxListEvent& event ) { event.Skip(); }
+		virtual void OnListItemActivated( wxListEvent& event ) { event.Skip(); }
+		virtual void ListSizeChange( wxSizeEvent& event ) { event.Skip(); }
 		virtual void OnSaveTaskDialog( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnCloseTaskDialog( wxCommandEvent& event ) { event.Skip(); }
 		

@@ -17,17 +17,7 @@ class BotTask;
 class wxTaskProcessEvent;
 
 WX_DECLARE_OBJARRAY(BotTask *, TaskArray);
-/*
-struct TimeData
-{
-    size_t interval_seconds;
-    time_t specified_time;
-    size_t specified_hours;
-    size_t specified_minutes;
-    size_t specified_seconds;
-    wxArrayInt specified_date;
-};
-*/
+
 class TaskTimeData
 {
     private:
@@ -49,7 +39,6 @@ class TaskTimeData
         void SetSpecifiedHours(size_t hours);
         void SetSpecifiedMinutes(size_t minutes);
         void SetSpecifiedSeconds(size_t seconds);
-        //void AddSpecifiedSDate(size_t date);
 
         size_t GetIntervalSeconds();
         time_t GetSpecifiedTime();
