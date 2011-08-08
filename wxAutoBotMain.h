@@ -7,6 +7,8 @@
 #include "wxAutoBot.h"
 #include "AutoBotTask.h"
 
+#include "AutoBotPlugin.h"
+
 class MainFrame;
 class TaskManager;
 

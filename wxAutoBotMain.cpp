@@ -32,6 +32,8 @@ bool wxAutoBotApp::OnInit(void)
 
     m_taskManager->RefreshList();
 
+    PluginManager* plugin_manager = new PluginManager();
+
     return true;
 }
 

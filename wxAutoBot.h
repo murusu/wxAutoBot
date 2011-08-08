@@ -6,6 +6,7 @@
 #include "wxAutoBotMain.h"
 #include "AutoBotTask.h"
 
+
 class BotTask;
 
 class TaskListCtrl : public wxListCtrl
