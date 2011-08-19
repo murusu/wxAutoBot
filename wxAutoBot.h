@@ -64,6 +64,7 @@ class TaskDialog : public TaskDialogBase
 
     protected:
 		void OnChangeTaskType(wxCommandEvent& event);
+		void OnAddAction( wxCommandEvent& event );
 		void OnCloseTaskDialog(wxCommandEvent& event);
 		void OnSaveTaskDialog(wxCommandEvent& event);
 
@@ -81,6 +82,20 @@ class TaskDialog : public TaskDialogBase
 		TaskDialog(wxFrame* frame);
 		TaskDialog(wxFrame* frame, size_t item_index);
 		~TaskDialog();
+};
+
+class ActionDialog : public ActionDialogBase
+{
+    private:
+        BotTask* m_bottask;
+
+    protected:
+        void OnChangeActionType( wxCommandEvent& event );
+        void InitActionDialog();
+
+    public:
+		ActionDialog(wxDialog* dialog, BotTask* task);
+		~ActionDialog();
 };
 
 #endif // WXAUTOBOT_H_INCLUDED

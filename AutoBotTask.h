@@ -111,6 +111,8 @@ class BotTask : public wxEvtHandler
         void StartTask();
         void StopTask();
 
+        //void AddAction(size_t action_type, );
+
         wxString GetConfigFileName();
         void SetConfigFileName(wxString config_file);
         bool DeleteConfigFile();

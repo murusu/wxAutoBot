@@ -29,15 +29,17 @@ class TaskListCtrl;
 #include <wx/stattext.h>
 #include <wx/textctrl.h>
 #include <wx/choice.h>
+#include <wx/spinctrl.h>
 #include <wx/panel.h>
 #include <wx/datectrl.h>
 #include <wx/dateevt.h>
-#include <wx/spinctrl.h>
 #include <wx/checkbox.h>
 #include <wx/button.h>
 #include <wx/statline.h>
 #include <wx/notebook.h>
 #include <wx/dialog.h>
+#include <wx/statbox.h>
+#include <wx/filepicker.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -99,7 +101,7 @@ class TaskDialogBase : public wxDialog
 		wxPanel* m_panel4;
 		wxPanel* m_panel_baseinterval;
 		wxStaticText* m_staticText3;
-		wxTextCtrl* m_textCtrl_interval;
+		wxSpinCtrl* m_spinCtrl_interval;
 		wxStaticText* m_staticText4;
 		wxPanel* m_panel_baseonce;
 		wxStaticText* m_staticText5;
@@ -185,6 +187,11 @@ class TaskDialogBase : public wxDialog
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnChangeTaskType( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnAddAction( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnDelAction( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnEditAction( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnUpAction( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnDownAction( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ShowPopupMenu( wxListEvent& event ) { event.Skip(); }
 		virtual void OnListItemActivated( wxListEvent& event ) { event.Skip(); }
 		virtual void ListSizeChange( wxSizeEvent& event ) { event.Skip(); }
@@ -196,6 +203,49 @@ class TaskDialogBase : public wxDialog
 		
 		TaskDialogBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Task Setting"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 511,456 ), long style = wxDEFAULT_DIALOG_STYLE );
 		~TaskDialogBase();
+	
+};
+
+///////////////////////////////////////////////////////////////////////////////
+/// Class ActionDialogBase
+///////////////////////////////////////////////////////////////////////////////
+class ActionDialogBase : public wxDialog 
+{
+	private:
+	
+	protected:
+		wxStaticText* m_staticText22;
+		wxChoice* m_choice_actiontype;
+		wxPanel* m_panel12;
+		wxPanel* m_panel_httpget;
+		wxCheckBox* m_checkBox_httpget;
+		wxStaticText* m_staticText26;
+		wxChoice* m_choice_httpget_value;
+		wxStaticText* m_staticText27;
+		wxChoice* m_choice_httpget_truefalse;
+		wxStaticText* m_staticText24;
+		wxTextCtrl* m_textCtrl_url;
+		wxStaticText* m_staticText25;
+		wxChoice* m_choice_httpget_result;
+		wxPanel* m_panel_execute;
+		wxCheckBox* m_checkBox41;
+		wxStaticText* m_staticText29;
+		wxFilePickerCtrl* m_filePicker1;
+		wxStaticText* m_staticText30;
+		wxTextCtrl* m_textCtrl5;
+		wxButton* m_button_actionsave;
+		wxButton* m_button_actioncancel;
+		
+		// Virtual event handlers, overide them in your derived class
+		virtual void OnChangeActionType( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnSaveActionDialog( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnCloseActionDialog( wxCommandEvent& event ) { event.Skip(); }
+		
+	
+	public:
+		
+		ActionDialogBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 510,450 ), long style = wxDEFAULT_DIALOG_STYLE );
+		~ActionDialogBase();
 	
 };
 

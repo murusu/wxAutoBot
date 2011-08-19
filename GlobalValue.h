@@ -21,6 +21,9 @@ const size_t TASK_DAILY_INTERVAL    = 2;
 const size_t TASK_WEEKLY_INTERVAL   = 3;
 const size_t TASK_MONTHLY_INTERVAL  = 4;
 
+const size_t ACTION_HTTPGET         = 0;
+const size_t ACTION_EXECUTE         = 1;
+
 const char * const XMLTASK_NAME             = "name";
 const char * const XMLTASK_TIMERTYPE        = "timer_type";
 const char * const XMLTASK_TIMERTYPE_ATT    = "type";

@@ -276,7 +276,7 @@ void TaskDialog::InitTaskDialog()
     {
         case TASK_INTERVAL:
             m_panel_baseinterval->Show(true);
-            m_textCtrl_interval->SetValue(wxString::Format(wxT("%i"), m_bottask->GetTaskTimeData()->GetIntervalSeconds()));
+            m_spinCtrl_interval->SetValue(m_bottask->GetTaskTimeData()->GetIntervalSeconds());
             break;
 
         case TASK_SPECIFY:
@@ -367,6 +367,13 @@ void TaskDialog::OnChangeTaskType(wxCommandEvent& event)
     }
 }
 
+void TaskDialog::OnAddAction( wxCommandEvent& event )
+{
+    ActionDialog  *action_dlg = new ActionDialog(this, m_bottask);
+    action_dlg->ShowModal();
+    action_dlg->Destroy();
+}
+
 void TaskDialog::OnCloseTaskDialog(wxCommandEvent& event)
 {
     this->Close();
@@ -414,7 +421,7 @@ void TaskDialog::GetDialogData()
     switch(m_choice_tasktype->GetCurrentSelection())
     {
         case TASK_INTERVAL:
-            m_bottask->GetTaskTimeData()->SetIntervalSeconds(wxAtoi(m_textCtrl_interval->GetValue()));
+            m_bottask->GetTaskTimeData()->SetIntervalSeconds(m_spinCtrl_interval->GetValue());
             break;
 
         case TASK_SPECIFY:
@@ -488,4 +495,46 @@ void TaskDialog::SetupActionListCtrl()
     m_listCtrl_action->Refresh();
 
     DoListSize();
+}
+
+ActionDialog::ActionDialog(wxDialog *dialog, BotTask* task):ActionDialogBase(dialog)
+{
+    InitActionDialog();
+    m_bottask = task;
+}
+
+ActionDialog::~ActionDialog()
+{
+
+}
+
+void ActionDialog::InitActionDialog()
+{
+    m_panel_httpget->Show(false);
+    m_panel_execute->Show(false);
+
+    m_panel_httpget->Show(true);
+}
+
+void ActionDialog::OnChangeActionType( wxCommandEvent& event )
+{
+    m_panel_httpget->Show(false);
+    m_panel_execute->Show(false);
+
+    size_t choice_selection = m_choice_actiontype->GetCurrentSelection();
+
+    switch(choice_selection)
+    {
+        case ACTION_HTTPGET :
+            m_panel_httpget->Show(true);
+            break;
+
+        case ACTION_EXECUTE:
+            m_panel_execute->Show(true);
+            break;
+
+        default:
+            m_panel_httpget->Show(true);
+            break;
+    }
 }

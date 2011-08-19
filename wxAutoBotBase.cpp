@@ -164,12 +164,12 @@ TaskDialogBase::TaskDialogBase( wxWindow* parent, wxWindowID id, const wxString&
 	m_staticText3->Wrap( -1 );
 	bSizer11->Add( m_staticText3, 0, wxALL, 5 );
 	
-	m_textCtrl_interval = new wxTextCtrl( m_panel_baseinterval, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 120,-1 ), 0 );
-	bSizer11->Add( m_textCtrl_interval, 0, wxALL, 5 );
+	m_spinCtrl_interval = new wxSpinCtrl( m_panel_baseinterval, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 120,-1 ), wxSP_ARROW_KEYS, 0, 999999999, 0 );
+	bSizer11->Add( m_spinCtrl_interval, 0, wxALL, 5 );
 	
 	m_staticText4 = new wxStaticText( m_panel_baseinterval, wxID_ANY, _("Seconds"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText4->Wrap( -1 );
-	bSizer11->Add( m_staticText4, 0, wxALL, 5 );
+	bSizer11->Add( m_staticText4, 0, wxALL, 8 );
 	
 	m_panel_baseinterval->SetSizer( bSizer11 );
 	m_panel_baseinterval->Layout();
@@ -554,6 +554,11 @@ TaskDialogBase::TaskDialogBase( wxWindow* parent, wxWindowID id, const wxString&
 	
 	// Connect Events
 	m_choice_tasktype->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( TaskDialogBase::OnChangeTaskType ), NULL, this );
+	m_button_actionadd->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnAddAction ), NULL, this );
+	m_button_actiondel->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnDelAction ), NULL, this );
+	m_button_actionedit->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnEditAction ), NULL, this );
+	m_button_actionup->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnUpAction ), NULL, this );
+	m_button_actiondown->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnDownAction ), NULL, this );
 	m_listCtrl_action->Connect( wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK, wxListEventHandler( TaskDialogBase::ShowPopupMenu ), NULL, this );
 	m_listCtrl_action->Connect( wxEVT_COMMAND_LIST_ITEM_ACTIVATED, wxListEventHandler( TaskDialogBase::OnListItemActivated ), NULL, this );
 	m_listCtrl_action->Connect( wxEVT_SIZE, wxSizeEventHandler( TaskDialogBase::ListSizeChange ), NULL, this );
@@ -565,10 +570,215 @@ TaskDialogBase::~TaskDialogBase()
 {
 	// Disconnect Events
 	m_choice_tasktype->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( TaskDialogBase::OnChangeTaskType ), NULL, this );
+	m_button_actionadd->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnAddAction ), NULL, this );
+	m_button_actiondel->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnDelAction ), NULL, this );
+	m_button_actionedit->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnEditAction ), NULL, this );
+	m_button_actionup->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnUpAction ), NULL, this );
+	m_button_actiondown->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnDownAction ), NULL, this );
 	m_listCtrl_action->Disconnect( wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK, wxListEventHandler( TaskDialogBase::ShowPopupMenu ), NULL, this );
 	m_listCtrl_action->Disconnect( wxEVT_COMMAND_LIST_ITEM_ACTIVATED, wxListEventHandler( TaskDialogBase::OnListItemActivated ), NULL, this );
 	m_listCtrl_action->Disconnect( wxEVT_SIZE, wxSizeEventHandler( TaskDialogBase::ListSizeChange ), NULL, this );
 	m_button_tasksave->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnSaveTaskDialog ), NULL, this );
 	m_button_taskcancel->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TaskDialogBase::OnCloseTaskDialog ), NULL, this );
+	
+}
+
+ActionDialogBase::ActionDialogBase( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+{
+	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	
+	wxBoxSizer* bSizer26;
+	bSizer26 = new wxBoxSizer( wxVERTICAL );
+	
+	wxBoxSizer* bSizer27;
+	bSizer27 = new wxBoxSizer( wxVERTICAL );
+	
+	wxBoxSizer* bSizer31;
+	bSizer31 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_staticText22 = new wxStaticText( this, wxID_ANY, _("Action Type:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText22->Wrap( -1 );
+	bSizer31->Add( m_staticText22, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+	
+	wxString m_choice_actiontypeChoices[] = { _("Http Get"), _("Execute Program") };
+	int m_choice_actiontypeNChoices = sizeof( m_choice_actiontypeChoices ) / sizeof( wxString );
+	m_choice_actiontype = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choice_actiontypeNChoices, m_choice_actiontypeChoices, 0 );
+	m_choice_actiontype->SetSelection( 0 );
+	bSizer31->Add( m_choice_actiontype, 0, wxALL, 5 );
+	
+	bSizer27->Add( bSizer31, 1, wxEXPAND, 5 );
+	
+	wxBoxSizer* bSizer32;
+	bSizer32 = new wxBoxSizer( wxVERTICAL );
+	
+	m_panel12 = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxBoxSizer* bSizer33;
+	bSizer33 = new wxBoxSizer( wxVERTICAL );
+	
+	m_panel_httpget = new wxPanel( m_panel12, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	m_panel_httpget->Hide();
+	
+	wxBoxSizer* bSizer34;
+	bSizer34 = new wxBoxSizer( wxVERTICAL );
+	
+	wxStaticBoxSizer* sbSizer1;
+	sbSizer1 = new wxStaticBoxSizer( new wxStaticBox( m_panel_httpget, wxID_ANY, _("Condition") ), wxVERTICAL );
+	
+	wxBoxSizer* bSizer36;
+	bSizer36 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_checkBox_httpget = new wxCheckBox( m_panel_httpget, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer36->Add( m_checkBox_httpget, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+	
+	m_staticText26 = new wxStaticText( m_panel_httpget, wxID_ANY, _("If Value"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText26->Wrap( -1 );
+	bSizer36->Add( m_staticText26, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+	
+	wxArrayString m_choice_httpget_valueChoices;
+	m_choice_httpget_value = new wxChoice( m_panel_httpget, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choice_httpget_valueChoices, 0 );
+	m_choice_httpget_value->SetSelection( 0 );
+	bSizer36->Add( m_choice_httpget_value, 0, wxALL, 5 );
+	
+	m_staticText27 = new wxStaticText( m_panel_httpget, wxID_ANY, _("Is"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText27->Wrap( -1 );
+	bSizer36->Add( m_staticText27, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+	
+	wxString m_choice_httpget_truefalseChoices[] = { _("True"), _("False") };
+	int m_choice_httpget_truefalseNChoices = sizeof( m_choice_httpget_truefalseChoices ) / sizeof( wxString );
+	m_choice_httpget_truefalse = new wxChoice( m_panel_httpget, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choice_httpget_truefalseNChoices, m_choice_httpget_truefalseChoices, 0 );
+	m_choice_httpget_truefalse->SetSelection( 1 );
+	bSizer36->Add( m_choice_httpget_truefalse, 0, wxALL, 5 );
+	
+	sbSizer1->Add( bSizer36, 0, wxEXPAND, 5 );
+	
+	bSizer34->Add( sbSizer1, 0, wxEXPAND, 5 );
+	
+	wxStaticBoxSizer* sbSizer2;
+	sbSizer2 = new wxStaticBoxSizer( new wxStaticBox( m_panel_httpget, wxID_ANY, _("Parameter") ), wxVERTICAL );
+	
+	wxBoxSizer* bSizer39;
+	bSizer39 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_staticText24 = new wxStaticText( m_panel_httpget, wxID_ANY, _("Url:"), wxDefaultPosition, wxSize( 100,-1 ), 0 );
+	m_staticText24->Wrap( -1 );
+	bSizer39->Add( m_staticText24, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+	
+	m_textCtrl_url = new wxTextCtrl( m_panel_httpget, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 350,-1 ), 0 );
+	m_textCtrl_url->SetMaxLength( 150 ); 
+	bSizer39->Add( m_textCtrl_url, 0, wxALL, 5 );
+	
+	sbSizer2->Add( bSizer39, 0, wxEXPAND, 5 );
+	
+	wxBoxSizer* bSizer40;
+	bSizer40 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_staticText25 = new wxStaticText( m_panel_httpget, wxID_ANY, _("Save Result In:"), wxDefaultPosition, wxSize( 100,-1 ), 0 );
+	m_staticText25->Wrap( -1 );
+	bSizer40->Add( m_staticText25, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+	
+	wxArrayString m_choice_httpget_resultChoices;
+	m_choice_httpget_result = new wxChoice( m_panel_httpget, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choice_httpget_resultChoices, 0 );
+	m_choice_httpget_result->SetSelection( 0 );
+	bSizer40->Add( m_choice_httpget_result, 0, wxALL, 5 );
+	
+	sbSizer2->Add( bSizer40, 0, wxEXPAND, 5 );
+	
+	bSizer34->Add( sbSizer2, 0, wxEXPAND, 5 );
+	
+	m_panel_httpget->SetSizer( bSizer34 );
+	m_panel_httpget->Layout();
+	bSizer34->Fit( m_panel_httpget );
+	bSizer33->Add( m_panel_httpget, 1, wxEXPAND | wxALL, 0 );
+	
+	m_panel_execute = new wxPanel( m_panel12, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	m_panel_execute->Hide();
+	
+	wxBoxSizer* bSizer35;
+	bSizer35 = new wxBoxSizer( wxVERTICAL );
+	
+	wxStaticBoxSizer* sbSizer3;
+	sbSizer3 = new wxStaticBoxSizer( new wxStaticBox( m_panel_execute, wxID_ANY, _("Condition") ), wxVERTICAL );
+	
+	wxBoxSizer* bSizer41;
+	bSizer41 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_checkBox41 = new wxCheckBox( m_panel_execute, wxID_ANY, _("The Program Is Not Running"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer41->Add( m_checkBox41, 0, wxALL, 5 );
+	
+	sbSizer3->Add( bSizer41, 0, wxEXPAND, 5 );
+	
+	bSizer35->Add( sbSizer3, 0, wxEXPAND, 5 );
+	
+	wxStaticBoxSizer* sbSizer4;
+	sbSizer4 = new wxStaticBoxSizer( new wxStaticBox( m_panel_execute, wxID_ANY, _("Parameter") ), wxVERTICAL );
+	
+	wxBoxSizer* bSizer43;
+	bSizer43 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_staticText29 = new wxStaticText( m_panel_execute, wxID_ANY, _("Execute Program:"), wxDefaultPosition, wxSize( 100,-1 ), 0 );
+	m_staticText29->Wrap( -1 );
+	bSizer43->Add( m_staticText29, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+	
+	m_filePicker1 = new wxFilePickerCtrl( m_panel_execute, wxID_ANY, wxEmptyString, _("Select a file"), wxT("*.*"), wxDefaultPosition, wxSize( -1,-1 ), wxFLP_DEFAULT_STYLE );
+	bSizer43->Add( m_filePicker1, 0, wxALL, 5 );
+	
+	sbSizer4->Add( bSizer43, 0, wxEXPAND, 5 );
+	
+	wxBoxSizer* bSizer44;
+	bSizer44 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_staticText30 = new wxStaticText( m_panel_execute, wxID_ANY, _("Parameter:"), wxDefaultPosition, wxSize( 100,-1 ), 0 );
+	m_staticText30->Wrap( -1 );
+	bSizer44->Add( m_staticText30, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+	
+	m_textCtrl5 = new wxTextCtrl( m_panel_execute, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 200,-1 ), 0 );
+	bSizer44->Add( m_textCtrl5, 0, wxALL, 5 );
+	
+	sbSizer4->Add( bSizer44, 0, wxEXPAND, 5 );
+	
+	bSizer35->Add( sbSizer4, 0, wxEXPAND, 5 );
+	
+	m_panel_execute->SetSizer( bSizer35 );
+	m_panel_execute->Layout();
+	bSizer35->Fit( m_panel_execute );
+	bSizer33->Add( m_panel_execute, 1, wxEXPAND | wxALL, 0 );
+	
+	m_panel12->SetSizer( bSizer33 );
+	m_panel12->Layout();
+	bSizer33->Fit( m_panel12 );
+	bSizer32->Add( m_panel12, 1, wxEXPAND | wxALL, 5 );
+	
+	bSizer27->Add( bSizer32, 10, wxEXPAND, 5 );
+	
+	bSizer26->Add( bSizer27, 10, wxEXPAND, 5 );
+	
+	wxBoxSizer* bSizer28;
+	bSizer28 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_button_actionsave = new wxButton( this, wxID_ANY, _("Save"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer28->Add( m_button_actionsave, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+	
+	m_button_actioncancel = new wxButton( this, wxID_ANY, _("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer28->Add( m_button_actioncancel, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+	
+	bSizer26->Add( bSizer28, 1, wxALIGN_RIGHT, 5 );
+	
+	this->SetSizer( bSizer26 );
+	this->Layout();
+	
+	this->Centre( wxBOTH );
+	
+	// Connect Events
+	m_choice_actiontype->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( ActionDialogBase::OnChangeActionType ), NULL, this );
+	m_button_actionsave->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ActionDialogBase::OnSaveActionDialog ), NULL, this );
+	m_button_actioncancel->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ActionDialogBase::OnCloseActionDialog ), NULL, this );
+}
+
+ActionDialogBase::~ActionDialogBase()
+{
+	// Disconnect Events
+	m_choice_actiontype->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( ActionDialogBase::OnChangeActionType ), NULL, this );
+	m_button_actionsave->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ActionDialogBase::OnSaveActionDialog ), NULL, this );
+	m_button_actioncancel->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ActionDialogBase::OnCloseActionDialog ), NULL, this );
 	
 }
